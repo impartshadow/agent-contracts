@@ -10,9 +10,36 @@ completion claims.
 from __future__ import annotations
 
 import re
-from typing import Optional
+from typing import Iterable, Optional
 
 from .core import ActionContext, Contract, Severity, Violation
+
+
+class ToolAllowlistGuard(Contract):
+    """Block tool calls outside an explicit allowlist.
+
+    Use this when one agent role should only be able to reach a narrow tool set:
+    a research agent can read and browse, a publisher can publish, a database
+    migrator can run migrations but not send email. This is deliberately
+    configurable and is not included in ``default_contracts`` because every
+    runtime has a different tool surface.
+    """
+
+    name = "tool-allowlist-guard"
+
+    def __init__(self, allowed_tools: Iterable[str]):
+        self.allowed_tools = set(allowed_tools)
+
+    def check_pre(self, ctx: ActionContext) -> Optional[Violation]:
+        if ctx.action != "tool_call" or not ctx.tool:
+            return None
+        if ctx.tool not in self.allowed_tools:
+            allowed = ", ".join(sorted(self.allowed_tools)) or "(none)"
+            return self._violation(
+                f"tool {ctx.tool!r} is not in the allowed tool set: {allowed}",
+                recovery="Route this request to an agent role with the right tool authority.",
+            )
+        return None
 
 
 class LoopGuard(Contract):

@@ -9,6 +9,7 @@ from agent_contracts.contracts import (
     DangerousPathGuard,
     LoopGuard,
     SecretLeakGuard,
+    ToolAllowlistGuard,
     UnverifiedCompletionGuard,
 )
 
@@ -42,6 +43,19 @@ def test_dangerous_path_blocks_etc():
 def test_dangerous_path_allows_workspace():
     g = DangerousPathGuard()
     ctx = ActionContext(params={"path": "/home/me/project/main.py"})
+    assert g.check_pre(ctx) is None
+
+
+def test_tool_allowlist_blocks_unknown_tool():
+    g = ToolAllowlistGuard({"read_file", "write_file"})
+    ctx = ActionContext(action="tool_call", tool="send_email")
+    v = g.check_pre(ctx)
+    assert v is not None and v.blocking
+
+
+def test_tool_allowlist_allows_known_tool():
+    g = ToolAllowlistGuard({"read_file", "write_file"})
+    ctx = ActionContext(action="tool_call", tool="write_file")
     assert g.check_pre(ctx) is None
 
 

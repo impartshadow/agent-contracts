@@ -68,6 +68,7 @@ except BlockedAction as e:
 | `DangerousPathGuard` | pre | Writes to `/etc`, `/usr`, `~/.ssh`, `~/.aws`, … |
 | `SecretLeakGuard` | pre + post | Private keys, AWS/GitHub/Slack/Stripe tokens, `KEY=…` env lines |
 | `UnverifiedCompletionGuard` | post | "Done / shipped / fixed" with no output, URL, hash, or path (warn) |
+| `ToolAllowlistGuard` | pre | Tool calls outside an explicit role/tool allowlist |
 
 These are starting points, not a finished security boundary. Read them, copy them,
 tighten them for your own system.
@@ -108,6 +109,14 @@ class NoProductionDeletes(Contract):
         return None
 
 registry.register(NoProductionDeletes())
+```
+
+Or lock an agent role to a narrow tool set:
+
+```python
+from agent_contracts import ToolAllowlistGuard
+
+registry.register(ToolAllowlistGuard({"read_file", "web_search", "summarize"}))
 ```
 
 `ActionContext` carries the action name, tool, params, response text, the user

@@ -26,6 +26,15 @@ effects should pass through the same gate.
 
 Runnable example: [`examples/tool_router.py`](examples/tool_router.py).
 
+If an agent role should only be able to call a narrow tool set, register
+`ToolAllowlistGuard` at the same boundary:
+
+```python
+from agent_contracts import ToolAllowlistGuard
+
+registry.register(ToolAllowlistGuard({"read_file", "web_search", "summarize"}))
+```
+
 ## 2. Response boundary
 
 Pre gates stop bad actions. Post gates catch bad output before it leaves your

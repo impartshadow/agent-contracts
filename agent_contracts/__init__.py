@@ -27,6 +27,7 @@ from .contracts import (
     DangerousPathGuard,
     LoopGuard,
     SecretLeakGuard,
+    ToolAllowlistGuard,
     UnverifiedCompletionGuard,
     default_contracts,
 )
@@ -44,6 +45,7 @@ __all__ = [
     "DangerousPathGuard",
     "LoopGuard",
     "SecretLeakGuard",
+    "ToolAllowlistGuard",
     "UnverifiedCompletionGuard",
     "default_contracts",
 ]
