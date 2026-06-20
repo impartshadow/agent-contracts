@@ -1,5 +1,7 @@
 # agent-contracts
 
+[![tests](https://github.com/impartshadow/agent-contracts/actions/workflows/tests.yml/badge.svg)](https://github.com/impartshadow/agent-contracts/actions/workflows/tests.yml)
+
 **Deterministic pre/post-condition guardrails for LLM agents. No model in the loop.**
 
 Most agent "safety" layers ask a model to police a model — a second LLM call that
