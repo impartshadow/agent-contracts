@@ -109,6 +109,9 @@ tighten them for your own system.
 >
 > **Want to add a contract?** [CONTRIBUTING.md](CONTRIBUTING.md) lays out the bar:
 > deterministic, narrow, tested, and tied to a real agent failure mode.
+>
+> **Reporting a bypass or bad security claim?** Use [SECURITY.md](SECURITY.md)
+> for the supported scope and reporting standard.
 
 ## Writing your own
 
