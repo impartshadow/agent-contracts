@@ -109,6 +109,10 @@ tighten them for your own system.
 > **Auditing your own agent first?** Use [AUDIT_CHECKLIST.md](AUDIT_CHECKLIST.md)
 > to find the side-effecting tools that need contracts before anything else.
 >
+> **Evaluating whether to adopt this in an existing runtime?**
+> [ADOPTION_PLAYBOOK.md](ADOPTION_PLAYBOOK.md) gives a 90-minute path, acceptance
+> criteria, and kill criteria.
+>
 > **Need copy-paste custom contracts?** [RECIPES.md](RECIPES.md) has recipient,
 > production SQL, evidence-before-blocker, and public publishing identity guards.
 >
