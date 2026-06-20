@@ -52,6 +52,17 @@ agent-contracts check-pre \
 The command exits `1` when a blocking contract fires and `0` when the action is
 clean or only warning-level checks fire.
 
+Run the built-in contract matrix:
+
+```bash
+agent-contracts matrix
+```
+
+For pull-request coverage, copy
+[`examples/github_actions_contracts.yml`](examples/github_actions_contracts.yml)
+into `.github/workflows/agent-contracts.yml`. The full CI path is in
+[CI_INTEGRATION.md](CI_INTEGRATION.md).
+
 ## 4. Generate a starter policy
 
 ```bash
@@ -131,6 +142,7 @@ is paying attention.
 
 - See every default guard and the design rationale in the [README](README.md).
 - Wiring this into a real tool dispatcher? Use [INTEGRATION_PATTERNS.md](INTEGRATION_PATTERNS.md).
+- Adding this to CI? Use [CI_INTEGRATION.md](CI_INTEGRATION.md).
 - Using OpenAI tool calls, LangChain, AutoGen, CrewAI, or a raw CLI agent? Use [FRAMEWORK_ADAPTERS.md](FRAMEWORK_ADAPTERS.md).
 - Auditing an existing agent? Start with [AUDIT_CHECKLIST.md](AUDIT_CHECKLIST.md).
 - See the production failure log that motivated each guard in [FAILURE_MODES.md](FAILURE_MODES.md).

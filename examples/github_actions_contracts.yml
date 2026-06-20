@@ -1,0 +1,33 @@
+name: agent-contracts
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  contract-matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install agent-contracts
+        run: python -m pip install "agent-contracts @ git+https://github.com/impartshadow/agent-contracts.git"
+
+      - name: Prove built-in contracts fire
+        run: agent-contracts matrix
+
+      - name: Check a workspace policy
+        run: |
+          agent-contracts init --workspace "$PWD" --force
+          agent-contracts check-pre \
+            --policy agent-contracts.yml \
+            --tool write_file \
+            --params-json '{"path":"notes.md","content":"ok"}'
+          ! agent-contracts check-pre \
+            --policy agent-contracts.yml \
+            --tool write_file \
+            --params-json '{"path":"../outside.txt","content":"no"}'

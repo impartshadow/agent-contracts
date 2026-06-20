@@ -120,6 +120,9 @@ tighten them for your own system.
 > [CONTRACT_MATRIX.md](CONTRACT_MATRIX.md) documents `agent-contracts matrix`,
 > the CI-friendly scenario matrix.
 >
+> **Want pull requests to prove the boundary still works?**
+> [CI_INTEGRATION.md](CI_INTEGRATION.md) gives a copy-paste GitHub Actions workflow.
+>
 > **Need to know what this does *not* protect?** Read
 > [THREAT_MODEL.md](THREAT_MODEL.md) before treating contracts as a security
 > boundary. They are action gates, not a sandbox.
