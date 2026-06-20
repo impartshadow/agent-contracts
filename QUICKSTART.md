@@ -13,8 +13,9 @@ No dependencies. It's pure Python, 3.9+.
 Smoke test the install:
 
 ```bash
-python -m agent_contracts
-# after install, this console script works too:
+python3 -m agent_contracts
+# after install, these console scripts work too:
+agent-contracts
 agent-contracts-demo
 ```
 
@@ -39,7 +40,19 @@ print(result.violations[0])      # dangerous-path-guard → write to protected p
 That's the whole idea. You hand the registry the action your agent is *about* to
 take, and it tells you whether to let it through — before anything touches the disk.
 
-## 3. Wire it into your agent loop
+## 3. Run the same check from shell or CI
+
+```bash
+agent-contracts check-pre \
+  --tool write_file \
+  --params-json '{"path": "/etc/cron.d/backdoor", "content": "* * * * * root ..."}' \
+  --json
+```
+
+The command exits `1` when a blocking contract fires and `0` when the action is
+clean or only warning-level checks fire.
+
+## 4. Wire it into your agent loop
 
 Two lines around every tool call:
 
@@ -65,7 +78,7 @@ def emit(reply_text):
 `check_pre` stops bad *actions*; `check_post` catches bad *output* (a leaked key, a
 false "done" claim). That's the entire surface area.
 
-## 4. Add your own line in the sand
+## 5. Add your own line in the sand
 
 ```python
 from agent_contracts import Contract, Severity
@@ -94,4 +107,5 @@ is paying attention.
 - Auditing an existing agent? Start with [AUDIT_CHECKLIST.md](AUDIT_CHECKLIST.md).
 - See the production failure log that motivated each guard in [FAILURE_MODES.md](FAILURE_MODES.md).
 - Deciding between this and Guardrails AI / NeMo / LlamaFirewall? [COMPARISON.md](COMPARISON.md).
-- Run the live demos: `python -m agent_contracts` and `python examples/demo.py`.
+- Run the live demos: `python3 -m agent_contracts`, `agent-contracts check-pre`,
+  and `python examples/demo.py`.

@@ -25,6 +25,7 @@ dev = ["pytest>=7.0"]
 docs = ["rich==13.9.4"]  # only to regenerate docs/demo.svg; not a runtime dep
 
 [project.scripts]
+agent-contracts = "agent_contracts.__main__:main"
 agent-contracts-demo = "agent_contracts.__main__:main"
 
 [project.urls]

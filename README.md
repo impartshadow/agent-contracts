@@ -194,11 +194,12 @@ Run the tests and the demo:
 ```bash
 pip install -e ".[dev]"
 pytest -q
-python -m agent_contracts
+python3 -m agent_contracts
 agent-contracts-demo
-python examples/demo.py
-python examples/tool_router.py
-python examples/workspace_guard.py
+agent-contracts check-pre --tool write_file --params-json '{"path": "/etc/passwd"}'
+python3 examples/demo.py
+python3 examples/tool_router.py
+python3 examples/workspace_guard.py
 ```
 
 ## Where this came from

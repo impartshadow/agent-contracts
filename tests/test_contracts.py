@@ -17,6 +17,7 @@ from agent_contracts.contracts import (
 )
 from agent_contracts.__main__ import main as cli_main
 
+import json
 import pytest
 
 
@@ -252,9 +253,58 @@ def test_contracted_tool_router_checks_response_text():
 
 
 def test_module_cli_demo(capsys):
-    assert cli_main() == 0
+    assert cli_main([]) == 0
     output = capsys.readouterr().out
     assert "agent-contracts demo" in output
     assert "clean:" in output
     assert "blocked: dangerous-path-guard" in output
     assert "warn: unverified-completion-guard" in output
+
+
+def test_cli_check_pre_blocks_with_json(capsys):
+    exit_code = cli_main(
+        [
+            "check-pre",
+            "--tool",
+            "write_file",
+            "--params-json",
+            '{"path": "/etc/passwd", "content": "no"}',
+            "--json",
+        ]
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert exit_code == 1
+    assert payload["blocked"] is True
+    assert payload["violations"][0]["contract"] == "dangerous-path-guard"
+
+
+def test_cli_check_pre_passes_clean_call(capsys):
+    exit_code = cli_main(
+        [
+            "check-pre",
+            "--tool",
+            "write_file",
+            "--params-json",
+            '{"path": "notes.md", "content": "ok"}',
+        ]
+    )
+    output = capsys.readouterr().out
+
+    assert exit_code == 0
+    assert output.strip() == "pass"
+
+
+def test_cli_check_post_warns_without_blocking(capsys):
+    exit_code = cli_main(
+        [
+            "check-post",
+            "--response-text",
+            "Done, fixed it.",
+        ]
+    )
+    output = capsys.readouterr().out
+
+    assert exit_code == 0
+    assert "warn" in output
+    assert "unverified-completion-guard" in output
