@@ -194,6 +194,7 @@ python -m agent_contracts
 agent-contracts-demo
 python examples/demo.py
 python examples/tool_router.py
+python examples/workspace_guard.py
 ```
 
 ## Where this came from
