@@ -22,3 +22,9 @@ jobs:
         run: python -m pip install -e ".[dev]"
       - name: Test
         run: pytest -q
+      - name: Smoke demos
+        run: |
+          python -m agent_contracts
+          agent-contracts-demo
+          python examples/demo.py
+          python examples/tool_router.py
