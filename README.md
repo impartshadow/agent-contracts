@@ -205,6 +205,7 @@ agent-contracts check-pre --policy agent-contracts.yml --tool send_email --param
 python3 examples/demo.py
 python3 examples/tool_router.py
 python3 examples/workspace_guard.py
+python3 examples/policy_loader.py
 ```
 
 ## Where this came from
