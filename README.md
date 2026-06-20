@@ -123,6 +123,9 @@ tighten them for your own system.
 > **Want pull requests to prove the boundary still works?**
 > [CI_INTEGRATION.md](CI_INTEGRATION.md) gives a copy-paste GitHub Actions workflow.
 >
+> **Want to measure the overhead locally?**
+> [PERFORMANCE.md](PERFORMANCE.md) documents `examples/benchmark.py`.
+>
 > **Need to know what this does *not* protect?** Read
 > [THREAT_MODEL.md](THREAT_MODEL.md) before treating contracts as a security
 > boundary. They are action gates, not a sandbox.
@@ -215,6 +218,7 @@ python3 examples/tool_router.py
 python3 examples/workspace_guard.py
 python3 examples/policy_loader.py
 python3 examples/openai_tool_call_adapter.py
+python3 examples/benchmark.py --iterations 10000
 ```
 
 ## Where this came from

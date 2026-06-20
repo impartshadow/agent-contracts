@@ -143,6 +143,7 @@ is paying attention.
 - See every default guard and the design rationale in the [README](README.md).
 - Wiring this into a real tool dispatcher? Use [INTEGRATION_PATTERNS.md](INTEGRATION_PATTERNS.md).
 - Adding this to CI? Use [CI_INTEGRATION.md](CI_INTEGRATION.md).
+- Measuring the overhead? Use [PERFORMANCE.md](PERFORMANCE.md).
 - Using OpenAI tool calls, LangChain, AutoGen, CrewAI, or a raw CLI agent? Use [FRAMEWORK_ADAPTERS.md](FRAMEWORK_ADAPTERS.md).
 - Auditing an existing agent? Start with [AUDIT_CHECKLIST.md](AUDIT_CHECKLIST.md).
 - See the production failure log that motivated each guard in [FAILURE_MODES.md](FAILURE_MODES.md).
@@ -150,3 +151,4 @@ is paying attention.
 - Run the live demos: `python3 -m agent_contracts`, `agent-contracts check-pre`,
   `python examples/demo.py`, `python examples/policy_loader.py`, and
   `python examples/openai_tool_call_adapter.py`.
+- Run the local benchmark: `python examples/benchmark.py --iterations 10000`.
