@@ -63,6 +63,23 @@ allowlist, shell-tool names, loop limit, completion-evidence rule, and secret
 leak settings. Treat it as an adoption checklist: delete what does not apply,
 then wire the surviving entries into your agent's shared tool router.
 
+Run checks against that policy:
+
+```bash
+agent-contracts check-pre \
+  --policy agent-contracts.yml \
+  --tool send_email \
+  --params-json '{}'
+```
+
+Or load it in Python:
+
+```python
+from agent_contracts import load_policy
+
+registry = load_policy("agent-contracts.yml")
+```
+
 ## 5. Wire it into your agent loop
 
 Two lines around every tool call:

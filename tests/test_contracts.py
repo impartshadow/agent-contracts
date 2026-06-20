@@ -5,6 +5,8 @@ from agent_contracts import (
     Severity,
     ContractedToolRouter,
     default_contracts,
+    load_policy,
+    parse_policy,
     render_policy,
 )
 from agent_contracts.contracts import (
@@ -350,3 +352,58 @@ def test_cli_init_force_overwrites_policy_file(tmp_path):
 
     assert exit_code == 0
     assert "agent-contracts starter policy" in output.read_text(encoding="utf-8")
+
+
+def test_parse_policy_reads_generated_schema():
+    policy = parse_policy(render_policy("/srv/agent"))
+
+    assert policy["workspace"]["root"] == "/srv/agent"
+    assert policy["workspace"]["path_keys"] == ["path", "file", "filename"]
+    assert policy["tools"]["allowlist"] == [
+        "read_file",
+        "write_file",
+        "list_files",
+        "web_search",
+        "run_tests",
+    ]
+    assert policy["loop_guard"]["max_edits_per_path"] == 3
+    assert policy["secrets"]["block_in_tool_params"] is True
+
+
+def test_load_policy_builds_registry_from_file(tmp_path):
+    path = tmp_path / "agent-contracts.yml"
+    path.write_text(render_policy(str(tmp_path / "project")), encoding="utf-8")
+
+    registry = load_policy(path)
+    outside = registry.check_pre(
+        ActionContext(action="tool_call", tool="write_file", params={"path": "../outside.txt"})
+    )
+    unknown_tool = registry.check_pre(ActionContext(action="tool_call", tool="send_email"))
+
+    assert outside.blocked
+    assert "workspace-path-guard" in {v.contract for v in outside.violations}
+    assert unknown_tool.blocked
+    assert "tool-allowlist-guard" in {v.contract for v in unknown_tool.violations}
+
+
+def test_cli_check_pre_accepts_policy_file(tmp_path, capsys):
+    policy_path = tmp_path / "agent-contracts.yml"
+    policy_path.write_text(render_policy(str(tmp_path / "project")), encoding="utf-8")
+
+    exit_code = cli_main(
+        [
+            "check-pre",
+            "--policy",
+            str(policy_path),
+            "--tool",
+            "send_email",
+            "--params-json",
+            "{}",
+            "--json",
+        ]
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert exit_code == 1
+    assert payload["blocked"] is True
+    assert "tool-allowlist-guard" in {v["contract"] for v in payload["violations"]}

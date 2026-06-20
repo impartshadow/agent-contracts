@@ -34,7 +34,14 @@ from .contracts import (
     default_contracts,
 )
 from .router import ContractedToolRouter
-from .policy import DEFAULT_POLICY_FILENAME, render_policy, write_policy
+from .policy import (
+    DEFAULT_POLICY_FILENAME,
+    load_policy,
+    parse_policy,
+    registry_from_policy,
+    render_policy,
+    write_policy,
+)
 
 __version__ = "0.1.0"
 
@@ -55,6 +62,9 @@ __all__ = [
     "WorkspacePathGuard",
     "ContractedToolRouter",
     "DEFAULT_POLICY_FILENAME",
+    "load_policy",
+    "parse_policy",
+    "registry_from_policy",
     "render_policy",
     "write_policy",
     "default_contracts",

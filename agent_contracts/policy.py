@@ -1,8 +1,20 @@
-"""Policy-file scaffolding for new agent-contracts installs."""
+"""Policy-file scaffolding and loading for new agent-contracts installs."""
 
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
+
+from .contracts import (
+    DangerousPathGuard,
+    LoopGuard,
+    SecretLeakGuard,
+    ShellCommandGuard,
+    ToolAllowlistGuard,
+    UnverifiedCompletionGuard,
+    WorkspacePathGuard,
+)
+from .core import Registry
 
 
 DEFAULT_POLICY_FILENAME = "agent-contracts.yml"
@@ -72,3 +84,98 @@ def write_policy(path: str | Path, workspace_root: str = ".", force: bool = Fals
         raise FileExistsError(f"{target} already exists; pass force=True to overwrite")
     target.write_text(render_policy(workspace_root), encoding="utf-8")
     return target
+
+
+def _coerce_scalar(value: str) -> Any:
+    if value == "true":
+        return True
+    if value == "false":
+        return False
+    try:
+        return int(value)
+    except ValueError:
+        return value
+
+
+def parse_policy(text: str) -> dict[str, dict[str, Any]]:
+    """Parse the small YAML subset emitted by :func:`render_policy`.
+
+    This is not a general YAML parser. It supports top-level sections, scalar
+    keys, and list-of-scalar keys because that is all the scaffold needs.
+    """
+
+    policy: dict[str, dict[str, Any]] = {}
+    section: str | None = None
+    key: str | None = None
+
+    for raw_line in text.splitlines():
+        line = raw_line.rstrip()
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+
+        if not line.startswith(" "):
+            if not line.endswith(":"):
+                raise ValueError(f"unsupported top-level policy line: {line!r}")
+            section = line[:-1]
+            policy.setdefault(section, {})
+            key = None
+            continue
+
+        if section is None:
+            raise ValueError(f"policy value without a section: {line!r}")
+
+        stripped = line.strip()
+        if stripped.startswith("- "):
+            if key is None:
+                raise ValueError(f"list item without a key: {line!r}")
+            current = policy[section].setdefault(key, [])
+            if not isinstance(current, list):
+                raise ValueError(f"policy key {section}.{key} is not a list")
+            current.append(_coerce_scalar(stripped[2:]))
+            continue
+
+        if ":" not in stripped:
+            raise ValueError(f"unsupported policy line: {line!r}")
+        key, value = stripped.split(":", 1)
+        value = value.strip()
+        if value:
+            policy[section][key] = _coerce_scalar(value)
+        else:
+            policy[section][key] = []
+
+    return policy
+
+
+def registry_from_policy(policy: dict[str, dict[str, Any]]) -> Registry:
+    """Build a registry from a parsed starter policy."""
+
+    workspace = policy.get("workspace", {})
+    tools = policy.get("tools", {})
+    shell = policy.get("shell", {})
+    loop = policy.get("loop_guard", {})
+
+    contracts = [
+        LoopGuard(max_edits=int(loop.get("max_edits_per_path", 3))),
+        DangerousPathGuard(),
+    ]
+
+    workspace_root = workspace.get("root")
+    if workspace_root:
+        path_keys = workspace.get("path_keys") or ("path", "file", "filename")
+        contracts.append(WorkspacePathGuard(str(workspace_root), path_keys=path_keys))
+
+    contracts.append(ShellCommandGuard(shell_tools=shell.get("tool_names") or None))
+    contracts.append(SecretLeakGuard())
+    contracts.append(UnverifiedCompletionGuard())
+
+    allowlist = tools.get("allowlist") or []
+    if allowlist:
+        contracts.append(ToolAllowlistGuard(str(tool) for tool in allowlist))
+
+    return Registry(contracts)
+
+
+def load_policy(path: str | Path) -> Registry:
+    """Load a starter policy file into a configured registry."""
+
+    return registry_from_policy(parse_policy(Path(path).read_text(encoding="utf-8")))

@@ -26,6 +26,14 @@ effects should pass through the same gate.
 
 Runnable example: [`examples/tool_router.py`](examples/tool_router.py).
 
+If you start from the generated policy file, load it at the same boundary:
+
+```python
+from agent_contracts import load_policy
+
+registry = load_policy("agent-contracts.yml")
+```
+
 If an agent role should only be able to call a narrow tool set, register
 `ToolAllowlistGuard` at the same boundary:
 

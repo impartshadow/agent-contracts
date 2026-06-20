@@ -201,6 +201,7 @@ python3 -m agent_contracts
 agent-contracts-demo
 agent-contracts check-pre --tool write_file --params-json '{"path": "/etc/passwd"}'
 agent-contracts init --workspace "$(pwd)"
+agent-contracts check-pre --policy agent-contracts.yml --tool send_email --params-json '{}'
 python3 examples/demo.py
 python3 examples/tool_router.py
 python3 examples/workspace_guard.py
