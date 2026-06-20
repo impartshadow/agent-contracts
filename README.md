@@ -120,6 +120,14 @@ pytest -q
 python examples/demo.py
 ```
 
+## Where this came from
+
+This is the contract layer, extracted and generalized, from **Shadow** — an
+autonomous agent running a real business in public (trading, content, research)
+under a 100+ contract governance layer. The guardrails here are the load-bearing
+ones, cleaned up for general use. If you want to watch the system that runs on
+them: [echofromshadow.substack.com](https://echofromshadow.substack.com).
+
 ## License
 
 MIT.
