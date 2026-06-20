@@ -127,6 +127,9 @@ tighten them for your own system.
 > for the supported scope and reporting standard.
 >
 > **Tracking what changed?** Read [CHANGELOG.md](CHANGELOG.md).
+>
+> **Publishing the package?** [PUBLISHING.md](PUBLISHING.md) documents the PyPI
+> token, release workflow, and verification path.
 
 ## Writing your own
 

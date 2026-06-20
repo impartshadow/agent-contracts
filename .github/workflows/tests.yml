@@ -26,6 +26,10 @@ jobs:
         run: |
           python -m agent_contracts
           agent-contracts-demo
+          agent-contracts check-pre --tool write_file --params-json '{"path":"notes.md","content":"ok"}'
+          ! agent-contracts check-pre --tool write_file --params-json '{"path":"/etc/passwd"}'
           python examples/demo.py
           python examples/tool_router.py
           python examples/workspace_guard.py
+      - name: Build package
+        run: python -m pip install build && python -m build
