@@ -123,6 +123,9 @@ pip install agent-contracts        # once published
 pip install -e .
 ```
 
+New here? **[QUICKSTART.md](QUICKSTART.md)** gets you from install to a blocked
+action in under a minute.
+
 Run the tests and the demo:
 
 ```bash
