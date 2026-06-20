@@ -36,6 +36,8 @@ def dispatch_tool_call(tool_call):
 Do not put the gate after the function call. The point is to block the side
 effect before your local code touches the filesystem, network, database, or inbox.
 
+Runnable example: [`examples/openai_tool_call_adapter.py`](examples/openai_tool_call_adapter.py).
+
 ## LangChain-style tool wrappers
 
 Wrap every side-effecting tool with a small guard function:
@@ -180,4 +182,3 @@ def test_guard_blocks_before_side_effect():
 
 That last assertion is the whole bar. If the underlying function ran, the guard
 is in the wrong place.
-

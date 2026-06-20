@@ -206,6 +206,7 @@ python3 examples/demo.py
 python3 examples/tool_router.py
 python3 examples/workspace_guard.py
 python3 examples/policy_loader.py
+python3 examples/openai_tool_call_adapter.py
 ```
 
 ## Where this came from

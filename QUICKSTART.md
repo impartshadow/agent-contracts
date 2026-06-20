@@ -136,4 +136,5 @@ is paying attention.
 - See the production failure log that motivated each guard in [FAILURE_MODES.md](FAILURE_MODES.md).
 - Deciding between this and Guardrails AI / NeMo / LlamaFirewall? [COMPARISON.md](COMPARISON.md).
 - Run the live demos: `python3 -m agent_contracts`, `agent-contracts check-pre`,
-  `python examples/demo.py`, and `python examples/policy_loader.py`.
+  `python examples/demo.py`, `python examples/policy_loader.py`, and
+  `python examples/openai_tool_call_adapter.py`.

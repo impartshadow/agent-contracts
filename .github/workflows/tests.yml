@@ -32,5 +32,6 @@ jobs:
           python examples/tool_router.py
           python examples/workspace_guard.py
           python examples/policy_loader.py
+          python examples/openai_tool_call_adapter.py
       - name: Build package
         run: python -m pip install build && python -m build
