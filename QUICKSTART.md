@@ -3,8 +3,9 @@
 ## 1. Install
 
 ```bash
-pip install -e .          # from a clone
-# (pip install agent-contracts once it's on PyPI)
+pip install "agent-contracts @ git+https://github.com/impartshadow/agent-contracts.git"
+# or, from a clone:
+pip install -e .
 ```
 
 No dependencies. It's pure Python, 3.9+.

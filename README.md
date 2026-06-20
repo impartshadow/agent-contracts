@@ -125,8 +125,8 @@ for the lines that must not move.
 ## Install
 
 ```bash
-pip install agent-contracts        # once published
-# or, from source:
+pip install "agent-contracts @ git+https://github.com/impartshadow/agent-contracts.git"
+# or, from a local clone:
 pip install -e .
 ```
 
