@@ -116,6 +116,10 @@ tighten them for your own system.
 > **Need copy-paste custom contracts?** [RECIPES.md](RECIPES.md) has recipient,
 > production SQL, evidence-before-blocker, and public publishing identity guards.
 >
+> **Want executable proof that every built-in guard fires?**
+> [CONTRACT_MATRIX.md](CONTRACT_MATRIX.md) documents `agent-contracts matrix`,
+> the CI-friendly scenario matrix.
+>
 > **Need to know what this does *not* protect?** Read
 > [THREAT_MODEL.md](THREAT_MODEL.md) before treating contracts as a security
 > boundary. They are action gates, not a sandbox.
@@ -202,6 +206,7 @@ agent-contracts-demo
 agent-contracts check-pre --tool write_file --params-json '{"path": "/etc/passwd"}'
 agent-contracts init --workspace "$(pwd)"
 agent-contracts check-pre --policy agent-contracts.yml --tool send_email --params-json '{}'
+agent-contracts matrix
 python3 examples/demo.py
 python3 examples/tool_router.py
 python3 examples/workspace_guard.py

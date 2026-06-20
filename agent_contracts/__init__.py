@@ -42,6 +42,7 @@ from .policy import (
     render_policy,
     write_policy,
 )
+from .matrix import MatrixScenario, contract_matrix, run_contract_matrix
 
 __version__ = "0.1.0"
 
@@ -68,4 +69,7 @@ __all__ = [
     "render_policy",
     "write_policy",
     "default_contracts",
+    "MatrixScenario",
+    "contract_matrix",
+    "run_contract_matrix",
 ]

@@ -28,6 +28,7 @@ jobs:
           agent-contracts-demo
           agent-contracts check-pre --tool write_file --params-json '{"path":"notes.md","content":"ok"}'
           ! agent-contracts check-pre --tool write_file --params-json '{"path":"/etc/passwd"}'
+          agent-contracts matrix
           python examples/demo.py
           python examples/tool_router.py
           python examples/workspace_guard.py

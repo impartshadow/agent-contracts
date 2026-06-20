@@ -7,6 +7,7 @@ import json
 import sys
 
 from . import ActionContext, BlockedAction, ContractedToolRouter, Registry, default_contracts
+from .matrix import run_contract_matrix
 from .policy import DEFAULT_POLICY_FILENAME, load_policy, write_policy
 
 
@@ -88,6 +89,20 @@ def _run_init(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_matrix(args: argparse.Namespace) -> int:
+    rows = run_contract_matrix()
+    if args.json:
+        print(json.dumps({"passed": all(row["passed"] for row in rows), "rows": rows}, indent=2))
+    else:
+        print("agent-contracts matrix")
+        for row in rows:
+            status = "pass" if row["passed"] else "fail"
+            block_state = "block" if row["blocked"] else "warn"
+            fired = ", ".join(row["fired_contracts"]) or "(none)"
+            print(f"{status} {row['phase']:4} {block_state:5} {row['name']} -> {fired}")
+    return 0 if all(row["passed"] for row in rows) else 1
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="agent-contracts",
@@ -114,6 +129,9 @@ def _parser() -> argparse.ArgumentParser:
     init.add_argument("--workspace", default=".")
     init.add_argument("--force", action="store_true")
 
+    matrix = subparsers.add_parser("matrix", help="run canonical examples for every built-in contract")
+    matrix.add_argument("--json", action="store_true")
+
     return parser
 
 
@@ -130,6 +148,8 @@ def main(argv: list[str] | None = None) -> int:
         return _run_check(args)
     if args.command == "init":
         return _run_init(args)
+    if args.command == "matrix":
+        return _run_matrix(args)
 
     parser.print_help()
     return 0

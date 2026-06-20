@@ -8,6 +8,7 @@ from agent_contracts import (
     load_policy,
     parse_policy,
     render_policy,
+    run_contract_matrix,
 )
 from agent_contracts.contracts import (
     DangerousPathGuard,
@@ -407,3 +408,37 @@ def test_cli_check_pre_accepts_policy_file(tmp_path, capsys):
     assert exit_code == 1
     assert payload["blocked"] is True
     assert "tool-allowlist-guard" in {v["contract"] for v in payload["violations"]}
+
+
+def test_contract_matrix_covers_every_builtin_guard():
+    rows = run_contract_matrix()
+
+    assert all(row["passed"] for row in rows)
+    assert {row["expected_contract"] for row in rows} == {
+        "loop-guard",
+        "dangerous-path-guard",
+        "workspace-path-guard",
+        "shell-command-guard",
+        "secret-leak-guard",
+        "tool-allowlist-guard",
+        "unverified-completion-guard",
+    }
+
+
+def test_cli_matrix_outputs_canonical_examples(capsys):
+    exit_code = cli_main(["matrix"])
+    output = capsys.readouterr().out
+
+    assert exit_code == 0
+    assert "agent-contracts matrix" in output
+    assert "system-path-write" in output
+    assert "completion-claim-without-evidence" in output
+
+
+def test_cli_matrix_json(capsys):
+    exit_code = cli_main(["matrix", "--json"])
+    payload = json.loads(capsys.readouterr().out)
+
+    assert exit_code == 0
+    assert payload["passed"] is True
+    assert any(row["expected_contract"] == "shell-command-guard" for row in payload["rows"])
