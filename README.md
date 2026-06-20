@@ -105,6 +105,9 @@ tighten them for your own system.
 > **Auditing your own agent first?** Use [AUDIT_CHECKLIST.md](AUDIT_CHECKLIST.md)
 > to find the side-effecting tools that need contracts before anything else.
 >
+> **Need copy-paste custom contracts?** [RECIPES.md](RECIPES.md) has recipient,
+> production SQL, evidence-before-blocker, and public publishing identity guards.
+>
 > **Need to know what this does *not* protect?** Read
 > [THREAT_MODEL.md](THREAT_MODEL.md) before treating contracts as a security
 > boundary. They are action gates, not a sandbox.
