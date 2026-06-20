@@ -13,6 +13,7 @@ from agent_contracts.contracts import (
     ToolAllowlistGuard,
     UnverifiedCompletionGuard,
 )
+from agent_contracts.__main__ import main as cli_main
 
 import pytest
 
@@ -162,3 +163,12 @@ def test_contracted_tool_router_checks_response_text():
     router = ContractedToolRouter({})
     result = router.check_response("Done, fixed it.")
     assert {v.contract for v in result.violations} == {"unverified-completion-guard"}
+
+
+def test_module_cli_demo(capsys):
+    assert cli_main() == 0
+    output = capsys.readouterr().out
+    assert "agent-contracts demo" in output
+    assert "clean:" in output
+    assert "blocked: dangerous-path-guard" in output
+    assert "warn: unverified-completion-guard" in output

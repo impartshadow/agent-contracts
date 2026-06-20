@@ -10,6 +10,12 @@ pip install -e .
 
 No dependencies. It's pure Python, 3.9+.
 
+Smoke test the install:
+
+```bash
+python -m agent_contracts
+```
+
 ## 2. Block a dangerous tool call
 
 ```python
@@ -85,4 +91,4 @@ is paying attention.
 - Auditing an existing agent? Start with [AUDIT_CHECKLIST.md](AUDIT_CHECKLIST.md).
 - See the production failure log that motivated each guard in [FAILURE_MODES.md](FAILURE_MODES.md).
 - Deciding between this and Guardrails AI / NeMo / LlamaFirewall? [COMPARISON.md](COMPARISON.md).
-- Run the live demo: `python examples/demo.py`.
+- Run the live demos: `python -m agent_contracts` and `python examples/demo.py`.
