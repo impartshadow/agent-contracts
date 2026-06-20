@@ -81,6 +81,7 @@ router.call("write_file", {"path": "/etc/passwd", "content": "nope"})
 |---|---|---|
 | `LoopGuard` | pre | An agent rewriting the same file over and over |
 | `DangerousPathGuard` | pre | Writes to `/etc`, `/usr`, `~/.ssh`, `~/.aws`, … |
+| `WorkspacePathGuard` | pre | File actions that escape a configured workspace root |
 | `ShellCommandGuard` | pre | Obvious high-blast-radius shell commands (`sudo`, `rm -rf /`, `mkfs`, protected redirects) |
 | `SecretLeakGuard` | pre + post | Private keys, AWS/GitHub/Slack/Stripe tokens, `KEY=…` env lines |
 | `UnverifiedCompletionGuard` | post | "Done / shipped / fixed" with no output, URL, hash, or path (warn) |
@@ -149,6 +150,14 @@ Or lock an agent role to a narrow tool set:
 from agent_contracts import ToolAllowlistGuard
 
 registry.register(ToolAllowlistGuard({"read_file", "web_search", "summarize"}))
+```
+
+Or force file actions to stay inside one project directory:
+
+```python
+from agent_contracts import WorkspacePathGuard
+
+registry.register(WorkspacePathGuard("/srv/my-agent/workspace"))
 ```
 
 `ActionContext` carries the action name, tool, params, response text, the user

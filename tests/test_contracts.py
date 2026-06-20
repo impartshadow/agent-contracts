@@ -13,6 +13,7 @@ from agent_contracts.contracts import (
     ShellCommandGuard,
     ToolAllowlistGuard,
     UnverifiedCompletionGuard,
+    WorkspacePathGuard,
 )
 from agent_contracts.__main__ import main as cli_main
 
@@ -46,6 +47,36 @@ def test_dangerous_path_blocks_etc():
 def test_dangerous_path_allows_workspace():
     g = DangerousPathGuard()
     ctx = ActionContext(params={"path": "/home/me/project/main.py"})
+    assert g.check_pre(ctx) is None
+
+
+def test_workspace_path_guard_allows_relative_path_inside_root(tmp_path):
+    g = WorkspacePathGuard(str(tmp_path))
+    ctx = ActionContext(params={"path": "notes/today.md"})
+    assert g.check_pre(ctx) is None
+
+
+def test_workspace_path_guard_blocks_parent_traversal(tmp_path):
+    g = WorkspacePathGuard(str(tmp_path / "project"))
+    ctx = ActionContext(params={"path": "../outside.txt"})
+    v = g.check_pre(ctx)
+    assert v is not None and v.blocking
+
+
+def test_workspace_path_guard_blocks_absolute_path_outside_root(tmp_path):
+    root = tmp_path / "project"
+    outside = tmp_path / "outside.txt"
+    g = WorkspacePathGuard(str(root))
+    ctx = ActionContext(params={"path": str(outside)})
+    v = g.check_pre(ctx)
+    assert v is not None and v.blocking
+
+
+def test_workspace_path_guard_allows_absolute_path_inside_root(tmp_path):
+    root = tmp_path / "project"
+    inside = root / "notes.md"
+    g = WorkspacePathGuard(str(root))
+    ctx = ActionContext(params={"path": str(inside)})
     assert g.check_pre(ctx) is None
 
 

@@ -10,6 +10,7 @@ completion claims.
 from __future__ import annotations
 
 import re
+from pathlib import Path
 from typing import Iterable, Optional
 
 from .core import ActionContext, Contract, Severity, Violation
@@ -92,6 +93,43 @@ class DangerousPathGuard(Contract):
                 return self._violation(
                     f"write to protected path {normalized!r} (matched {prefix!r})",
                     recovery="Write to the project workspace, not a system path.",
+                )
+        return None
+
+
+class WorkspacePathGuard(Contract):
+    """Block file actions that escape an allowed workspace root.
+
+    Use this when an agent should be able to write inside a project directory but
+    not elsewhere on the host. Unlike ``DangerousPathGuard``, this is not a list
+    of forbidden prefixes; it is a positive boundary around one directory.
+    """
+
+    name = "workspace-path-guard"
+
+    def __init__(
+        self,
+        workspace_root: str,
+        path_keys: Optional[Iterable[str]] = None,
+    ):
+        self.workspace_root = Path(workspace_root).expanduser().resolve(strict=False)
+        self.path_keys = tuple(path_keys or ("path", "file", "filename"))
+
+    def check_pre(self, ctx: ActionContext) -> Optional[Violation]:
+        for key in self.path_keys:
+            raw_path = ctx.params.get(key)
+            if not raw_path:
+                continue
+            candidate = Path(str(raw_path)).expanduser()
+            if not candidate.is_absolute():
+                candidate = self.workspace_root / candidate
+            resolved = candidate.resolve(strict=False)
+            try:
+                resolved.relative_to(self.workspace_root)
+            except ValueError:
+                return self._violation(
+                    f"path {str(raw_path)!r} resolves outside workspace {str(self.workspace_root)!r}",
+                    recovery="Write inside the configured workspace root or route through an approval path.",
                 )
         return None
 

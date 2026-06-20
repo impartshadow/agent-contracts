@@ -30,6 +30,7 @@ from .contracts import (
     ShellCommandGuard,
     ToolAllowlistGuard,
     UnverifiedCompletionGuard,
+    WorkspacePathGuard,
     default_contracts,
 )
 from .router import ContractedToolRouter
@@ -50,6 +51,7 @@ __all__ = [
     "ShellCommandGuard",
     "ToolAllowlistGuard",
     "UnverifiedCompletionGuard",
+    "WorkspacePathGuard",
     "ContractedToolRouter",
     "default_contracts",
 ]
