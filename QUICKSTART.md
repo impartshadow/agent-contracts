@@ -52,7 +52,18 @@ agent-contracts check-pre \
 The command exits `1` when a blocking contract fires and `0` when the action is
 clean or only warning-level checks fire.
 
-## 4. Wire it into your agent loop
+## 4. Generate a starter policy
+
+```bash
+agent-contracts init --workspace "$(pwd)"
+```
+
+This writes `agent-contracts.yml` with the default workspace boundary, tool
+allowlist, shell-tool names, loop limit, completion-evidence rule, and secret
+leak settings. Treat it as an adoption checklist: delete what does not apply,
+then wire the surviving entries into your agent's shared tool router.
+
+## 5. Wire it into your agent loop
 
 Two lines around every tool call:
 
@@ -78,7 +89,7 @@ def emit(reply_text):
 `check_pre` stops bad *actions*; `check_post` catches bad *output* (a leaked key, a
 false "done" claim). That's the entire surface area.
 
-## 5. Add your own line in the sand
+## 6. Add your own line in the sand
 
 ```python
 from agent_contracts import Contract, Severity

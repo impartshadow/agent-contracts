@@ -5,6 +5,7 @@ from agent_contracts import (
     Severity,
     ContractedToolRouter,
     default_contracts,
+    render_policy,
 )
 from agent_contracts.contracts import (
     DangerousPathGuard,
@@ -308,3 +309,44 @@ def test_cli_check_post_warns_without_blocking(capsys):
     assert exit_code == 0
     assert "warn" in output
     assert "unverified-completion-guard" in output
+
+
+def test_render_policy_includes_workspace_and_allowlist():
+    policy = render_policy("/srv/agent")
+
+    assert "root: /srv/agent" in policy
+    assert "allowlist:" in policy
+    assert "write_file" in policy
+    assert "max_edits_per_path: 3" in policy
+
+
+def test_cli_init_writes_policy_file(tmp_path, capsys):
+    output = tmp_path / "contracts.yml"
+    exit_code = cli_main(["init", "--output", str(output), "--workspace", "/tmp/project"])
+
+    assert exit_code == 0
+    assert "wrote" in capsys.readouterr().out
+    text = output.read_text(encoding="utf-8")
+    assert "root: /tmp/project" in text
+    assert "completion_evidence:" in text
+
+
+def test_cli_init_refuses_to_overwrite_without_force(tmp_path, capsys):
+    output = tmp_path / "contracts.yml"
+    output.write_text("keep me", encoding="utf-8")
+
+    exit_code = cli_main(["init", "--output", str(output)])
+
+    assert exit_code == 1
+    assert "already exists" in capsys.readouterr().err
+    assert output.read_text(encoding="utf-8") == "keep me"
+
+
+def test_cli_init_force_overwrites_policy_file(tmp_path):
+    output = tmp_path / "contracts.yml"
+    output.write_text("replace me", encoding="utf-8")
+
+    exit_code = cli_main(["init", "--output", str(output), "--workspace", ".", "--force"])
+
+    assert exit_code == 0
+    assert "agent-contracts starter policy" in output.read_text(encoding="utf-8")

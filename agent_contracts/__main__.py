@@ -7,6 +7,7 @@ import json
 import sys
 
 from . import ActionContext, BlockedAction, ContractedToolRouter, Registry, default_contracts
+from .policy import DEFAULT_POLICY_FILENAME, write_policy
 
 
 def _write_file(path: str, content: str) -> str:
@@ -77,6 +78,16 @@ def _run_check(args: argparse.Namespace) -> int:
     return 1 if result.blocked else 0
 
 
+def _run_init(args: argparse.Namespace) -> int:
+    try:
+        path = write_policy(args.output, workspace_root=args.workspace, force=args.force)
+    except FileExistsError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    print(f"wrote {path}")
+    return 0
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="agent-contracts",
@@ -97,6 +108,11 @@ def _parser() -> argparse.ArgumentParser:
         sub.add_argument("--metadata-json", default="{}")
         sub.add_argument("--json", action="store_true")
 
+    init = subparsers.add_parser("init", help="write a starter agent-contracts policy file")
+    init.add_argument("--output", default=DEFAULT_POLICY_FILENAME)
+    init.add_argument("--workspace", default=".")
+    init.add_argument("--force", action="store_true")
+
     return parser
 
 
@@ -111,6 +127,8 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.command in {"check-pre", "check-post"}:
         return _run_check(args)
+    if args.command == "init":
+        return _run_init(args)
 
     parser.print_help()
     return 0
