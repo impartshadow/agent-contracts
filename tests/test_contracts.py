@@ -10,6 +10,7 @@ from agent_contracts.contracts import (
     DangerousPathGuard,
     LoopGuard,
     SecretLeakGuard,
+    ShellCommandGuard,
     ToolAllowlistGuard,
     UnverifiedCompletionGuard,
 )
@@ -45,6 +46,39 @@ def test_dangerous_path_blocks_etc():
 def test_dangerous_path_allows_workspace():
     g = DangerousPathGuard()
     ctx = ActionContext(params={"path": "/home/me/project/main.py"})
+    assert g.check_pre(ctx) is None
+
+
+def test_shell_command_guard_blocks_sudo():
+    g = ShellCommandGuard()
+    ctx = ActionContext(action="tool_call", tool="run_shell", params={"cmd": "sudo systemctl restart app"})
+    v = g.check_pre(ctx)
+    assert v is not None and v.blocking
+
+
+def test_shell_command_guard_blocks_root_recursive_delete():
+    g = ShellCommandGuard()
+    ctx = ActionContext(action="tool_call", tool="bash", params={"command": "rm -rf /"})
+    v = g.check_pre(ctx)
+    assert v is not None and v.blocking
+
+
+def test_shell_command_guard_blocks_redirect_to_etc():
+    g = ShellCommandGuard()
+    ctx = ActionContext(action="tool_call", tool="exec_command", params={"cmd": "echo x > /etc/cron.d/x"})
+    v = g.check_pre(ctx)
+    assert v is not None and v.blocking
+
+
+def test_shell_command_guard_allows_workspace_command():
+    g = ShellCommandGuard()
+    ctx = ActionContext(action="tool_call", tool="run_shell", params={"cmd": "pytest -q"})
+    assert g.check_pre(ctx) is None
+
+
+def test_shell_command_guard_ignores_non_shell_tool():
+    g = ShellCommandGuard()
+    ctx = ActionContext(action="tool_call", tool="write_file", params={"cmd": "sudo reboot"})
     assert g.check_pre(ctx) is None
 
 

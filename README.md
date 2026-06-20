@@ -81,6 +81,7 @@ router.call("write_file", {"path": "/etc/passwd", "content": "nope"})
 |---|---|---|
 | `LoopGuard` | pre | An agent rewriting the same file over and over |
 | `DangerousPathGuard` | pre | Writes to `/etc`, `/usr`, `~/.ssh`, `~/.aws`, … |
+| `ShellCommandGuard` | pre | Obvious high-blast-radius shell commands (`sudo`, `rm -rf /`, `mkfs`, protected redirects) |
 | `SecretLeakGuard` | pre + post | Private keys, AWS/GitHub/Slack/Stripe tokens, `KEY=…` env lines |
 | `UnverifiedCompletionGuard` | post | "Done / shipped / fixed" with no output, URL, hash, or path (warn) |
 | `ToolAllowlistGuard` | pre | Tool calls outside an explicit role/tool allowlist |

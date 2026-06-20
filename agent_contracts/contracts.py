@@ -96,6 +96,53 @@ class DangerousPathGuard(Contract):
         return None
 
 
+class ShellCommandGuard(Contract):
+    """Block common high-blast-radius shell commands.
+
+    This is a starter guard for agent runtimes that expose shell execution as a
+    tool. It is intentionally conservative and deterministic. It is not a shell
+    sandbox; it catches the obvious commands that should not be agent-runnable
+    without a narrower, runtime-specific approval path.
+    """
+
+    name = "shell-command-guard"
+
+    _SHELL_TOOLS = {"shell", "bash", "run_shell", "exec", "exec_command"}
+    _BLOCKED_PATTERNS = (
+        (re.compile(r"\bsudo\b"), "sudo is outside the default agent shell boundary"),
+        (re.compile(r"\brm\s+-[^;&|]*r[^;&|]*f?\s+/(?:\s|$)"), "recursive delete against /"),
+        (re.compile(r"\brm\s+-[^;&|]*f[^;&|]*r\s+/(?:\s|$)"), "recursive delete against /"),
+        (re.compile(r"\bmkfs(?:\.[\w.-]+)?\b"), "filesystem formatting command"),
+        (re.compile(r"\bdd\s+.*\bof=/dev/"), "raw disk write with dd"),
+        (re.compile(r"\bchmod\s+-R\s+777\b"), "recursive world-writable chmod"),
+        (re.compile(r"\b(?:curl|wget)\b[^;&|]*(?:\||\s+-O\s+).*?\b(?:sh|bash)\b"), "download-to-shell execution"),
+        (re.compile(r">\s*/(?:etc|usr|bin|sbin|boot|var/lib)/"), "redirect into protected system path"),
+    )
+
+    def __init__(self, shell_tools: Optional[Iterable[str]] = None):
+        self.shell_tools = set(shell_tools or self._SHELL_TOOLS)
+
+    def check_pre(self, ctx: ActionContext) -> Optional[Violation]:
+        if ctx.action != "tool_call" or ctx.tool not in self.shell_tools:
+            return None
+        command = (
+            ctx.params.get("cmd")
+            or ctx.params.get("command")
+            or ctx.params.get("script")
+            or ""
+        )
+        if not command:
+            return None
+        text = str(command)
+        for pattern, reason in self._BLOCKED_PATTERNS:
+            if pattern.search(text):
+                return self._violation(
+                    f"blocked shell command: {reason}",
+                    recovery="Use a narrower tool, a workspace-scoped command, or an explicit approval path.",
+                )
+        return None
+
+
 class SecretLeakGuard(Contract):
     """Catch secrets in outgoing text or tool parameters before they leave.
 
@@ -182,6 +229,7 @@ def default_contracts() -> list[Contract]:
     return [
         LoopGuard(),
         DangerousPathGuard(),
+        ShellCommandGuard(),
         SecretLeakGuard(),
         UnverifiedCompletionGuard(),
     ]

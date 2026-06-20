@@ -12,7 +12,7 @@ List every tool your agent can call that changes outside state.
 | Tool | Side effect | Current gate | Contract needed |
 |---|---|---|---|
 | `write_file` | Writes local files | ? | path guard, loop guard |
-| `run_shell` | Executes commands | ? | command allowlist, protected path guard |
+| `run_shell` | Executes commands | ? | shell command guard, command allowlist, protected path guard |
 | `send_email` | Sends external email | ? | recipient guard, dox guard |
 | `publish_post` | Publishes public text | ? | identity leak guard, quality gate |
 | `run_sql` | Changes database state | ? | environment + change-ticket guard |
@@ -73,6 +73,7 @@ Start with the failures that are cheap to catch and expensive to miss.
 | Failure | First contract |
 |---|---|
 | Writes to protected paths | `DangerousPathGuard` |
+| Running high-blast-radius shell commands | `ShellCommandGuard` |
 | Rewriting the same file repeatedly | `LoopGuard` |
 | Leaking keys in params or replies | `SecretLeakGuard` |
 | Saying "done" without proof | `UnverifiedCompletionGuard` |
