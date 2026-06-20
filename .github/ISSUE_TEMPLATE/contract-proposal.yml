@@ -1,0 +1,41 @@
+name: Contract proposal
+description: Propose a deterministic guard for a real agent failure mode.
+title: "[contract] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: failure_mode
+    attributes:
+      label: Failure mode
+      description: What agent behavior should this prevent?
+    validations:
+      required: true
+  - type: textarea
+    id: boundary
+    attributes:
+      label: Tool boundary
+      description: "Where would this run: pre-action, post-action, or both?"
+      placeholder: pre-action before send_email; post-action before final response
+    validations:
+      required: true
+  - type: textarea
+    id: deterministic_rule
+    attributes:
+      label: Deterministic rule
+      description: Describe the exact non-LLM condition that fires.
+    validations:
+      required: true
+  - type: textarea
+    id: safe_path
+    attributes:
+      label: Safe path
+      description: Give one example that must pass.
+    validations:
+      required: true
+  - type: textarea
+    id: blocked_path
+    attributes:
+      label: Blocked path
+      description: Give one example that must block or warn.
+    validations:
+      required: true

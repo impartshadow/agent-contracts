@@ -1,0 +1,55 @@
+name: Contract bug
+description: Report a false positive, false negative, or bad recovery path.
+title: "[contract bug] "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: contract
+    attributes:
+      label: Contract
+      options:
+        - dangerous-path-guard
+        - loop-guard
+        - secret-leak-guard
+        - tool-allowlist-guard
+        - unverified-completion-guard
+        - custom/other
+    validations:
+      required: true
+  - type: dropdown
+    id: failure_type
+    attributes:
+      label: Failure type
+      options:
+        - False positive blocked/warned a safe action
+        - False negative allowed a bad action
+        - Recovery text was wrong or unclear
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Minimal ActionContext
+      description: Paste the smallest sanitized context that reproduces the issue.
+      render: python
+      placeholder: |
+        ActionContext(
+            action="tool_call",
+            tool="write_file",
+            params={"path": "..."},
+        )
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
