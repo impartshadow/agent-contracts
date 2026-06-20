@@ -106,6 +106,9 @@ tighten them for your own system.
 > **Need to know what this does *not* protect?** Read
 > [THREAT_MODEL.md](THREAT_MODEL.md) before treating contracts as a security
 > boundary. They are action gates, not a sandbox.
+>
+> **Want to add a contract?** [CONTRIBUTING.md](CONTRIBUTING.md) lays out the bar:
+> deterministic, narrow, tested, and tied to a real agent failure mode.
 
 ## Writing your own
 
