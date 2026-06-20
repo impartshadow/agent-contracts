@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional
+from typing import Any, Optional
 
 
 class Severity(str, Enum):
@@ -55,6 +55,17 @@ class Violation:
     @property
     def blocking(self) -> bool:
         return self.severity == Severity.BLOCK
+
+    def to_dict(self) -> dict[str, object]:
+        """Return a stable JSON-serializable representation."""
+
+        return {
+            "contract": self.contract,
+            "message": self.message,
+            "severity": self.severity.value,
+            "blocking": self.blocking,
+            "recovery": self.recovery,
+        }
 
 
 class Contract:
@@ -104,6 +115,15 @@ class CheckResult:
 
     def __bool__(self) -> bool:  # truthy == clean pass
         return self.passed
+
+    def to_dict(self) -> dict[str, Any]:
+        """Return a stable JSON-serializable representation."""
+
+        return {
+            "passed": self.passed,
+            "blocked": self.blocked,
+            "violations": [v.to_dict() for v in self.violations],
+        }
 
 
 class BlockedAction(Exception):

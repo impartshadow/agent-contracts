@@ -123,6 +123,27 @@ def test_clean_action_passes():
     assert result.passed and bool(result) is True
 
 
+def test_violation_serializes_to_dict():
+    violation = DangerousPathGuard().check_pre(ActionContext(params={"path": "/etc/passwd"}))
+    assert violation is not None
+    assert violation.to_dict() == {
+        "contract": "dangerous-path-guard",
+        "message": "write to protected path '/etc/passwd' (matched '/etc/')",
+        "severity": "block",
+        "blocking": True,
+        "recovery": "Write to the project workspace, not a system path.",
+    }
+
+
+def test_check_result_serializes_to_dict():
+    reg = Registry(default_contracts())
+    result = reg.check_pre(ActionContext(action="tool_call", params={"path": "/etc/passwd"}))
+    payload = result.to_dict()
+    assert payload["passed"] is False
+    assert payload["blocked"] is True
+    assert payload["violations"][0]["contract"] == "dangerous-path-guard"
+
+
 def test_contracted_tool_router_runs_allowed_call():
     router = ContractedToolRouter({"echo": lambda value: value})
     assert router.call("echo", {"value": "ok"}) == "ok"

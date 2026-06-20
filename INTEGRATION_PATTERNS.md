@@ -95,8 +95,7 @@ try:
 except BlockedAction as exc:
     return {
         "status": "blocked",
-        "violations": [v.contract for v in exc.violations],
-        "recovery": [v.recovery for v in exc.violations if v.recovery],
+        "violations": [v.to_dict() for v in exc.violations],
     }
 ```
 

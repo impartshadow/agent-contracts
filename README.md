@@ -47,6 +47,7 @@ result = registry.check_pre(ctx)
 result.passed     # True if nothing fired
 result.blocked    # True if any BLOCK-severity violation fired
 result.violations # list[Violation]
+result.to_dict()  # JSON-serializable payload for logs/API responses
 ```
 
 To make blocking automatic, wrap the call with `enforce_pre`, which raises
