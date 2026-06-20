@@ -106,6 +106,9 @@ tighten them for your own system.
 > **Using OpenAI tool calls, LangChain, AutoGen, CrewAI, or a raw CLI agent?**
 > [FRAMEWORK_ADAPTERS.md](FRAMEWORK_ADAPTERS.md) gives copy-paste adapter shapes.
 >
+> **Putting contracts in front of MCP tools or an agent gateway?**
+> [MCP_ADAPTER.md](MCP_ADAPTER.md) shows the shared-dispatcher boundary.
+>
 > **Auditing your own agent first?** Use [AUDIT_CHECKLIST.md](AUDIT_CHECKLIST.md)
 > to find the side-effecting tools that need contracts before anything else.
 >
@@ -218,6 +221,7 @@ python3 examples/tool_router.py
 python3 examples/workspace_guard.py
 python3 examples/policy_loader.py
 python3 examples/openai_tool_call_adapter.py
+python3 examples/mcp_tool_adapter.py
 python3 examples/benchmark.py --iterations 10000
 ```
 
