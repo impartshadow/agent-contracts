@@ -70,6 +70,11 @@ except BlockedAction as e:
 These are starting points, not a finished security boundary. Read them, copy them,
 tighten them for your own system.
 
+> **Where these contracts come from:** every guard here exists because an agent
+> failed in a specific, repeated way in production. The full taxonomy — 13 named
+> failure modes, worst-first, including the ones that *can't* be solved with code —
+> is in **[FAILURE_MODES.md](FAILURE_MODES.md)**. It's the most useful page in the repo.
+
 ## Writing your own
 
 Subclass `Contract` and override whichever phase you need:
