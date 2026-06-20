@@ -84,6 +84,9 @@ tighten them for your own system.
 > **Wiring this into an existing agent loop?** Start with
 > [INTEGRATION_PATTERNS.md](INTEGRATION_PATTERNS.md). It shows where the gate belongs:
 > the shared tool router, not another prompt instruction.
+>
+> **Auditing your own agent first?** Use [AUDIT_CHECKLIST.md](AUDIT_CHECKLIST.md)
+> to find the side-effecting tools that need contracts before anything else.
 
 ## Writing your own
 
