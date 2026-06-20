@@ -76,6 +76,10 @@ tighten them for your own system.
 > failed in a specific, repeated way in production. The full taxonomy — 13 named
 > failure modes, worst-first, including the ones that *can't* be solved with code —
 > is in **[FAILURE_MODES.md](FAILURE_MODES.md)**. It's the most useful page in the repo.
+>
+> **Evaluating against Guardrails AI / NeMo Guardrails / LlamaFirewall?**
+> [COMPARISON.md](COMPARISON.md) is an honest map of where this fits and when to use
+> something else — read the "use X instead when" lines first.
 
 ## Writing your own
 
