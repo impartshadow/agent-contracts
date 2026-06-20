@@ -3,6 +3,7 @@ from agent_contracts import (
     BlockedAction,
     Registry,
     Severity,
+    ContractedToolRouter,
     default_contracts,
 )
 from agent_contracts.contracts import (
@@ -119,3 +120,45 @@ def test_clean_action_passes():
     ctx = ActionContext(action="tool_call", params={"path": "notes.md", "content": "hi"})
     result = reg.check_pre(ctx)
     assert result.passed and bool(result) is True
+
+
+def test_contracted_tool_router_runs_allowed_call():
+    router = ContractedToolRouter({"echo": lambda value: value})
+    assert router.call("echo", {"value": "ok"}) == "ok"
+    assert router.tool_calls == ["echo"]
+
+
+def test_contracted_tool_router_blocks_before_dispatch():
+    called = False
+
+    def write_file(path, content):
+        nonlocal called
+        called = True
+        return "wrote"
+
+    router = ContractedToolRouter({"write_file": write_file})
+    with pytest.raises(BlockedAction):
+        router.call("write_file", {"path": "/etc/passwd", "content": "x"})
+    assert called is False
+
+
+def test_contracted_tool_router_tracks_edits_by_path():
+    router = ContractedToolRouter({"write_file": lambda path, content: "wrote"})
+    router.call("write_file", {"path": "notes.md", "content": "one"})
+    router.call("write_file", {"path": "notes.md", "content": "two"})
+    router.call("write_file", {"path": "notes.md", "content": "three"})
+
+    with pytest.raises(BlockedAction):
+        router.call("write_file", {"path": "notes.md", "content": "four"})
+
+
+def test_contracted_tool_router_rejects_unknown_tool_after_contracts_pass():
+    router = ContractedToolRouter({})
+    with pytest.raises(ValueError, match="unknown tool"):
+        router.call("missing", {})
+
+
+def test_contracted_tool_router_checks_response_text():
+    router = ContractedToolRouter({})
+    result = router.check_response("Done, fixed it.")
+    assert {v.contract for v in result.violations} == {"unverified-completion-guard"}

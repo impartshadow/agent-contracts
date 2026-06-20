@@ -31,6 +31,7 @@ from .contracts import (
     UnverifiedCompletionGuard,
     default_contracts,
 )
+from .router import ContractedToolRouter
 
 __version__ = "0.1.0"
 
@@ -47,5 +48,6 @@ __all__ = [
     "SecretLeakGuard",
     "ToolAllowlistGuard",
     "UnverifiedCompletionGuard",
+    "ContractedToolRouter",
     "default_contracts",
 ]

@@ -60,6 +60,18 @@ except BlockedAction as e:
     handle_refusal(e.violations)
 ```
 
+If you want a copy-paste router instead of wiring the boundary yourself:
+
+```python
+from agent_contracts import ContractedToolRouter
+
+router = ContractedToolRouter({"write_file": write_file})
+router.call("write_file", {"path": "notes.md", "content": "ship it\n"})
+
+# Raises BlockedAction before write_file ever runs:
+router.call("write_file", {"path": "/etc/passwd", "content": "nope"})
+```
+
 ## What ships in the box
 
 | Contract | Phase | Catches |
