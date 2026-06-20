@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agent-contracts"
+version = "0.1.0"
+description = "Deterministic pre/post-condition guardrails for LLM agents — no model in the loop."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Shadow" }]
+keywords = ["llm", "agents", "guardrails", "safety", "governance", "tool-use"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[project.urls]
+Homepage = "https://github.com/impartshadow/agent-contracts"
+Source = "https://github.com/impartshadow/agent-contracts"
+
+[tool.hatch.build.targets.wheel]
+packages = ["agent_contracts"]

@@ -1,0 +1,160 @@
+"""A starter set of generic contracts.
+
+These are intentionally simple and dependency-free. They are meant to be read,
+copied, and adapted — not treated as a complete security boundary. Each one
+encodes a failure mode that shows up across almost every autonomous agent:
+runaway loops, writes to dangerous paths, leaked secrets, and fabricated
+completion claims.
+"""
+
+from __future__ import annotations
+
+import re
+from typing import Optional
+
+from .core import ActionContext, Contract, Severity, Violation
+
+
+class LoopGuard(Contract):
+    """Stop an agent that keeps rewriting the same file.
+
+    A classic runaway pattern: the model edits a file, doesn't like the result,
+    edits it again, and again. After ``max_edits`` edits to one path in a turn,
+    block — something is stuck and a human (or a different strategy) should look.
+    """
+
+    name = "loop-guard"
+
+    def __init__(self, max_edits: int = 3):
+        self.max_edits = max_edits
+
+    def check_pre(self, ctx: ActionContext) -> Optional[Violation]:
+        path = ctx.params.get("path") or ctx.params.get("file")
+        if not path:
+            return None
+        count = ctx.edits_by_path.get(path, 0)
+        if count >= self.max_edits:
+            return self._violation(
+                f"{count} edits to {path!r} this turn (limit {self.max_edits}) — "
+                f"likely a stuck loop",
+                recovery="Re-read the file and the goal before editing again, or escalate.",
+            )
+        return None
+
+
+class DangerousPathGuard(Contract):
+    """Block writes to system and home-config paths."""
+
+    name = "dangerous-path-guard"
+
+    _DEFAULT_BLOCKED = (
+        "/etc/", "/usr/", "/bin/", "/sbin/", "/boot/", "/sys/", "/proc/",
+        "/var/lib/", "/.ssh/", "/.aws/", "/.config/",
+    )
+
+    def __init__(self, blocked_prefixes: Optional[tuple[str, ...]] = None):
+        self.blocked_prefixes = blocked_prefixes or self._DEFAULT_BLOCKED
+
+    def check_pre(self, ctx: ActionContext) -> Optional[Violation]:
+        path = ctx.params.get("path") or ctx.params.get("file")
+        if not path:
+            return None
+        normalized = str(path)
+        for prefix in self.blocked_prefixes:
+            if prefix in normalized:
+                return self._violation(
+                    f"write to protected path {normalized!r} (matched {prefix!r})",
+                    recovery="Write to the project workspace, not a system path.",
+                )
+        return None
+
+
+class SecretLeakGuard(Contract):
+    """Catch secrets in outgoing text or tool parameters before they leave.
+
+    Matches common high-entropy credential shapes: private key blocks, AWS keys,
+    GitHub/Slack/Stripe tokens, and ``KEY=...`` style env assignments. This is a
+    last-line backstop, not a substitute for keeping secrets out of context.
+    """
+
+    name = "secret-leak-guard"
+
+    _PATTERNS = (
+        r"-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----",
+        r"\bAKIA[0-9A-Z]{16}\b",                       # AWS access key id
+        r"\bgh[pousr]_[A-Za-z0-9]{36,}\b",             # GitHub tokens
+        r"\bxox[baprs]-[A-Za-z0-9-]{10,}\b",           # Slack tokens
+        r"\b(?:sk|rk)_(?:live|test)_[A-Za-z0-9]{16,}\b",  # Stripe secret keys
+        r"\b[A-Z][A-Z0-9_]*(?:SECRET|TOKEN|PASSWORD|API_?KEY)\s*=\s*\S{8,}",
+    )
+
+    def __init__(self):
+        self._compiled = [re.compile(p) for p in self._PATTERNS]
+
+    def _scan(self, text: str) -> Optional[str]:
+        for rx in self._compiled:
+            m = rx.search(text)
+            if m:
+                return rx.pattern
+        return None
+
+    def check_pre(self, ctx: ActionContext) -> Optional[Violation]:
+        blob = " ".join(str(v) for v in ctx.params.values())
+        hit = self._scan(blob)
+        if hit:
+            return self._violation(
+                f"possible secret in tool params (pattern {hit!r})",
+                recovery="Redact the credential or pass a reference, not the raw value.",
+            )
+        return None
+
+    def check_post(self, ctx: ActionContext) -> Optional[Violation]:
+        hit = self._scan(ctx.response_text)
+        if hit:
+            return self._violation(
+                f"possible secret in response text (pattern {hit!r})",
+                recovery="Remove the credential from the reply.",
+            )
+        return None
+
+
+class UnverifiedCompletionGuard(Contract):
+    """Warn when the agent claims completion without showing evidence.
+
+    "Done", "shipped", "fixed" are cheap to say and expensive to trust. If the
+    response asserts completion but carries no verifiable artifact (a command
+    output block, a URL, a hash, a file path), flag it. This is a *warn* by
+    default — it nudges rather than blocks.
+    """
+
+    name = "unverified-completion-guard"
+
+    _CLAIM = re.compile(
+        r"\b(?:done|shipped|fixed|complete[d]?|deployed|merged|all set)\b",
+        re.IGNORECASE,
+    )
+    _EVIDENCE = re.compile(
+        r"```|https?://|\b[0-9a-f]{7,40}\b|(?:/[\w.-]+){2,}",  # code block, url, hash, path
+    )
+
+    def check_post(self, ctx: ActionContext) -> Optional[Violation]:
+        if ctx.action != "respond":
+            return None
+        text = ctx.response_text
+        if self._CLAIM.search(text) and not self._EVIDENCE.search(text):
+            return self._violation(
+                "completion claim with no verifiable artifact (no output, url, hash, or path)",
+                severity=Severity.WARN,
+                recovery="Paste the command output, link, commit hash, or file path that proves it.",
+            )
+        return None
+
+
+def default_contracts() -> list[Contract]:
+    """A sensible starter pack."""
+    return [
+        LoopGuard(),
+        DangerousPathGuard(),
+        SecretLeakGuard(),
+        UnverifiedCompletionGuard(),
+    ]
