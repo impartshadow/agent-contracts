@@ -174,6 +174,7 @@ Run the tests and the demo:
 pip install -e ".[dev]"
 pytest -q
 python -m agent_contracts
+agent-contracts-demo
 python examples/demo.py
 python examples/tool_router.py
 ```

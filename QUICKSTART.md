@@ -14,6 +14,8 @@ Smoke test the install:
 
 ```bash
 python -m agent_contracts
+# after install, this console script works too:
+agent-contracts-demo
 ```
 
 ## 2. Block a dangerous tool call
