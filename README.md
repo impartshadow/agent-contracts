@@ -80,6 +80,10 @@ tighten them for your own system.
 > **Evaluating against Guardrails AI / NeMo Guardrails / LlamaFirewall?**
 > [COMPARISON.md](COMPARISON.md) is an honest map of where this fits and when to use
 > something else — read the "use X instead when" lines first.
+>
+> **Wiring this into an existing agent loop?** Start with
+> [INTEGRATION_PATTERNS.md](INTEGRATION_PATTERNS.md). It shows where the gate belongs:
+> the shared tool router, not another prompt instruction.
 
 ## Writing your own
 
@@ -132,6 +136,7 @@ Run the tests and the demo:
 pip install -e ".[dev]"
 pytest -q
 python examples/demo.py
+python examples/tool_router.py
 ```
 
 ## Where this came from

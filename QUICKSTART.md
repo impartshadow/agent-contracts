@@ -80,6 +80,7 @@ is paying attention.
 ## Next
 
 - See every default guard and the design rationale in the [README](README.md).
+- Wiring this into a real tool dispatcher? Use [INTEGRATION_PATTERNS.md](INTEGRATION_PATTERNS.md).
 - See the production failure log that motivated each guard in [FAILURE_MODES.md](FAILURE_MODES.md).
 - Deciding between this and Guardrails AI / NeMo / LlamaFirewall? [COMPARISON.md](COMPARISON.md).
 - Run the live demo: `python examples/demo.py`.
