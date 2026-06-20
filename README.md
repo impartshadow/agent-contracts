@@ -121,6 +121,8 @@ tighten them for your own system.
 >
 > **Reporting a bypass or bad security claim?** Use [SECURITY.md](SECURITY.md)
 > for the supported scope and reporting standard.
+>
+> **Tracking what changed?** Read [CHANGELOG.md](CHANGELOG.md).
 
 ## Writing your own
 
