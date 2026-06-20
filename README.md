@@ -102,6 +102,9 @@ tighten them for your own system.
 > [INTEGRATION_PATTERNS.md](INTEGRATION_PATTERNS.md). It shows where the gate belongs:
 > the shared tool router, not another prompt instruction.
 >
+> **Using OpenAI tool calls, LangChain, AutoGen, CrewAI, or a raw CLI agent?**
+> [FRAMEWORK_ADAPTERS.md](FRAMEWORK_ADAPTERS.md) gives copy-paste adapter shapes.
+>
 > **Auditing your own agent first?** Use [AUDIT_CHECKLIST.md](AUDIT_CHECKLIST.md)
 > to find the side-effecting tools that need contracts before anything else.
 >
