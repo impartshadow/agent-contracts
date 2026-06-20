@@ -9,6 +9,8 @@ bad context. `agent-contracts` takes the other path. A **contract** is a plain
 Python function over the action context. It runs the same way every time, costs
 nothing, and can't be talked out of its decision.
 
+![agent-contracts blocking a dangerous write and a leaked key in real time](docs/demo.svg)
+
 ```python
 from agent_contracts import Registry, ActionContext, default_contracts
 

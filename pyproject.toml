@@ -22,6 +22,7 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = ["pytest>=7.0"]
+docs = ["rich==13.9.4"]  # only to regenerate docs/demo.svg; not a runtime dep
 
 [project.urls]
 Homepage = "https://github.com/impartshadow/agent-contracts"
