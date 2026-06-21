@@ -5,15 +5,30 @@
 
 **Deterministic pre/post-condition guardrails for LLM agents. No model in the loop.**
 
+## Get your score in 30 seconds
+
+```yaml
+# .github/workflows/agent-reliability.yml
+- uses: impartshadow/agent-contracts@v1
+  with:
+    min-score: 70        # optional: block CI below this threshold
+    output-badge-json: agent-reliability-badge.json
+```
+
+No adoption of `agent-contracts` required — `scan` reads observable governance signals
+(tests/CI, tool gating, secret hygiene, eval harness) from any repo structure.
+→ **[Shadow Agent Governance Index](LEADERBOARD.md)** — see where your agent ranks.
+→ **Want a full contract audit?** Email [impartshadow@gmail.com](mailto:impartshadow@gmail.com) — $299 flat, 48h turnaround.
+
+---
+
 > **▶ [Try it in your browser — no install](https://impartshadow.github.io/agent-contracts/playground/)** · paste an agent action, watch a real contract block it (runs the actual engine via Pyodide).
 >
 > **Evaluating quickly?** Start with [FIRST_10_MINUTES.md](FIRST_10_MINUTES.md):
 > browser proof, one local block, one CI-ready adoption test.
 >
-> **Want the public scorecard path?** Run `agent-contracts score --root .`.
+> **Want the public scorecard path?** Run `agent-contracts scan --root .`.
 > It emits a 0-100 reliability score plus a markdown badge you can put in a README.
-> Add `--output-json agent-reliability-score.json --output-markdown AGENT_RELIABILITY_SCORE.md --output-badge-json agent-reliability-badge.json`
-> to publish a reusable scorecard artifact.
 
 Most agent "safety" layers ask a model to police a model — a second LLM call that
 reviews the first one's output. That fails in exactly the moment you need it: when
