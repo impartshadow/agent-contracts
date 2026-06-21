@@ -48,15 +48,17 @@ from .eval import evaluate_records
 from .doctor import run_doctor
 from .sarif import replay_rows_to_sarif
 from .scaffold import (
+    DEFAULT_PRE_COMMIT_PATH,
     DEFAULT_SCAFFOLD_DIR,
     DEFAULT_WORKFLOW_PATH,
     render_github_actions,
+    render_pre_commit_config,
     render_python_adapter,
     render_scaffold_readme,
     write_scaffold,
 )
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "ActionContext",
@@ -91,9 +93,11 @@ __all__ = [
     "evaluate_records",
     "run_doctor",
     "replay_rows_to_sarif",
+    "DEFAULT_PRE_COMMIT_PATH",
     "DEFAULT_SCAFFOLD_DIR",
     "DEFAULT_WORKFLOW_PATH",
     "render_github_actions",
+    "render_pre_commit_config",
     "render_python_adapter",
     "render_scaffold_readme",
     "write_scaffold",

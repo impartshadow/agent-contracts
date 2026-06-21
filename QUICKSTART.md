@@ -113,14 +113,21 @@ For a full repo scaffold instead of one policy file:
 agent-contracts bootstrap --workspace "$(pwd)"
 ```
 
-This writes the policy, a GitHub Actions workflow, and an importable adapter at
-`agent_contracts_scaffold/adapter.py`. Wire `gate_tool_call()` into the shared
-tool dispatcher before any side effect runs.
+This writes the policy, a GitHub Actions workflow, an optional pre-commit config,
+and an importable adapter at `agent_contracts_scaffold/adapter.py`. Wire
+`gate_tool_call()` into the shared tool dispatcher before any side effect runs.
 
 Check the generated wiring:
 
 ```bash
 agent-contracts doctor --root .
+```
+
+If your repo already uses pre-commit:
+
+```bash
+pre-commit install
+pre-commit run agent-contracts-matrix --all-files
 ```
 
 ## 5. Wire it into your agent loop

@@ -12,7 +12,9 @@ agent-contracts bootstrap --workspace "$(pwd)"
 ```
 
 That writes `.github/workflows/agent-contracts.yml`, `agent-contracts.yml`, and
-an importable adapter under `agent_contracts_scaffold/`.
+an importable adapter under `agent_contracts_scaffold/`. It also writes an
+optional `.pre-commit-config.yaml` with local `matrix` and `doctor` hooks for
+teams that already use pre-commit.
 
 Manual path:
 
@@ -30,6 +32,12 @@ After bootstrap, run the read-only adoption check locally:
 
 ```bash
 agent-contracts doctor --root .
+```
+
+If pre-commit is installed in the adopting repo:
+
+```bash
+pre-commit run agent-contracts-doctor --all-files
 ```
 
 If your agent already emits JSONL action records, add `agent-contracts replay`

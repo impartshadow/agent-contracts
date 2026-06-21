@@ -10,6 +10,7 @@ from .policy import DEFAULT_POLICY_FILENAME, render_policy
 
 DEFAULT_SCAFFOLD_DIR = "agent_contracts_scaffold"
 DEFAULT_WORKFLOW_PATH = ".github/workflows/agent-contracts.yml"
+DEFAULT_PRE_COMMIT_PATH = ".pre-commit-config.yaml"
 
 
 def render_python_adapter(policy_path: str = DEFAULT_POLICY_FILENAME) -> str:
@@ -101,6 +102,25 @@ jobs:
 """
 
 
+def render_pre_commit_config() -> str:
+    """Return a local pre-commit config that checks the contract boundary."""
+
+    return """repos:
+  - repo: local
+    hooks:
+      - id: agent-contracts-matrix
+        name: agent-contracts matrix
+        entry: agent-contracts matrix
+        language: system
+        pass_filenames: false
+      - id: agent-contracts-doctor
+        name: agent-contracts doctor
+        entry: agent-contracts doctor --root .
+        language: system
+        pass_filenames: false
+"""
+
+
 def render_scaffold_readme(workspace_root: str = ".") -> str:
     """Return instructions for the generated scaffold directory."""
 
@@ -110,6 +130,7 @@ Generated files:
 
 - `agent-contracts.yml` - local policy, workspace root `{workspace_root}`
 - `.github/workflows/agent-contracts.yml` - CI proof that the built-in matrix and one workspace escape check fire
+- `.pre-commit-config.yaml` - optional local hook that runs the matrix and doctor before commits
 - `agent_contracts_scaffold/adapter.py` - importable helper for the shared tool dispatcher
 
 Wire the adapter at the one place where your agent dispatches tools:
@@ -148,6 +169,7 @@ def write_scaffold(
     written: list[Path] = []
     _write(base / DEFAULT_POLICY_FILENAME, render_policy(workspace_root), force=force, written=written)
     _write(base / DEFAULT_WORKFLOW_PATH, render_github_actions(), force=force, written=written)
+    _write(base / DEFAULT_PRE_COMMIT_PATH, render_pre_commit_config(), force=force, written=written)
     _write(
         base / DEFAULT_SCAFFOLD_DIR / "__init__.py",
         '"""Local agent-contracts scaffold."""\n',

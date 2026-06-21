@@ -9,7 +9,7 @@ from .eval import evaluate_records
 from .matrix import run_contract_matrix
 from .policy import DEFAULT_POLICY_FILENAME, load_policy
 from .replay import load_jsonl
-from .scaffold import DEFAULT_SCAFFOLD_DIR, DEFAULT_WORKFLOW_PATH
+from .scaffold import DEFAULT_PRE_COMMIT_PATH, DEFAULT_SCAFFOLD_DIR, DEFAULT_WORKFLOW_PATH
 
 
 def _check_file(path: Path, label: str) -> dict[str, Any]:
@@ -52,6 +52,7 @@ def run_doctor(
     checks.append(_check_file(policy, "policy"))
     checks.append(_check_file(base / DEFAULT_SCAFFOLD_DIR / "adapter.py", "adapter"))
     checks.append(_check_file(base / DEFAULT_WORKFLOW_PATH, "github-actions"))
+    checks.append(_optional_file(base / DEFAULT_PRE_COMMIT_PATH, "pre-commit"))
 
     matrix_rows = run_contract_matrix()
     checks.append(

@@ -120,6 +120,8 @@ tighten them for your own system.
 >
 > **Need to verify a generated policy/scaffold/CI setup?**
 > Run `agent-contracts doctor --root .` for a read-only adoption report.
+> `agent-contracts bootstrap` also writes optional local pre-commit hooks for
+> `matrix` and `doctor` when your repo already uses pre-commit.
 >
 > **Need copy-paste custom contracts?** [RECIPES.md](RECIPES.md) has recipient,
 > production SQL, evidence-before-blocker, and public publishing identity guards.

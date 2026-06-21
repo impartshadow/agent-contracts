@@ -1,9 +1,17 @@
 # Changelog
 
-## Unreleased
+## 0.1.1 - 2026-06-20
 
 ### Added
 
+- Browser playground under `docs/playground/` that runs the real contract engine
+  via Pyodide.
+- `agent-contracts eval` for labeled JSONL corpora, with true positives, true
+  negatives, false positives, false negatives, precision, recall, and expected
+  contract misses.
+- `agent-contracts doctor` for read-only adoption diagnostics over policy,
+  scaffold adapter, GitHub Actions wiring, matrix status, and optional eval
+  corpus.
 - `WorkspacePathGuard` for blocking file actions that resolve outside a
   configured workspace root.
 - `FRAMEWORK_ADAPTERS.md` with adapter patterns for OpenAI tool calls,
@@ -26,6 +34,8 @@
 - Replay expectation flags: `--expect-blocks` and `--expect-violations` for
   CI-friendly incident fixtures.
 - Replay SARIF output via `agent-contracts replay --sarif`.
+- `agent-contracts bootstrap` now writes optional local pre-commit hooks for
+  `agent-contracts matrix` and `agent-contracts doctor --root .`.
 
 ### Changed
 
@@ -36,5 +46,5 @@
 
 ### Verified
 
-- Current local suite: `PYTHONPATH=. pytest -q` -> `52 passed`.
+- Current local suite: `PYTHONPATH=. pytest -q` -> `67 passed`.
 - Current compile check: `python3 -m compileall -q agent_contracts`.

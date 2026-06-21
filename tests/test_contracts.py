@@ -13,6 +13,7 @@ from agent_contracts import (
     replay_rows_to_sarif,
     evaluate_records,
     run_doctor,
+    render_pre_commit_config,
     write_scaffold,
     run_contract_matrix,
 )
@@ -457,6 +458,7 @@ def test_write_scaffold_creates_policy_adapter_workflow_and_readme(tmp_path):
     assert relative == {
         "agent-contracts.yml",
         ".github/workflows/agent-contracts.yml",
+        ".pre-commit-config.yaml",
         "agent_contracts_scaffold/__init__.py",
         "agent_contracts_scaffold/adapter.py",
         "agent_contracts_scaffold/README.md",
@@ -467,6 +469,9 @@ def test_write_scaffold_creates_policy_adapter_workflow_and_readme(tmp_path):
     )
     assert "agent-contracts matrix" in (
         tmp_path / ".github/workflows/agent-contracts.yml"
+    ).read_text(encoding="utf-8")
+    assert "agent-contracts doctor --root ." in (
+        tmp_path / ".pre-commit-config.yaml"
     ).read_text(encoding="utf-8")
 
 
@@ -488,6 +493,15 @@ def test_cli_bootstrap_writes_repository_scaffold(tmp_path, capsys):
     assert (tmp_path / "agent-contracts.yml").exists()
     assert (tmp_path / "agent_contracts_scaffold/adapter.py").exists()
     assert (tmp_path / ".github/workflows/agent-contracts.yml").exists()
+    assert (tmp_path / ".pre-commit-config.yaml").exists()
+
+
+def test_render_pre_commit_config_runs_matrix_and_doctor():
+    text = render_pre_commit_config()
+
+    assert "agent-contracts matrix" in text
+    assert "agent-contracts doctor --root ." in text
+    assert "pass_filenames: false" in text
 
 
 def test_cli_bootstrap_reports_existing_file(tmp_path, capsys):
@@ -730,6 +744,7 @@ def test_run_doctor_reports_bootstrap_readiness(tmp_path):
         "policy",
         "adapter",
         "github-actions",
+        "pre-commit",
         "built-in-matrix",
         "policy-load",
     }
