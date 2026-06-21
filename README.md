@@ -165,6 +165,9 @@ tighten them for your own system.
 >
 > **Publishing the package?** [PUBLISHING.md](PUBLISHING.md) documents the PyPI
 > token, release workflow, and verification path.
+>
+> **Sharing the project?** [DISTRIBUTION_PACK.md](DISTRIBUTION_PACK.md) has
+> copy-ready posts, reply snippets, and the canonical links.
 
 ## Writing your own
 
