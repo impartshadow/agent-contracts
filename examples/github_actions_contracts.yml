@@ -31,3 +31,6 @@ jobs:
             --policy agent-contracts.yml \
             --tool write_file \
             --params-json '{"path":"../outside.txt","content":"no"}'
+
+      - name: Score agent reliability
+        run: agent-contracts score --root . --eval examples/eval_corpus.jsonl --replay examples/actions.jsonl

@@ -46,6 +46,7 @@ from .matrix import MatrixScenario, contract_matrix, run_contract_matrix
 from .replay import context_from_record, load_jsonl, replay_file, replay_records
 from .eval import evaluate_records
 from .doctor import run_doctor
+from .score import score_repository
 from .sarif import replay_rows_to_sarif
 from .scaffold import (
     DEFAULT_PRE_COMMIT_PATH,
@@ -92,6 +93,7 @@ __all__ = [
     "replay_records",
     "evaluate_records",
     "run_doctor",
+    "score_repository",
     "replay_rows_to_sarif",
     "DEFAULT_PRE_COMMIT_PATH",
     "DEFAULT_SCAFFOLD_DIR",

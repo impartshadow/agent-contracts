@@ -1,0 +1,13 @@
+repos:
+  - repo: local
+    hooks:
+      - id: agent-contracts-matrix
+        name: agent-contracts matrix
+        entry: agent-contracts matrix
+        language: system
+        pass_filenames: false
+      - id: agent-contracts-doctor
+        name: agent-contracts doctor
+        entry: agent-contracts doctor --root .
+        language: system
+        pass_filenames: false

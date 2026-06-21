@@ -15,6 +15,7 @@ from .replay import load_jsonl, replay_file
 from .eval import evaluate_records
 from .sarif import replay_rows_to_sarif
 from .scaffold import write_scaffold
+from .score import score_repository
 
 
 def _write_file(path: str, content: str) -> str:
@@ -220,6 +221,31 @@ def _run_doctor(args: argparse.Namespace) -> int:
     return 0 if payload["passed"] else 1
 
 
+def _run_score(args: argparse.Namespace) -> int:
+    payload = score_repository(
+        args.root,
+        policy_path=args.policy,
+        eval_path=args.eval,
+        replay_path=args.replay,
+    )
+
+    if args.badge:
+        print(payload["badge_markdown"])
+        return 0
+    elif args.json:
+        print(json.dumps(payload, indent=2, sort_keys=True))
+    else:
+        print(f"agent reliability: {payload['score']}/100 ({payload['grade']})")
+        for component in payload["components"]:
+            print(
+                f"{component['points']:>2}/{component['max_points']} "
+                f"{component['name']}"
+            )
+        print(payload["badge_markdown"])
+
+    return 0 if payload["passed"] else 1
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="agent-contracts",
@@ -289,6 +315,17 @@ def _parser() -> argparse.ArgumentParser:
     doctor.add_argument("--eval", help="optional labeled JSONL corpus to evaluate")
     doctor.add_argument("--json", action="store_true")
 
+    score = subparsers.add_parser(
+        "score",
+        help="score repository agent reliability and emit badge-ready output",
+    )
+    score.add_argument("--root", default=".")
+    score.add_argument("--policy", help="policy path, defaults to <root>/agent-contracts.yml")
+    score.add_argument("--eval", help="optional labeled JSONL corpus to evaluate")
+    score.add_argument("--replay", help="optional historical/incident JSONL log to replay")
+    score.add_argument("--json", action="store_true")
+    score.add_argument("--badge", action="store_true", help="print markdown badge only")
+
     return parser
 
 
@@ -315,6 +352,8 @@ def main(argv: Optional[list[str]] = None) -> int:
         return _run_eval(args)
     if args.command == "doctor":
         return _run_doctor(args)
+    if args.command == "score":
+        return _run_score(args)
 
     parser.print_help()
     return 0

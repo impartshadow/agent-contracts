@@ -58,6 +58,15 @@ Run the built-in contract matrix:
 agent-contracts matrix
 ```
 
+Score the repository and print a README badge:
+
+```bash
+agent-contracts score --root . --badge
+```
+
+The score is 40 points for adoption wiring, 20 for the built-in matrix, 25 for an
+optional labeled eval corpus, and 15 for optional incident replay coverage.
+
 Replay a JSONL log through the same gates:
 
 ```bash

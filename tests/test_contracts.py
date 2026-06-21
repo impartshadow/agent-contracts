@@ -13,6 +13,7 @@ from agent_contracts import (
     replay_rows_to_sarif,
     evaluate_records,
     run_doctor,
+    score_repository,
     render_pre_commit_config,
     write_scaffold,
     run_contract_matrix,
@@ -219,6 +220,51 @@ def test_check_result_serializes_to_dict():
     assert payload["passed"] is False
     assert payload["blocked"] is True
     assert payload["violations"][0]["contract"] == "dangerous-path-guard"
+
+
+def test_score_repository_full_adoption(tmp_path):
+    write_scaffold(str(tmp_path), workspace_root=str(tmp_path))
+    eval_path = tmp_path / "eval.jsonl"
+    eval_path.write_text(
+        "\n".join(
+            [
+                '{"phase":"pre","tool":"write_file","params":{"path":"/etc/passwd"},"expected_blocked":true,"expected_contracts":["dangerous-path-guard"]}',
+                '{"phase":"pre","tool":"write_file","params":{"path":"notes.md"},"expected_blocked":false}',
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    replay_path = tmp_path / "incidents.jsonl"
+    replay_path.write_text(
+        '{"phase":"pre","tool":"write_file","params":{"path":"/etc/passwd"}}\n',
+        encoding="utf-8",
+    )
+
+    payload = score_repository(tmp_path, eval_path=eval_path, replay_path=replay_path)
+
+    assert payload["score"] == 100
+    assert payload["grade"] == "A"
+    assert payload["passed"] is True
+    assert "agent%20reliability-100%2F100" in payload["badge_url"]
+
+
+def test_score_repository_missing_adoption_is_not_passing(tmp_path):
+    payload = score_repository(tmp_path)
+
+    assert payload["score"] == 30
+    assert payload["grade"] == "F"
+    assert payload["passed"] is False
+
+
+def test_score_cli_badge(tmp_path, capsys):
+    write_scaffold(str(tmp_path), workspace_root=str(tmp_path))
+
+    code = cli_main(["score", "--root", str(tmp_path), "--badge"])
+
+    captured = capsys.readouterr()
+    assert code == 0
+    assert captured.out.startswith("![Agent reliability: 60/100]")
 
 
 def test_contracted_tool_router_runs_allowed_call():

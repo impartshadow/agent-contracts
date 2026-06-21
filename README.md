@@ -1,6 +1,7 @@
 # agent-contracts
 
 [![tests](https://github.com/impartshadow/agent-contracts/actions/workflows/tests.yml/badge.svg)](https://github.com/impartshadow/agent-contracts/actions/workflows/tests.yml)
+![Agent reliability: 95/100](https://img.shields.io/badge/agent%20reliability-95%2F100-brightgreen)
 
 **Deterministic pre/post-condition guardrails for LLM agents. No model in the loop.**
 
@@ -8,6 +9,9 @@
 >
 > **Evaluating quickly?** Start with [FIRST_10_MINUTES.md](FIRST_10_MINUTES.md):
 > browser proof, one local block, one CI-ready adoption test.
+>
+> **Want the public scorecard path?** Run `agent-contracts score --root .`.
+> It emits a 0-100 reliability score plus a markdown badge you can put in a README.
 
 Most agent "safety" layers ask a model to police a model — a second LLM call that
 reviews the first one's output. That fails in exactly the moment you need it: when
@@ -128,6 +132,11 @@ tighten them for your own system.
 > Run `agent-contracts doctor --root .` for a read-only adoption report.
 > `agent-contracts bootstrap` also writes optional local pre-commit hooks for
 > `matrix` and `doctor` when your repo already uses pre-commit.
+>
+> **Want a badge and public score?**
+> Run `agent-contracts score --root . --badge`. The score weights required
+> adoption wiring, the built-in contract matrix, optional labeled evals, and
+> optional incident replay. The seed public table is [LEADERBOARD.md](LEADERBOARD.md).
 >
 > **Need copy-paste custom contracts?** [RECIPES.md](RECIPES.md) has recipient,
 > production SQL, evidence-before-blocker, and public publishing identity guards.

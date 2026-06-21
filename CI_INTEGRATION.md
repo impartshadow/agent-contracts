@@ -27,6 +27,8 @@ The workflow does three things:
 2. Runs `agent-contracts matrix` to prove every built-in contract fires.
 3. Generates a workspace policy and verifies one allowed path plus one blocked
    workspace escape.
+4. Runs `agent-contracts score --root .`, optionally with eval/replay fixtures,
+   so every PR carries a reproducible agent reliability score.
 
 After bootstrap, run the read-only adoption check locally:
 
@@ -65,6 +67,7 @@ jobs:
         if: hashFiles('examples/actions.jsonl') != ''
       - run: agent-contracts replay examples/actions.jsonl --sarif --expect-blocks 1 > agent-contracts.sarif
         if: hashFiles('examples/actions.jsonl') != ''
+      - run: agent-contracts score --root . --eval examples/eval_corpus.jsonl --replay examples/actions.jsonl
 ```
 
 ## What to add after the smoke test
