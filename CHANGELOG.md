@@ -2,6 +2,8 @@
 
 ## 0.1.1 - 2026-06-20
 
+Release notes: [docs/releases/v0.1.1.md](docs/releases/v0.1.1.md)
+
 ### Added
 
 - Browser playground under `docs/playground/` that runs the real contract engine
