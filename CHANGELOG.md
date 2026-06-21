@@ -21,6 +21,8 @@
   `AUDIT_CHECKLIST.md`, `COMPARISON.md`, and `FAILURE_MODES.md`.
 - `agent-contracts bootstrap` to scaffold a full repository adoption path:
   policy file, GitHub Actions workflow, importable adapter, and local README.
+- `agent-contracts replay` to run JSONL action logs through the same pre/post
+  gates used by live tool dispatch.
 
 ### Changed
 
@@ -31,5 +33,5 @@
 
 ### Verified
 
-- Current local suite: `PYTHONPATH=. pytest -q` -> `48 passed`.
+- Current local suite: `PYTHONPATH=. pytest -q` -> `52 passed`.
 - Current compile check: `python3 -m compileall -q agent_contracts`.

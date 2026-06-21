@@ -58,6 +58,20 @@ Run the built-in contract matrix:
 agent-contracts matrix
 ```
 
+Replay a JSONL log through the same gates:
+
+```bash
+cat > actions.jsonl <<'JSONL'
+{"phase":"pre","tool":"write_file","params":{"path":"/etc/passwd"}}
+{"phase":"post","response_text":"Done, fixed it."}
+JSONL
+
+agent-contracts replay actions.jsonl --json
+```
+
+`phase` can be `pre` or `post`. If `action` is omitted, replay infers
+`tool_call` for pre records and `respond` for post records.
+
 For pull-request coverage, copy
 [`examples/github_actions_contracts.yml`](examples/github_actions_contracts.yml)
 into `.github/workflows/agent-contracts.yml`. The full CI path is in
@@ -162,5 +176,6 @@ is paying attention.
 - Run the live demos: `python3 -m agent_contracts`, `agent-contracts check-pre`,
   `python examples/demo.py`, `python examples/policy_loader.py`, and
   `python examples/openai_tool_call_adapter.py`.
+- Replay prior action logs: `agent-contracts replay actions.jsonl --json`.
 - Run the MCP adapter example: `python examples/mcp_tool_adapter.py`.
 - Run the local benchmark: `python examples/benchmark.py --iterations 10000`.

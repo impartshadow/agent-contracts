@@ -8,6 +8,8 @@ from agent_contracts import (
     load_policy,
     parse_policy,
     render_policy,
+    replay_file,
+    replay_records,
     write_scaffold,
     run_contract_matrix,
 )
@@ -492,3 +494,71 @@ def test_cli_bootstrap_reports_existing_file(tmp_path, capsys):
 
     assert exit_code == 1
     assert "already exists" in capsys.readouterr().err
+
+
+def test_replay_records_runs_pre_and_post_checks():
+    rows = replay_records(
+        [
+            {
+                "phase": "pre",
+                "action": "tool_call",
+                "tool": "write_file",
+                "params": {"path": "/etc/passwd"},
+            },
+            {"phase": "post", "action": "respond", "response_text": "Done, fixed it."},
+        ],
+        Registry(default_contracts()),
+    )
+
+    assert rows[0]["blocked"] is True
+    assert rows[0]["violations"][0]["contract"] == "dangerous-path-guard"
+    assert rows[1]["blocked"] is False
+    assert rows[1]["violations"][0]["contract"] == "unverified-completion-guard"
+
+
+def test_replay_file_reads_jsonl(tmp_path):
+    path = tmp_path / "actions.jsonl"
+    path.write_text(
+        '{"phase":"pre","tool":"write_file","params":{"path":"notes.md"}}\n'
+        '{"phase":"pre","tool":"write_file","params":{"path":"../outside.txt"}}\n',
+        encoding="utf-8",
+    )
+    policy = tmp_path / "agent-contracts.yml"
+    policy.write_text(render_policy(str(tmp_path / "project")), encoding="utf-8")
+
+    rows = replay_file(path, load_policy(policy))
+
+    assert rows[0]["blocked"] is False
+    assert rows[1]["blocked"] is True
+    assert rows[1]["line"] == 2
+
+
+def test_cli_replay_reports_summary_and_blocks(tmp_path, capsys):
+    path = tmp_path / "actions.jsonl"
+    path.write_text(
+        '{"phase":"pre","tool":"write_file","params":{"path":"/etc/passwd"}}\n',
+        encoding="utf-8",
+    )
+
+    exit_code = cli_main(["replay", str(path)])
+    output = capsys.readouterr().out
+
+    assert exit_code == 1
+    assert "replayed 1 records" in output
+    assert "dangerous-path-guard" in output
+
+
+def test_cli_replay_json(tmp_path, capsys):
+    path = tmp_path / "actions.jsonl"
+    path.write_text(
+        '{"phase":"post","response_text":"Done, fixed it."}\n',
+        encoding="utf-8",
+    )
+
+    exit_code = cli_main(["replay", str(path), "--json"])
+    payload = json.loads(capsys.readouterr().out)
+
+    assert exit_code == 0
+    assert payload["blocked_count"] == 0
+    assert payload["violation_count"] == 1
+    assert payload["rows"][0]["violations"][0]["contract"] == "unverified-completion-guard"

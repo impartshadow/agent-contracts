@@ -43,6 +43,7 @@ from .policy import (
     write_policy,
 )
 from .matrix import MatrixScenario, contract_matrix, run_contract_matrix
+from .replay import context_from_record, load_jsonl, replay_file, replay_records
 from .scaffold import (
     DEFAULT_SCAFFOLD_DIR,
     DEFAULT_WORKFLOW_PATH,
@@ -80,6 +81,10 @@ __all__ = [
     "MatrixScenario",
     "contract_matrix",
     "run_contract_matrix",
+    "context_from_record",
+    "load_jsonl",
+    "replay_file",
+    "replay_records",
     "DEFAULT_SCAFFOLD_DIR",
     "DEFAULT_WORKFLOW_PATH",
     "render_github_actions",

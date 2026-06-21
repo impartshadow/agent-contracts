@@ -123,6 +123,10 @@ tighten them for your own system.
 > [CONTRACT_MATRIX.md](CONTRACT_MATRIX.md) documents `agent-contracts matrix`,
 > the CI-friendly scenario matrix.
 >
+> **Want to audit existing agent logs before live wiring?**
+> `agent-contracts replay actions.jsonl` runs JSONL action records through the
+> same pre/post gates and exits nonzero if any blocking contract fires.
+>
 > **Want pull requests to prove the boundary still works?**
 > [CI_INTEGRATION.md](CI_INTEGRATION.md) gives a copy-paste GitHub Actions workflow.
 >
@@ -230,6 +234,7 @@ agent-contracts init --workspace "$(pwd)"
 agent-contracts bootstrap --workspace "$(pwd)"
 agent-contracts check-pre --policy agent-contracts.yml --tool send_email --params-json '{}'
 agent-contracts matrix
+agent-contracts replay actions.jsonl
 python3 examples/demo.py
 python3 examples/tool_router.py
 python3 examples/workspace_guard.py
