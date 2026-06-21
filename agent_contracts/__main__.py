@@ -5,10 +5,12 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from typing import Optional
 
 from . import ActionContext, BlockedAction, ContractedToolRouter, Registry, default_contracts
 from .matrix import run_contract_matrix
 from .policy import DEFAULT_POLICY_FILENAME, load_policy, write_policy
+from .scaffold import write_scaffold
 
 
 def _write_file(path: str, content: str) -> str:
@@ -103,6 +105,17 @@ def _run_matrix(args: argparse.Namespace) -> int:
     return 0 if all(row["passed"] for row in rows) else 1
 
 
+def _run_bootstrap(args: argparse.Namespace) -> int:
+    try:
+        paths = write_scaffold(args.root, workspace_root=args.workspace, force=args.force)
+    except FileExistsError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    for path in paths:
+        print(f"wrote {path}")
+    return 0
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="agent-contracts",
@@ -132,10 +145,18 @@ def _parser() -> argparse.ArgumentParser:
     matrix = subparsers.add_parser("matrix", help="run canonical examples for every built-in contract")
     matrix.add_argument("--json", action="store_true")
 
+    bootstrap = subparsers.add_parser(
+        "bootstrap",
+        help="write policy, adapter, and CI scaffold into a repository",
+    )
+    bootstrap.add_argument("--root", default=".")
+    bootstrap.add_argument("--workspace", default=".")
+    bootstrap.add_argument("--force", action="store_true")
+
     return parser
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(argv: Optional[list[str]] = None) -> int:
     """Run the demo or a contract check."""
 
     argv = list(sys.argv[1:] if argv is None else argv)
@@ -150,6 +171,8 @@ def main(argv: list[str] | None = None) -> int:
         return _run_init(args)
     if args.command == "matrix":
         return _run_matrix(args)
+    if args.command == "bootstrap":
+        return _run_bootstrap(args)
 
     parser.print_help()
     return 0

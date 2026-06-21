@@ -19,6 +19,8 @@
   identity gates.
 - `THREAT_MODEL.md`, `SECURITY.md`, `CONTRIBUTING.md`, issue templates,
   `AUDIT_CHECKLIST.md`, `COMPARISON.md`, and `FAILURE_MODES.md`.
+- `agent-contracts bootstrap` to scaffold a full repository adoption path:
+  policy file, GitHub Actions workflow, importable adapter, and local README.
 
 ### Changed
 
@@ -29,6 +31,5 @@
 
 ### Verified
 
-- Current local suite: `PYTHONPATH=. pytest -q` -> `31 passed`.
+- Current local suite: `PYTHONPATH=. pytest -q` -> `48 passed`.
 - Current compile check: `python3 -m compileall -q agent_contracts`.
-

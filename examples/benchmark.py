@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import time
+from typing import Optional
 
 from agent_contracts import ActionContext, Registry, default_contracts
 
@@ -18,7 +19,7 @@ def _parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(argv: Optional[list[str]] = None) -> int:
     args = _parser().parse_args(argv)
     if args.iterations <= 0:
         raise SystemExit("--iterations must be positive")

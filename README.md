@@ -205,6 +205,19 @@ pip install -e .
 New here? **[QUICKSTART.md](QUICKSTART.md)** gets you from install to a blocked
 action in under a minute.
 
+To scaffold a real repository boundary in one command:
+
+```bash
+agent-contracts bootstrap --workspace "$(pwd)"
+```
+
+That writes:
+
+- `agent-contracts.yml` — editable local policy
+- `.github/workflows/agent-contracts.yml` — CI proof that the matrix and one workspace escape check fire
+- `agent_contracts_scaffold/adapter.py` — importable `gate_tool_call` / `gate_response` helpers
+- `agent_contracts_scaffold/README.md` — the exact wiring point and adoption bar
+
 Run the tests and the demo:
 
 ```bash
@@ -214,6 +227,7 @@ python3 -m agent_contracts
 agent-contracts-demo
 agent-contracts check-pre --tool write_file --params-json '{"path": "/etc/passwd"}'
 agent-contracts init --workspace "$(pwd)"
+agent-contracts bootstrap --workspace "$(pwd)"
 agent-contracts check-pre --policy agent-contracts.yml --tool send_email --params-json '{}'
 agent-contracts matrix
 python3 examples/demo.py

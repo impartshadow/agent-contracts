@@ -91,6 +91,16 @@ from agent_contracts import load_policy
 registry = load_policy("agent-contracts.yml")
 ```
 
+For a full repo scaffold instead of one policy file:
+
+```bash
+agent-contracts bootstrap --workspace "$(pwd)"
+```
+
+This writes the policy, a GitHub Actions workflow, and an importable adapter at
+`agent_contracts_scaffold/adapter.py`. Wire `gate_tool_call()` into the shared
+tool dispatcher before any side effect runs.
+
 ## 5. Wire it into your agent loop
 
 Two lines around every tool call:

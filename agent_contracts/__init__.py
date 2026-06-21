@@ -43,6 +43,14 @@ from .policy import (
     write_policy,
 )
 from .matrix import MatrixScenario, contract_matrix, run_contract_matrix
+from .scaffold import (
+    DEFAULT_SCAFFOLD_DIR,
+    DEFAULT_WORKFLOW_PATH,
+    render_github_actions,
+    render_python_adapter,
+    render_scaffold_readme,
+    write_scaffold,
+)
 
 __version__ = "0.1.0"
 
@@ -72,4 +80,10 @@ __all__ = [
     "MatrixScenario",
     "contract_matrix",
     "run_contract_matrix",
+    "DEFAULT_SCAFFOLD_DIR",
+    "DEFAULT_WORKFLOW_PATH",
+    "render_github_actions",
+    "render_python_adapter",
+    "render_scaffold_readme",
+    "write_scaffold",
 ]

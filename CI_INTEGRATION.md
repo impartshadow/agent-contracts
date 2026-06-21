@@ -5,6 +5,17 @@ policy check in CI so the repository proves the boundary on every pull request.
 
 ## GitHub Actions
 
+Fast path:
+
+```bash
+agent-contracts bootstrap --workspace "$(pwd)"
+```
+
+That writes `.github/workflows/agent-contracts.yml`, `agent-contracts.yml`, and
+an importable adapter under `agent_contracts_scaffold/`.
+
+Manual path:
+
 Copy [`examples/github_actions_contracts.yml`](examples/github_actions_contracts.yml)
 to `.github/workflows/agent-contracts.yml` in the repo that owns your agent.
 

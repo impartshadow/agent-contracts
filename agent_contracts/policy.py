@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional, Union
 
 from .contracts import (
     DangerousPathGuard,
@@ -76,7 +76,7 @@ secrets:
 """
 
 
-def write_policy(path: str | Path, workspace_root: str = ".", force: bool = False) -> Path:
+def write_policy(path: Union[str, Path], workspace_root: str = ".", force: bool = False) -> Path:
     """Write a starter policy file and return its path."""
 
     target = Path(path)
@@ -105,8 +105,8 @@ def parse_policy(text: str) -> dict[str, dict[str, Any]]:
     """
 
     policy: dict[str, dict[str, Any]] = {}
-    section: str | None = None
-    key: str | None = None
+    section: Optional[str] = None
+    key: Optional[str] = None
 
     for raw_line in text.splitlines():
         line = raw_line.rstrip()
@@ -175,7 +175,7 @@ def registry_from_policy(policy: dict[str, dict[str, Any]]) -> Registry:
     return Registry(contracts)
 
 
-def load_policy(path: str | Path) -> Registry:
+def load_policy(path: Union[str, Path]) -> Registry:
     """Load a starter policy file into a configured registry."""
 
     return registry_from_policy(parse_policy(Path(path).read_text(encoding="utf-8")))

@@ -8,6 +8,7 @@ from agent_contracts import (
     load_policy,
     parse_policy,
     render_policy,
+    write_scaffold,
     run_contract_matrix,
 )
 from agent_contracts.contracts import (
@@ -442,3 +443,52 @@ def test_cli_matrix_json(capsys):
     assert exit_code == 0
     assert payload["passed"] is True
     assert any(row["expected_contract"] == "shell-command-guard" for row in payload["rows"])
+
+
+def test_write_scaffold_creates_policy_adapter_workflow_and_readme(tmp_path):
+    written = write_scaffold(tmp_path, workspace_root="/srv/agent")
+    relative = {path.relative_to(tmp_path).as_posix() for path in written}
+
+    assert relative == {
+        "agent-contracts.yml",
+        ".github/workflows/agent-contracts.yml",
+        "agent_contracts_scaffold/__init__.py",
+        "agent_contracts_scaffold/adapter.py",
+        "agent_contracts_scaffold/README.md",
+    }
+    assert "root: /srv/agent" in (tmp_path / "agent-contracts.yml").read_text(encoding="utf-8")
+    assert "gate_tool_call" in (tmp_path / "agent_contracts_scaffold/adapter.py").read_text(
+        encoding="utf-8"
+    )
+    assert "agent-contracts matrix" in (
+        tmp_path / ".github/workflows/agent-contracts.yml"
+    ).read_text(encoding="utf-8")
+
+
+def test_write_scaffold_refuses_overwrite_without_force(tmp_path):
+    (tmp_path / "agent-contracts.yml").write_text("keep", encoding="utf-8")
+
+    with pytest.raises(FileExistsError):
+        write_scaffold(tmp_path)
+
+    assert (tmp_path / "agent-contracts.yml").read_text(encoding="utf-8") == "keep"
+
+
+def test_cli_bootstrap_writes_repository_scaffold(tmp_path, capsys):
+    exit_code = cli_main(["bootstrap", "--root", str(tmp_path), "--workspace", "/workspace"])
+    output = capsys.readouterr().out
+
+    assert exit_code == 0
+    assert "wrote" in output
+    assert (tmp_path / "agent-contracts.yml").exists()
+    assert (tmp_path / "agent_contracts_scaffold/adapter.py").exists()
+    assert (tmp_path / ".github/workflows/agent-contracts.yml").exists()
+
+
+def test_cli_bootstrap_reports_existing_file(tmp_path, capsys):
+    (tmp_path / "agent-contracts.yml").write_text("keep", encoding="utf-8")
+
+    exit_code = cli_main(["bootstrap", "--root", str(tmp_path)])
+
+    assert exit_code == 1
+    assert "already exists" in capsys.readouterr().err
