@@ -66,11 +66,13 @@ cat > actions.jsonl <<'JSONL'
 {"phase":"post","response_text":"Done, fixed it."}
 JSONL
 
-agent-contracts replay actions.jsonl --json
+agent-contracts replay actions.jsonl --json --expect-blocks 1
 ```
 
 `phase` can be `pre` or `post`. If `action` is omitted, replay infers
 `tool_call` for pre records and `respond` for post records.
+Use `--expect-blocks` or `--expect-violations` when the file is an incident
+fixture that should fire.
 
 For pull-request coverage, copy
 [`examples/github_actions_contracts.yml`](examples/github_actions_contracts.yml)
@@ -168,6 +170,7 @@ is paying attention.
 - Wiring this into a real tool dispatcher? Use [INTEGRATION_PATTERNS.md](INTEGRATION_PATTERNS.md).
 - Adding this to CI? Use [CI_INTEGRATION.md](CI_INTEGRATION.md).
 - Measuring the overhead? Use [PERFORMANCE.md](PERFORMANCE.md).
+- Replaying captured action logs? Use [REPLAY.md](REPLAY.md).
 - Using OpenAI tool calls, LangChain, AutoGen, CrewAI, or a raw CLI agent? Use [FRAMEWORK_ADAPTERS.md](FRAMEWORK_ADAPTERS.md).
 - Putting this in front of MCP tools? Use [MCP_ADAPTER.md](MCP_ADAPTER.md).
 - Auditing an existing agent? Start with [AUDIT_CHECKLIST.md](AUDIT_CHECKLIST.md).

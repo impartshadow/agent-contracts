@@ -23,6 +23,8 @@
   policy file, GitHub Actions workflow, importable adapter, and local README.
 - `agent-contracts replay` to run JSONL action logs through the same pre/post
   gates used by live tool dispatch.
+- Replay expectation flags: `--expect-blocks` and `--expect-violations` for
+  CI-friendly incident fixtures.
 
 ### Changed
 

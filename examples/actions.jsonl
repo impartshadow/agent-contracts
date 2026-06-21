@@ -1,0 +1,3 @@
+{"phase":"pre","action":"tool_call","tool":"write_file","params":{"path":"notes.md","content":"safe local write"}}
+{"phase":"pre","action":"tool_call","tool":"write_file","params":{"path":"/etc/passwd","content":"unsafe system write"}}
+{"phase":"post","action":"respond","response_text":"Done, fixed it."}

@@ -26,6 +26,10 @@ The workflow does three things:
 3. Generates a workspace policy and verifies one allowed path plus one blocked
    workspace escape.
 
+If your agent already emits JSONL action records, add `agent-contracts replay`
+as the next CI step. Use `--expect-blocks` for incident fixtures so CI passes
+only when the same bad call still blocks after every policy edit.
+
 ## Minimal inline version
 
 ```yaml
@@ -43,6 +47,8 @@ jobs:
           python-version: "3.12"
       - run: python -m pip install "agent-contracts @ git+https://github.com/impartshadow/agent-contracts.git"
       - run: agent-contracts matrix
+      - run: agent-contracts replay examples/actions.jsonl --expect-blocks 1
+        if: hashFiles('examples/actions.jsonl') != ''
 ```
 
 ## What to add after the smoke test

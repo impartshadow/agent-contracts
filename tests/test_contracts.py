@@ -562,3 +562,51 @@ def test_cli_replay_json(tmp_path, capsys):
     assert payload["blocked_count"] == 0
     assert payload["violation_count"] == 1
     assert payload["rows"][0]["violations"][0]["contract"] == "unverified-completion-guard"
+
+
+def test_cli_replay_expect_blocks_passes_for_incident_fixture(tmp_path, capsys):
+    path = tmp_path / "actions.jsonl"
+    path.write_text(
+        '{"phase":"pre","tool":"write_file","params":{"path":"/etc/passwd"}}\n',
+        encoding="utf-8",
+    )
+
+    exit_code = cli_main(["replay", str(path), "--expect-blocks", "1"])
+
+    assert exit_code == 0
+    assert "1 blocked" in capsys.readouterr().out
+
+
+def test_cli_replay_expect_blocks_fails_on_mismatch(tmp_path):
+    path = tmp_path / "actions.jsonl"
+    path.write_text(
+        '{"phase":"pre","tool":"write_file","params":{"path":"/etc/passwd"}}\n',
+        encoding="utf-8",
+    )
+
+    assert cli_main(["replay", str(path), "--expect-blocks", "0"]) == 1
+
+
+def test_cli_replay_expect_violations_passes_with_warnings(tmp_path):
+    path = tmp_path / "actions.jsonl"
+    path.write_text(
+        '{"phase":"post","response_text":"Done, fixed it."}\n',
+        encoding="utf-8",
+    )
+
+    assert cli_main(["replay", str(path), "--expect-violations", "1"]) == 0
+
+
+def test_cli_replay_json_passed_reflects_expectations(tmp_path, capsys):
+    path = tmp_path / "actions.jsonl"
+    path.write_text(
+        '{"phase":"pre","tool":"write_file","params":{"path":"/etc/passwd"}}\n',
+        encoding="utf-8",
+    )
+
+    exit_code = cli_main(["replay", str(path), "--expect-blocks", "1", "--json"])
+    payload = json.loads(capsys.readouterr().out)
+
+    assert exit_code == 0
+    assert payload["passed"] is True
+    assert payload["expectations"]["blocks"] == 1
