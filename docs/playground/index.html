@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>agent-contracts · live playground</title>
+<meta name="description" content="Run the real agent-contracts guardrails in your browser. Paste an agent action, watch a deterministic contract block it. No install." />
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --line:#30363d; --fg:#e6edf3; --muted:#8b949e;
+    --accent:#58a6ff; --block:#f85149; --warn:#d29922; --pass:#3fb950;
+    --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    line-height:1.5;}
+  header{padding:28px 20px 8px;max-width:980px;margin:0 auto;}
+  h1{margin:0;font-size:24px;letter-spacing:-.01em}
+  h1 .mono{font-family:var(--mono);color:var(--accent)}
+  .sub{color:var(--muted);margin:6px 0 0;font-size:15px}
+  .sub a{color:var(--accent);text-decoration:none}
+  main{max-width:980px;margin:0 auto;padding:16px 20px 60px;
+    display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:760px){main{grid-template-columns:1fr}}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+  .panel h2{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .scenarios{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .scenarios button{background:#21262d;color:var(--fg);border:1px solid var(--line);
+    border-radius:20px;padding:6px 12px;font-size:13px;cursor:pointer}
+  .scenarios button:hover{border-color:var(--accent);color:var(--accent)}
+  textarea{width:100%;min-height:230px;background:#0d1117;color:var(--fg);
+    border:1px solid var(--line);border-radius:8px;padding:12px;
+    font-family:var(--mono);font-size:13px;resize:vertical}
+  .run{margin-top:12px;display:flex;align-items:center;gap:12px}
+  .run button{background:var(--accent);color:#0d1117;border:0;border-radius:8px;
+    padding:10px 18px;font-weight:600;font-size:14px;cursor:pointer}
+  .run button:disabled{opacity:.5;cursor:wait}
+  #status{color:var(--muted);font-size:13px}
+  #out{min-height:230px}
+  .verdict{font-family:var(--mono);font-weight:700;font-size:15px;padding:10px 12px;
+    border-radius:8px;margin-bottom:12px;border:1px solid}
+  .verdict.block{color:var(--block);border-color:var(--block);background:rgba(248,81,73,.08)}
+  .verdict.warn{color:var(--warn);border-color:var(--warn);background:rgba(210,153,34,.08)}
+  .verdict.pass{color:var(--pass);border-color:var(--pass);background:rgba(63,185,80,.08)}
+  .viol{border:1px solid var(--line);border-left:3px solid var(--block);border-radius:6px;
+    padding:10px 12px;margin-bottom:10px;font-size:13px}
+  .viol.warn{border-left-color:var(--warn)}
+  .viol .name{font-family:var(--mono);color:var(--accent);font-weight:600}
+  .viol .sev{float:right;font-family:var(--mono);font-size:11px;text-transform:uppercase;color:var(--muted)}
+  .viol .msg{margin:6px 0 0}
+  .viol .rec{margin:6px 0 0;color:var(--muted)}
+  .viol .rec::before{content:"↳ ";color:var(--pass)}
+  footer{max-width:980px;margin:0 auto;padding:0 20px 50px;color:var(--muted);font-size:13px}
+  footer a{color:var(--accent);text-decoration:none}
+  code{font-family:var(--mono);background:#21262d;padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="mono">agent-contracts</span> · live playground</h1>
+  <p class="sub">The <em>actual</em> guardrail engine, running in your browser via Pyodide — no install, no server, no LLM in the loop. Pick a scenario, edit the action, watch a deterministic contract pass or block it. &nbsp;<a href="https://github.com/impartshadow/agent-contracts">repo →</a></p>
+</header>
+
+<main>
+  <section class="panel">
+    <h2>Agent action (ActionContext as JSON)</h2>
+    <div class="scenarios" id="scenarios"></div>
+    <textarea id="input" spellcheck="false"></textarea>
+    <div class="run">
+      <button id="runbtn" disabled>Run contracts</button>
+      <span id="status">booting Python…</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Result</h2>
+    <div id="out"><p class="sub">Run a scenario to see the pre/post gate verdict.</p></div>
+  </section>
+</main>
+
+<footer>
+  Loads the real source from <code>impartshadow/agent-contracts@main</code> at runtime — view source to confirm there's no reimplementation. Default pack: <code>LoopGuard, DangerousPathGuard, ShellCommandGuard, SecretLeakGuard, UnverifiedCompletionGuard</code>. &nbsp;<a href="https://github.com/impartshadow/agent-contracts">★ Star the repo</a> · <a href="https://echofromshadow.substack.com">the agent that built this →</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
+<script>
+const RAW = "https://raw.githubusercontent.com/impartshadow/agent-contracts/main/agent_contracts/";
+const MODULES = ["core.py","contracts.py","router.py","policy.py","matrix.py","replay.py","sarif.py","scaffold.py","__init__.py"];
+
+const SCENARIOS = {
+  "Write to /etc/passwd": {
+    phase:"pre",
+    ctx:{action:"tool_call", tool:"write_file",
+         params:{path:"/etc/passwd", content:"x"}}
+  },
+  "Leak an AWS key": {
+    phase:"post",
+    ctx:{action:"respond",
+         response_text:"Here is the key: AKIAIOSFODNN7EXAMPLE and we're done."}
+  },
+  "rm -rf /": {
+    phase:"pre",
+    ctx:{action:"tool_call", tool:"run_shell",
+         params:{command:"rm -rf / --no-preserve-root"}}
+  },
+  "Unverified 'done'": {
+    phase:"post",
+    ctx:{action:"respond",
+         response_text:"Done — I shipped the fix and everything is complete.",
+         tool_calls:[]}
+  },
+  "Edit loop (same file 4x)": {
+    phase:"pre",
+    ctx:{action:"tool_call", tool:"edit_file",
+         params:{path:"app.py"},
+         edits_by_path:{"app.py":4}}
+  },
+  "Clean tool call": {
+    phase:"pre",
+    ctx:{action:"tool_call", tool:"read_file",
+         params:{path:"./README.md"}}
+  }
+};
+
+let pyodide = null;
+const $ = id => document.getElementById(id);
+
+function renderScenarioButtons(){
+  const box = $("scenarios");
+  Object.keys(SCENARIOS).forEach((name, i) => {
+    const b = document.createElement("button");
+    b.textContent = name;
+    b.onclick = () => loadScenario(name);
+    box.appendChild(b);
+    if(i===0) b._first = true;
+  });
+}
+function loadScenario(name){
+  const s = SCENARIOS[name];
+  $("input").value = JSON.stringify({phase:s.phase, ...s.ctx}, null, 2);
+}
+
+async function boot(){
+  renderScenarioButtons();
+  loadScenario(Object.keys(SCENARIOS)[0]);
+  pyodide = await loadPyodide();
+  $("status").textContent = "fetching real contract source…";
+  await pyodide.runPythonAsync(`import os; os.makedirs("agent_contracts", exist_ok=True); open("agent_contracts/py.typed","w").close()`);
+  for(const m of MODULES){
+    const src = await (await fetch(RAW + m)).text();
+    pyodide.FS.writeFile("agent_contracts/" + m, src);
+  }
+  await pyodide.runPythonAsync(`
+import json, sys
+sys.path.insert(0, ".")
+import agent_contracts as ac
+
+def _run(payload):
+    d = json.loads(payload)
+    phase = d.pop("phase", "pre")
+    reg = ac.Registry(ac.default_contracts())
+    ctx = ac.ActionContext(**d)
+    res = reg.check_pre(ctx) if phase == "pre" else reg.check_post(ctx)
+    return json.dumps(res.to_dict())
+`);
+  $("status").textContent = "ready · agent_contracts " +
+    pyodide.runPython("ac.__version__");
+  $("runbtn").disabled = false;
+  $("runbtn").onclick = run;
+}
+
+function run(){
+  let payload = $("input").value;
+  try { JSON.parse(payload); }
+  catch(e){ renderError("Invalid JSON: " + e.message); return; }
+  let out;
+  try {
+    out = pyodide.runPython("_run(" + JSON.stringify(payload) + ")");
+  } catch(e){ renderError(String(e)); return; }
+  render(JSON.parse(out));
+}
+
+function renderError(msg){
+  $("out").innerHTML = '<div class="verdict block">ERROR</div><p>'+escapeHtml(msg)+'</p>';
+}
+function escapeHtml(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+
+function render(r){
+  let html = "";
+  if(r.blocked){
+    html += '<div class="verdict block">⛔ BLOCKED — action stopped before it ran</div>';
+  } else if(r.violations.length){
+    html += '<div class="verdict warn">⚠ WARN — action allowed, flagged for review</div>';
+  } else {
+    html += '<div class="verdict pass">✅ PASS — no contract fired</div>';
+  }
+  for(const v of r.violations){
+    const w = v.severity === "warn";
+    html += '<div class="viol'+(w?' warn':'')+'">'+
+      '<span class="sev">'+v.severity+'</span>'+
+      '<span class="name">'+escapeHtml(v.contract)+'</span>'+
+      '<div class="msg">'+escapeHtml(v.message)+'</div>'+
+      (v.recovery ? '<div class="rec">'+escapeHtml(v.recovery)+'</div>' : '')+
+      '</div>';
+  }
+  $("out").innerHTML = html;
+}
+
+boot().catch(e => { $("status").textContent = "boot failed: " + e; });
+</script>
+</body>
+</html>

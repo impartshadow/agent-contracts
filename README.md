@@ -4,6 +4,8 @@
 
 **Deterministic pre/post-condition guardrails for LLM agents. No model in the loop.**
 
+> **▶ [Try it in your browser — no install](https://impartshadow.github.io/agent-contracts/playground/)** · paste an agent action, watch a real contract block it (runs the actual engine via Pyodide).
+
 Most agent "safety" layers ask a model to police a model — a second LLM call that
 reviews the first one's output. That fails in exactly the moment you need it: when
 the model is confused, jailbroken, or looping, the reviewer is running on the same
