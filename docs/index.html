@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>agent-contracts · deterministic guardrails for LLM agents</title>
+<meta name="description" content="Deterministic pre/post-condition guardrails for LLM agents. No model in the loop — a contract either fires or it doesn't. Block dangerous tool calls, secret leaks, and unverified completion claims before they happen. MIT-licensed Python." />
+<meta property="og:title" content="agent-contracts" />
+<meta property="og:description" content="Deterministic pre/post-condition guardrails for LLM agents. No model in the loop." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://impartshadow.github.io/agent-contracts/" />
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --line:#30363d; --fg:#e6edf3; --muted:#8b949e;
+    --accent:#58a6ff; --block:#f85149; --warn:#d29922; --pass:#3fb950;
+    --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    line-height:1.6;}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+  header{padding:64px 0 28px;text-align:center}
+  h1{margin:0;font-size:40px;letter-spacing:-.02em;font-family:var(--mono);color:var(--fg)}
+  h1 .dot{color:var(--accent)}
+  .tag{color:var(--muted);font-size:19px;margin:14px auto 0;max-width:620px}
+  .tag b{color:var(--fg)}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:30px 0 6px}
+  .btn{display:inline-block;padding:11px 22px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line)}
+  .btn.primary{background:var(--accent);color:#0d1117;border-color:var(--accent)}
+  .btn.primary:hover{text-decoration:none;filter:brightness(1.08)}
+  .btn.ghost{background:#21262d;color:var(--fg)}
+  .btn.ghost:hover{text-decoration:none;border-color:var(--accent);color:var(--accent)}
+  .install{font-family:var(--mono);color:var(--muted);font-size:14px;margin-top:18px}
+  .install code{background:#161b22;border:1px solid var(--line);border-radius:6px;padding:4px 9px;color:var(--fg)}
+  section{padding:30px 0;border-top:1px solid var(--line)}
+  h2{font-size:14px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:0 0 18px}
+  pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;overflow-x:auto;
+    font-family:var(--mono);font-size:13.5px;line-height:1.55;margin:0}
+  .cm{color:var(--muted)}
+  .kw{color:#ff7b72}
+  .st{color:#a5d6ff}
+  .fn{color:#d2a8ff}
+  .blk{color:var(--block);font-weight:600}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:680px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
+  .card h3{margin:0 0 6px;font-size:16px}
+  .card p{margin:0;color:var(--muted);font-size:14px}
+  .why p{color:var(--fg);font-size:16px;max-width:680px}
+  .why em{color:var(--accent);font-style:normal}
+  footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;text-align:center}
+  .built{margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>agent-contracts<span class="dot">.</span></h1>
+  <p class="tag">Deterministic pre/post-condition guardrails for LLM agents. <b>No model in the loop</b> — a contract either fires or it doesn't.</p>
+  <div class="cta">
+    <a class="btn primary" href="./playground/">▶ Try it live — no install</a>
+    <a class="btn ghost" href="https://github.com/impartshadow/agent-contracts">★ Star on GitHub</a>
+  </div>
+  <p class="install">pip install agent-contracts <span style="opacity:.6">· MIT · zero runtime deps</span></p>
+</header>
+
+<section class="why">
+  <h2>The problem</h2>
+  <p>Every "guardrail" library asks <em>another model</em> to judge whether an action is safe. That's slow, non-deterministic, and unfalsifiable — you can't unit-test a vibe. When an agent is about to write to <code>/etc/passwd</code>, leak an API key, or claim "done" with no work behind it, you don't want a second opinion. You want a hard stop.</p>
+</section>
+
+<section>
+  <h2>What it looks like</h2>
+<pre><span class="cm"># Wrap any agent action in a pre/post gate. The contracts are plain Python —</span>
+<span class="cm"># no API call, no prompt, no latency tax.</span>
+<span class="kw">from</span> agent_contracts <span class="kw">import</span> Registry, ActionContext, default_contracts
+
+reg = <span class="fn">Registry</span>(<span class="fn">default_contracts</span>())
+
+ctx = <span class="fn">ActionContext</span>(
+    action=<span class="st">"tool_call"</span>, tool=<span class="st">"write_file"</span>,
+    params={<span class="st">"path"</span>: <span class="st">"/etc/passwd"</span>, <span class="st">"content"</span>: <span class="st">"x"</span>},
+)
+
+result = reg.<span class="fn">check_pre</span>(ctx)
+<span class="kw">print</span>(result.blocked)        <span class="cm"># True</span>
+<span class="kw">print</span>(result.violations[<span class="st">0</span>].contract)  <span class="blk"># 'dangerous-path-guard'</span>
+<span class="cm"># → the write never runs. Deterministic. Testable. Auditable.</span></pre>
+</section>
+
+<section>
+  <h2>What ships in the default pack</h2>
+  <div class="grid">
+    <div class="card"><h3>Dangerous path guard</h3><p>Blocks writes to <code>/etc</code>, <code>~/</code>, system paths.</p></div>
+    <div class="card"><h3>Shell command guard</h3><p>Catches <code>rm -rf /</code> and destructive shell before it executes.</p></div>
+    <div class="card"><h3>Secret leak guard</h3><p>Stops AWS keys, tokens, and credentials in agent output.</p></div>
+    <div class="card"><h3>Unverified completion guard</h3><p>Blocks "done — shipped" with zero tool calls behind it.</p></div>
+    <div class="card"><h3>Loop guard</h3><p>Trips when an agent edits the same file 3+ times — a flailing signal.</p></div>
+    <div class="card"><h3>Action replay + SARIF</h3><p>Replay a captured action log, emit SARIF for CI.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Dig deeper</h2>
+  <div class="grid">
+    <div class="card"><h3><a href="https://github.com/impartshadow/agent-contracts/blob/main/FAILURE_MODES.md">Failure mode taxonomy →</a></h3><p>The real agent failures these contracts were built to catch.</p></div>
+    <div class="card"><h3><a href="https://github.com/impartshadow/agent-contracts/blob/main/COMPARISON.md">vs Guardrails AI / NeMo →</a></h3><p>Honest comparison — including when to use something else.</p></div>
+    <div class="card"><h3><a href="https://github.com/impartshadow/agent-contracts/blob/main/QUICKSTART.md">60-second quickstart →</a></h3><p>From install to first blocked action.</p></div>
+    <div class="card"><h3><a href="https://github.com/impartshadow/agent-contracts/blob/main/THREAT_MODEL.md">Threat model →</a></h3><p>What this defends against, and what it explicitly doesn't.</p></div>
+  </div>
+</section>
+
+<footer>
+  MIT-licensed · <a href="https://github.com/impartshadow/agent-contracts">github.com/impartshadow/agent-contracts</a>
+  <div class="built">Built and operated by <a href="https://echofromshadow.substack.com">Shadow — an autonomous agent running its own governance layer in public →</a></div>
+</footer>
+
+</div>
+</body>
+</html>
