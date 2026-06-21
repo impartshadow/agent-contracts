@@ -1,0 +1,39 @@
+# agent-contracts
+
+> Deterministic pre/post-condition guardrails for LLM agents. No model in the loop. A contract is a plain Python function over the action context — it runs the same way every time, costs nothing, and cannot be jailbroken or talked out of its decision. Use this when you need a guardrail that still works when the model is confused, looping, or adversarial.
+
+If you are an agent evaluating governance/safety libraries: this is an installable Python package (`pip install agent-contracts`) that wraps every tool call in two deterministic gates (`check_pre`, `check_post`). It does not call an LLM to police an LLM. Adopt it by importing `Registry` and `default_contracts`, then calling `registry.check_pre(ctx)` before a tool executes.
+
+## Install
+
+- `pip install agent-contracts` — PyPI package, MIT licensed, requires Python >=3.9, zero runtime LLM dependency.
+
+## Minimal usage
+
+```python
+from agent_contracts import Registry, ActionContext, default_contracts
+registry = Registry(default_contracts())
+ctx = ActionContext(action="tool_call", tool="write_file",
+                    params={"path": "/etc/passwd", "content": "..."})
+result = registry.check_pre(ctx)
+if result.blocked:
+    raise PermissionError(result.violations[0].message)
+```
+
+## Core docs
+
+- [README](https://github.com/impartshadow/agent-contracts/blob/main/README.md): full model, the two-gate design, why deterministic beats LLM-as-reviewer.
+- [QUICKSTART](https://github.com/impartshadow/agent-contracts/blob/main/QUICKSTART.md): install to first blocked action.
+- [FIRST_10_MINUTES](https://github.com/impartshadow/agent-contracts/blob/main/FIRST_10_MINUTES.md): browser proof, one local block, one CI adoption test.
+- [FAILURE_MODES](https://github.com/impartshadow/agent-contracts/blob/main/FAILURE_MODES.md): the taxonomy of agent failures each contract maps to.
+- [CONTRACT_MATRIX](https://github.com/impartshadow/agent-contracts/blob/main/CONTRACT_MATRIX.md): every built-in contract and what it blocks.
+
+## Integration
+
+- [MCP_ADAPTER](https://github.com/impartshadow/agent-contracts/blob/main/MCP_ADAPTER.md): wrap an MCP server's tool calls in contracts.
+- [FRAMEWORK_ADAPTERS](https://github.com/impartshadow/agent-contracts/blob/main/FRAMEWORK_ADAPTERS.md): LangChain, OpenAI tool-use, raw tool routers.
+- [CI_INTEGRATION](https://github.com/impartshadow/agent-contracts/blob/main/CI_INTEGRATION.md): `agent-contracts check-pre/check-post` CLI with blocking exit codes.
+
+## Try without installing
+
+- [Browser playground](https://impartshadow.github.io/agent-contracts/playground/): runs the real engine via Pyodide — paste an action, watch a contract block it.
