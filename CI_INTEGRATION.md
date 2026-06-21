@@ -49,6 +49,8 @@ jobs:
       - run: agent-contracts matrix
       - run: agent-contracts replay examples/actions.jsonl --expect-blocks 1
         if: hashFiles('examples/actions.jsonl') != ''
+      - run: agent-contracts replay examples/actions.jsonl --sarif --expect-blocks 1 > agent-contracts.sarif
+        if: hashFiles('examples/actions.jsonl') != ''
 ```
 
 ## What to add after the smoke test

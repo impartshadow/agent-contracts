@@ -25,6 +25,7 @@
   gates used by live tool dispatch.
 - Replay expectation flags: `--expect-blocks` and `--expect-violations` for
   CI-friendly incident fixtures.
+- Replay SARIF output via `agent-contracts replay --sarif`.
 
 ### Changed
 

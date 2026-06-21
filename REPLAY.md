@@ -48,6 +48,12 @@ Emit machine-readable output:
 agent-contracts replay actions.jsonl --json
 ```
 
+Emit SARIF for GitHub code scanning or security dashboards:
+
+```bash
+agent-contracts replay actions.jsonl --sarif > agent-contracts.sarif
+```
+
 Assert an incident fixture still blocks:
 
 ```bash

@@ -10,6 +10,7 @@ from agent_contracts import (
     render_policy,
     replay_file,
     replay_records,
+    replay_rows_to_sarif,
     write_scaffold,
     run_contract_matrix,
 )
@@ -610,3 +611,40 @@ def test_cli_replay_json_passed_reflects_expectations(tmp_path, capsys):
     assert exit_code == 0
     assert payload["passed"] is True
     assert payload["expectations"]["blocks"] == 1
+
+
+def test_replay_rows_to_sarif_maps_violations_to_results():
+    rows = replay_records(
+        [
+            {
+                "phase": "pre",
+                "action": "tool_call",
+                "tool": "write_file",
+                "params": {"path": "/etc/passwd"},
+            }
+        ],
+        Registry(default_contracts()),
+    )
+
+    sarif = replay_rows_to_sarif(rows, "actions.jsonl")
+    result = sarif["runs"][0]["results"][0]
+
+    assert sarif["version"] == "2.1.0"
+    assert result["ruleId"] == "dangerous-path-guard"
+    assert result["level"] == "error"
+    assert result["locations"][0]["physicalLocation"]["region"]["startLine"] == 1
+
+
+def test_cli_replay_sarif(tmp_path, capsys):
+    path = tmp_path / "actions.jsonl"
+    path.write_text(
+        '{"phase":"post","response_text":"Done, fixed it."}\n',
+        encoding="utf-8",
+    )
+
+    exit_code = cli_main(["replay", str(path), "--sarif"])
+    payload = json.loads(capsys.readouterr().out)
+
+    assert exit_code == 0
+    assert payload["runs"][0]["results"][0]["ruleId"] == "unverified-completion-guard"
+    assert payload["runs"][0]["results"][0]["level"] == "warning"
