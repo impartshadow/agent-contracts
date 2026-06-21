@@ -2,17 +2,23 @@
 
 ## Unreleased
 
+## 0.1.2 - 2026-06-21
+
+Release notes: [docs/releases/v0.1.2.md](docs/releases/v0.1.2.md)
+
 ### Added
 
 - `agent-contracts score` for reproducible 0-100 agent reliability scoring and
   README badge output.
+- `agent-contracts score --output-json`, `--output-markdown`, and
+  `--output-badge-json` for durable public scorecard artifacts.
 - Seed `LEADERBOARD.md` for the Shadow Agent Reliability Index.
 - Dogfood policy, scaffold adapter, pre-commit hooks, and GitHub Actions
   workflow for scoring this repository itself.
 
 ### Verified
 
-- Current local suite: `python3 -m pytest -q` -> `70 passed`.
+- Current local suite: `PYTHONPATH=. pytest -q` -> `72 passed`.
 - Current score: `agent-contracts score --root . --eval examples/eval_corpus.jsonl --replay examples/actions.jsonl` -> `95/100`.
 
 ## 0.1.1 - 2026-06-20

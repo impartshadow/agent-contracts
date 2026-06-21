@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agent-contracts"
-version = "0.1.1"
+version = "0.1.2"
 description = "Deterministic pre/post-condition guardrails for LLM agents — no model in the loop."
 readme = "README.md"
 requires-python = ">=3.9"
