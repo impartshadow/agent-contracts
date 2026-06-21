@@ -44,6 +44,7 @@ from .policy import (
 )
 from .matrix import MatrixScenario, contract_matrix, run_contract_matrix
 from .replay import context_from_record, load_jsonl, replay_file, replay_records
+from .eval import evaluate_records
 from .sarif import replay_rows_to_sarif
 from .scaffold import (
     DEFAULT_SCAFFOLD_DIR,
@@ -86,6 +87,7 @@ __all__ = [
     "load_jsonl",
     "replay_file",
     "replay_records",
+    "evaluate_records",
     "replay_rows_to_sarif",
     "DEFAULT_SCAFFOLD_DIR",
     "DEFAULT_WORKFLOW_PATH",

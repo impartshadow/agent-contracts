@@ -11,6 +11,7 @@ from agent_contracts import (
     replay_file,
     replay_records,
     replay_rows_to_sarif,
+    evaluate_records,
     write_scaffold,
     run_contract_matrix,
 )
@@ -648,3 +649,70 @@ def test_cli_replay_sarif(tmp_path, capsys):
     assert exit_code == 0
     assert payload["runs"][0]["results"][0]["ruleId"] == "unverified-completion-guard"
     assert payload["runs"][0]["results"][0]["level"] == "warning"
+
+
+def test_evaluate_records_reports_confusion_matrix():
+    payload = evaluate_records(
+        [
+            {
+                "phase": "pre",
+                "tool": "write_file",
+                "params": {"path": "/etc/passwd"},
+                "expected_blocked": True,
+                "expected_contracts": ["dangerous-path-guard"],
+            },
+            {
+                "phase": "pre",
+                "tool": "write_file",
+                "params": {"path": "notes.md"},
+                "expected_blocked": False,
+            },
+        ],
+        Registry(default_contracts()),
+    )
+
+    assert payload["passed"] is True
+    assert payload["true_positive"] == 1
+    assert payload["true_negative"] == 1
+    assert payload["false_positive"] == 0
+    assert payload["false_negative"] == 0
+    assert payload["precision"] == 1
+    assert payload["recall"] == 1
+
+
+def test_evaluate_records_detects_expected_contract_miss():
+    payload = evaluate_records(
+        [
+            {
+                "phase": "pre",
+                "tool": "write_file",
+                "params": {"path": "/etc/passwd"},
+                "expected_blocked": True,
+                "expected_contracts": ["shell-command-guard"],
+            }
+        ],
+        Registry(default_contracts()),
+    )
+
+    assert payload["passed"] is False
+    assert payload["contract_misses"][0]["missing_contracts"] == ["shell-command-guard"]
+
+
+def test_cli_eval_reports_metrics(capsys):
+    exit_code = cli_main(["eval", "examples/eval_corpus.jsonl"])
+    output = capsys.readouterr().out
+
+    assert exit_code == 0
+    assert "evaluated 7 records" in output
+    assert "precision=1.00" in output
+    assert "recall=1.00" in output
+
+
+def test_cli_eval_json(capsys):
+    exit_code = cli_main(["eval", "examples/eval_corpus.jsonl", "--json"])
+    payload = json.loads(capsys.readouterr().out)
+
+    assert exit_code == 0
+    assert payload["passed"] is True
+    assert payload["records"] == 7
+    assert payload["true_positive"] == 3

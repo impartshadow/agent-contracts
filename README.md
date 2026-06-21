@@ -125,6 +125,10 @@ tighten them for your own system.
 > [CONTRACT_MATRIX.md](CONTRACT_MATRIX.md) documents `agent-contracts matrix`,
 > the CI-friendly scenario matrix.
 >
+> **Want measurable precision/recall on your own incident corpus?**
+> [EVALUATION.md](EVALUATION.md) documents `agent-contracts eval`, a labeled
+> JSONL harness for false positives, false negatives, and expected-contract misses.
+>
 > **Want to audit existing agent logs before live wiring?**
 > [REPLAY.md](REPLAY.md) documents `agent-contracts replay`, a JSONL replay path
 > for checking historical tool calls and responses against a policy.
@@ -236,6 +240,7 @@ agent-contracts init --workspace "$(pwd)"
 agent-contracts bootstrap --workspace "$(pwd)"
 agent-contracts check-pre --policy agent-contracts.yml --tool send_email --params-json '{}'
 agent-contracts matrix
+agent-contracts eval examples/eval_corpus.jsonl
 agent-contracts replay examples/actions.jsonl --expect-blocks 1
 python3 examples/demo.py
 python3 examples/tool_router.py
