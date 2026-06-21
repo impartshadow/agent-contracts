@@ -42,6 +42,17 @@ def _badge_url(score: int) -> str:
     )
 
 
+def badge_endpoint(score: int) -> dict[str, Any]:
+    """Return a Shields endpoint JSON payload."""
+
+    return {
+        "schemaVersion": 1,
+        "label": "agent reliability",
+        "message": f"{score}/100",
+        "color": _badge_color(score),
+    }
+
+
 def _component(name: str, points: int, max_points: int, details: dict[str, Any]) -> dict[str, Any]:
     return {
         "name": name,
@@ -192,7 +203,40 @@ def score_repository(
         "grade": _grade(score),
         "passed": score >= 70,
         "badge_url": _badge_url(score),
+        "badge_endpoint": badge_endpoint(score),
         "badge_markdown": f"![Agent reliability: {score}/100]({_badge_url(score)})",
         "components": components,
         "doctor": doctor,
     }
+
+
+def render_scorecard_markdown(payload: dict[str, Any]) -> str:
+    """Render a commit-ready scorecard for public repos."""
+
+    rows = [
+        f"| {component['name']} | {component['points']} / {component['max_points']} |"
+        for component in payload["components"]
+    ]
+    return "\n".join(
+        [
+            "# Agent Reliability Score",
+            "",
+            f"**Score: {payload['score']}/100 (grade {payload['grade']})**",
+            "",
+            payload["badge_markdown"],
+            "",
+            "| Component | Points |",
+            "|---|---:|",
+            *rows,
+            "",
+            "This score is mechanical, not a testimonial. It weights adoption wiring,",
+            "the built-in contract matrix, labeled eval coverage, and incident replay.",
+            "Missing eval or replay data earns zero for that component.",
+            "",
+            "Reproduce:",
+            "",
+            "```bash",
+            "agent-contracts score --root . --eval examples/eval_corpus.jsonl --replay examples/actions.jsonl --json",
+            "```",
+        ]
+    )

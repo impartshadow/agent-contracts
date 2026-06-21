@@ -15,7 +15,7 @@ from .replay import load_jsonl, replay_file
 from .eval import evaluate_records
 from .sarif import replay_rows_to_sarif
 from .scaffold import write_scaffold
-from .score import score_repository
+from .score import render_scorecard_markdown, score_repository
 
 
 def _write_file(path: str, content: str) -> str:
@@ -229,6 +229,18 @@ def _run_score(args: argparse.Namespace) -> int:
         replay_path=args.replay,
     )
 
+    if args.output_json:
+        with open(args.output_json, "w", encoding="utf-8") as handle:
+            json.dump(payload, handle, indent=2, sort_keys=True)
+            handle.write("\n")
+    if args.output_markdown:
+        with open(args.output_markdown, "w", encoding="utf-8") as handle:
+            handle.write(render_scorecard_markdown(payload) + "\n")
+    if args.output_badge_json:
+        with open(args.output_badge_json, "w", encoding="utf-8") as handle:
+            json.dump(payload["badge_endpoint"], handle, sort_keys=True)
+            handle.write("\n")
+
     if args.badge:
         print(payload["badge_markdown"])
         return 0
@@ -325,6 +337,9 @@ def _parser() -> argparse.ArgumentParser:
     score.add_argument("--replay", help="optional historical/incident JSONL log to replay")
     score.add_argument("--json", action="store_true")
     score.add_argument("--badge", action="store_true", help="print markdown badge only")
+    score.add_argument("--output-json", help="write full score payload to this JSON file")
+    score.add_argument("--output-markdown", help="write public markdown scorecard to this file")
+    score.add_argument("--output-badge-json", help="write Shields endpoint JSON to this file")
 
     return parser
 

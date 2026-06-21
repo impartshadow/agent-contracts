@@ -12,6 +12,8 @@
 >
 > **Want the public scorecard path?** Run `agent-contracts score --root .`.
 > It emits a 0-100 reliability score plus a markdown badge you can put in a README.
+> Add `--output-json agent-reliability-score.json --output-markdown AGENT_RELIABILITY_SCORE.md --output-badge-json agent-reliability-badge.json`
+> to publish a reusable scorecard artifact.
 
 Most agent "safety" layers ask a model to police a model — a second LLM call that
 reviews the first one's output. That fails in exactly the moment you need it: when
@@ -137,6 +139,8 @@ tighten them for your own system.
 > Run `agent-contracts score --root . --badge`. The score weights required
 > adoption wiring, the built-in contract matrix, optional labeled evals, and
 > optional incident replay. The seed public table is [LEADERBOARD.md](LEADERBOARD.md).
+> CI can upload the full scorecard using the workflow in
+> [.github/workflows/agent-contracts.yml](.github/workflows/agent-contracts.yml).
 >
 > **Need copy-paste custom contracts?** [RECIPES.md](RECIPES.md) has recipient,
 > production SQL, evidence-before-blocker, and public publishing identity guards.

@@ -21,4 +21,18 @@ jobs:
             echo "workspace escape unexpectedly passed"
             exit 1
           fi
-      - run: agent-contracts score --root . --eval examples/eval_corpus.jsonl --replay examples/actions.jsonl
+      - run: |
+          agent-contracts score \
+            --root . \
+            --eval examples/eval_corpus.jsonl \
+            --replay examples/actions.jsonl \
+            --output-json agent-reliability-score.json \
+            --output-markdown AGENT_RELIABILITY_SCORE.md \
+            --output-badge-json agent-reliability-badge.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: agent-reliability-score
+          path: |
+            agent-reliability-score.json
+            AGENT_RELIABILITY_SCORE.md
+            agent-reliability-badge.json

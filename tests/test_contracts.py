@@ -14,6 +14,7 @@ from agent_contracts import (
     evaluate_records,
     run_doctor,
     score_repository,
+    render_scorecard_markdown,
     render_pre_commit_config,
     write_scaffold,
     run_contract_matrix,
@@ -247,6 +248,7 @@ def test_score_repository_full_adoption(tmp_path):
     assert payload["grade"] == "A"
     assert payload["passed"] is True
     assert "agent%20reliability-100%2F100" in payload["badge_url"]
+    assert payload["badge_endpoint"]["message"] == "100/100"
 
 
 def test_score_repository_missing_adoption_is_not_passing(tmp_path):
@@ -265,6 +267,49 @@ def test_score_cli_badge(tmp_path, capsys):
     captured = capsys.readouterr()
     assert code == 0
     assert captured.out.startswith("![Agent reliability: 60/100]")
+
+
+def test_score_cli_writes_public_artifacts(tmp_path):
+    write_scaffold(str(tmp_path), workspace_root=str(tmp_path))
+    eval_path = tmp_path / "eval.jsonl"
+    eval_path.write_text(
+        '{"phase":"pre","tool":"write_file","params":{"path":"notes.md"},"expected_blocked":false}\n',
+        encoding="utf-8",
+    )
+    score_json = tmp_path / "agent-reliability-score.json"
+    score_md = tmp_path / "AGENT_RELIABILITY_SCORE.md"
+    badge_json = tmp_path / "agent-reliability-badge.json"
+
+    code = cli_main([
+        "score",
+        "--root",
+        str(tmp_path),
+        "--eval",
+        str(eval_path),
+        "--output-json",
+        str(score_json),
+        "--output-markdown",
+        str(score_md),
+        "--output-badge-json",
+        str(badge_json),
+    ])
+
+    assert code == 0
+    score_payload = json.loads(score_json.read_text())
+    badge_payload = json.loads(badge_json.read_text())
+    markdown = score_md.read_text()
+    assert score_payload["score"] >= 70
+    assert badge_payload["label"] == "agent reliability"
+    assert "# Agent Reliability Score" in markdown
+
+
+def test_render_scorecard_markdown_is_reproducible(tmp_path):
+    write_scaffold(str(tmp_path), workspace_root=str(tmp_path))
+    payload = score_repository(tmp_path)
+    markdown = render_scorecard_markdown(payload)
+
+    assert f"**Score: {payload['score']}/100" in markdown
+    assert "| adoption_wiring |" in markdown
 
 
 def test_contracted_tool_router_runs_allowed_call():
