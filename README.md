@@ -118,6 +118,9 @@ tighten them for your own system.
 > [ADOPTION_PLAYBOOK.md](ADOPTION_PLAYBOOK.md) gives a 90-minute path, acceptance
 > criteria, and kill criteria.
 >
+> **Need to verify a generated policy/scaffold/CI setup?**
+> Run `agent-contracts doctor --root .` for a read-only adoption report.
+>
 > **Need copy-paste custom contracts?** [RECIPES.md](RECIPES.md) has recipient,
 > production SQL, evidence-before-blocker, and public publishing identity guards.
 >
@@ -238,6 +241,7 @@ agent-contracts-demo
 agent-contracts check-pre --tool write_file --params-json '{"path": "/etc/passwd"}'
 agent-contracts init --workspace "$(pwd)"
 agent-contracts bootstrap --workspace "$(pwd)"
+agent-contracts doctor --root .
 agent-contracts check-pre --policy agent-contracts.yml --tool send_email --params-json '{}'
 agent-contracts matrix
 agent-contracts eval examples/eval_corpus.jsonl

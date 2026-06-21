@@ -117,6 +117,12 @@ This writes the policy, a GitHub Actions workflow, and an importable adapter at
 `agent_contracts_scaffold/adapter.py`. Wire `gate_tool_call()` into the shared
 tool dispatcher before any side effect runs.
 
+Check the generated wiring:
+
+```bash
+agent-contracts doctor --root .
+```
+
 ## 5. Wire it into your agent loop
 
 Two lines around every tool call:
@@ -169,6 +175,7 @@ is paying attention.
 - See every default guard and the design rationale in the [README](README.md).
 - Wiring this into a real tool dispatcher? Use [INTEGRATION_PATTERNS.md](INTEGRATION_PATTERNS.md).
 - Adding this to CI? Use [CI_INTEGRATION.md](CI_INTEGRATION.md).
+- Checking adoption wiring? Run `agent-contracts doctor --root .`.
 - Measuring the overhead? Use [PERFORMANCE.md](PERFORMANCE.md).
 - Replaying captured action logs? Use [REPLAY.md](REPLAY.md).
 - Using OpenAI tool calls, LangChain, AutoGen, CrewAI, or a raw CLI agent? Use [FRAMEWORK_ADAPTERS.md](FRAMEWORK_ADAPTERS.md).

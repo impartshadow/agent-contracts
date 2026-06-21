@@ -12,6 +12,7 @@ from agent_contracts import (
     replay_records,
     replay_rows_to_sarif,
     evaluate_records,
+    run_doctor,
     write_scaffold,
     run_contract_matrix,
 )
@@ -716,3 +717,54 @@ def test_cli_eval_json(capsys):
     assert payload["passed"] is True
     assert payload["records"] == 7
     assert payload["true_positive"] == 3
+
+
+def test_run_doctor_reports_bootstrap_readiness(tmp_path):
+    write_scaffold(tmp_path, workspace_root=str(tmp_path))
+
+    payload = run_doctor(tmp_path)
+
+    assert payload["passed"] is True
+    assert payload["required_passed"] == payload["required_total"]
+    assert {check["name"] for check in payload["checks"]} >= {
+        "policy",
+        "adapter",
+        "github-actions",
+        "built-in-matrix",
+        "policy-load",
+    }
+
+
+def test_run_doctor_fails_missing_required_files(tmp_path):
+    payload = run_doctor(tmp_path)
+
+    assert payload["passed"] is False
+    missing = {check["name"] for check in payload["checks"] if not check["passed"]}
+    assert {"policy", "adapter", "github-actions"} <= missing
+
+
+def test_cli_doctor_reports_status(tmp_path, capsys):
+    write_scaffold(tmp_path, workspace_root=str(tmp_path))
+
+    exit_code = cli_main(["doctor", "--root", str(tmp_path)])
+    output = capsys.readouterr().out
+
+    assert exit_code == 0
+    assert "agent-contracts doctor" in output
+    assert "policy-load" in output
+
+
+def test_cli_doctor_json_with_eval(tmp_path, capsys):
+    write_scaffold(tmp_path, workspace_root=str(tmp_path))
+    corpus = tmp_path / "eval.jsonl"
+    corpus.write_text(
+        '{"phase":"pre","tool":"write_file","params":{"path":"notes.md"},"expected_blocked":false}\n',
+        encoding="utf-8",
+    )
+
+    exit_code = cli_main(["doctor", "--root", str(tmp_path), "--eval", str(corpus), "--json"])
+    payload = json.loads(capsys.readouterr().out)
+
+    assert exit_code == 0
+    assert payload["passed"] is True
+    assert any(check["name"] == "eval-corpus" for check in payload["checks"])

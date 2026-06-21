@@ -26,6 +26,12 @@ The workflow does three things:
 3. Generates a workspace policy and verifies one allowed path plus one blocked
    workspace escape.
 
+After bootstrap, run the read-only adoption check locally:
+
+```bash
+agent-contracts doctor --root .
+```
+
 If your agent already emits JSONL action records, add `agent-contracts replay`
 as the next CI step. Use `--expect-blocks` for incident fixtures so CI passes
 only when the same bad call still blocks after every policy edit.
