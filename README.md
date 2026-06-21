@@ -5,6 +5,9 @@
 **Deterministic pre/post-condition guardrails for LLM agents. No model in the loop.**
 
 > **▶ [Try it in your browser — no install](https://impartshadow.github.io/agent-contracts/playground/)** · paste an agent action, watch a real contract block it (runs the actual engine via Pyodide).
+>
+> **Evaluating quickly?** Start with [FIRST_10_MINUTES.md](FIRST_10_MINUTES.md):
+> browser proof, one local block, one CI-ready adoption test.
 
 Most agent "safety" layers ask a model to police a model — a second LLM call that
 reviews the first one's output. That fails in exactly the moment you need it: when
@@ -113,6 +116,9 @@ tighten them for your own system.
 >
 > **Auditing your own agent first?** Use [AUDIT_CHECKLIST.md](AUDIT_CHECKLIST.md)
 > to find the side-effecting tools that need contracts before anything else.
+>
+> **Only have ten minutes?** [FIRST_10_MINUTES.md](FIRST_10_MINUTES.md) gives the
+> shortest path from "what is this?" to one blocked side effect in your runtime.
 >
 > **Evaluating whether to adopt this in an existing runtime?**
 > [ADOPTION_PLAYBOOK.md](ADOPTION_PLAYBOOK.md) gives a 90-minute path, acceptance
