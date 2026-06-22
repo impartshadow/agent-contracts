@@ -266,7 +266,8 @@ def test_score_cli_badge(tmp_path, capsys):
 
     captured = capsys.readouterr()
     assert code == 0
-    assert captured.out.startswith("![Agent reliability: 60/100]")
+    assert captured.out.startswith("[![Agent reliability: 60/100]")
+    assert "impartshadow.github.io/agent-contracts/leaderboard/" in captured.out
 
 
 def test_score_cli_writes_public_artifacts(tmp_path):

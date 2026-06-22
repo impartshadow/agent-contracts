@@ -197,7 +197,7 @@ def scan_repository(root: Union[str, Path]) -> dict[str, Any]:
             "message": f"{score}/100",
             "color": _badge_color(score),
         },
-        "badge_markdown": f"![Agent governance: {score}/100]({_badge_url(score)})",
+        "badge_markdown": f"[![Agent governance: {score}/100]({_badge_url(score)})](https://impartshadow.github.io/agent-contracts/leaderboard/)",
         "components": components,
     }
 

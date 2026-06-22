@@ -204,7 +204,7 @@ def score_repository(
         "passed": score >= 70,
         "badge_url": _badge_url(score),
         "badge_endpoint": badge_endpoint(score),
-        "badge_markdown": f"![Agent reliability: {score}/100]({_badge_url(score)})",
+        "badge_markdown": f"[![Agent reliability: {score}/100]({_badge_url(score)})](https://impartshadow.github.io/agent-contracts/leaderboard/)",
         "components": components,
         "doctor": doctor,
     }

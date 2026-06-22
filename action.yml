@@ -74,9 +74,9 @@ runs:
 
         echo "### Agent Reliability Score: $SCORE/100 (Grade: $GRADE)" >> "$GITHUB_STEP_SUMMARY"
         echo "" >> "$GITHUB_STEP_SUMMARY"
-        echo "Badge: \`![Agent reliability: $SCORE/100]($BADGE)\`" >> "$GITHUB_STEP_SUMMARY"
+        echo "Badge (links to the leaderboard): \`[![Agent reliability: $SCORE/100]($BADGE)](https://impartshadow.github.io/agent-contracts/leaderboard/)\`" >> "$GITHUB_STEP_SUMMARY"
         echo "" >> "$GITHUB_STEP_SUMMARY"
-        echo "Scored by [agent-contracts](https://github.com/impartshadow/agent-contracts)" >> "$GITHUB_STEP_SUMMARY"
+        echo "Scored by [agent-contracts](https://impartshadow.github.io/agent-contracts/leaderboard/) · [see how your repo ranks](https://impartshadow.github.io/agent-contracts/leaderboard/)" >> "$GITHUB_STEP_SUMMARY"
 
     - name: Enforce minimum score
       if: ${{ inputs.min-score != '0' }}
