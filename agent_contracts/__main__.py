@@ -15,6 +15,7 @@ from .replay import load_jsonl, replay_file
 from .eval import evaluate_records
 from .sarif import replay_rows_to_sarif
 from .scaffold import write_scaffold
+from .scan import render_scan_markdown, scan_repository
 from .score import render_scorecard_markdown, score_repository
 
 
@@ -258,6 +259,38 @@ def _run_score(args: argparse.Namespace) -> int:
     return 0 if payload["passed"] else 1
 
 
+def _run_scan(args: argparse.Namespace) -> int:
+    payload = scan_repository(args.root)
+
+    if args.output_json:
+        with open(args.output_json, "w", encoding="utf-8") as handle:
+            json.dump(payload, handle, indent=2, sort_keys=True)
+            handle.write("\n")
+    if args.output_markdown:
+        with open(args.output_markdown, "w", encoding="utf-8") as handle:
+            handle.write(render_scan_markdown(payload, args.project) + "\n")
+    if args.output_badge_json:
+        with open(args.output_badge_json, "w", encoding="utf-8") as handle:
+            json.dump(payload["badge_endpoint"], handle, sort_keys=True)
+            handle.write("\n")
+
+    if args.badge:
+        print(payload["badge_markdown"])
+        return 0
+    elif args.json:
+        print(json.dumps(payload, indent=2, sort_keys=True))
+    else:
+        print(f"agent governance: {payload['score']}/100 ({payload['grade']})")
+        for component in payload["components"]:
+            print(
+                f"{component['points']:>2}/{component['max_points']} "
+                f"{component['name']}: {component['note']}"
+            )
+        print(payload["badge_markdown"])
+
+    return 0 if payload["passed"] else 1
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="agent-contracts",
@@ -341,6 +374,18 @@ def _parser() -> argparse.ArgumentParser:
     score.add_argument("--output-markdown", help="write public markdown scorecard to this file")
     score.add_argument("--output-badge-json", help="write Shields endpoint JSON to this file")
 
+    scan = subparsers.add_parser(
+        "scan",
+        help="score observable governance signals in ANY agent repo (no adoption required)",
+    )
+    scan.add_argument("--root", default=".")
+    scan.add_argument("--project", help="project label for the markdown scorecard")
+    scan.add_argument("--json", action="store_true")
+    scan.add_argument("--badge", action="store_true", help="print markdown badge only")
+    scan.add_argument("--output-json", help="write full scan payload to this JSON file")
+    scan.add_argument("--output-markdown", help="write public markdown scorecard to this file")
+    scan.add_argument("--output-badge-json", help="write Shields endpoint JSON to this file")
+
     return parser
 
 
@@ -369,6 +414,8 @@ def main(argv: Optional[list[str]] = None) -> int:
         return _run_doctor(args)
     if args.command == "score":
         return _run_score(args)
+    if args.command == "scan":
+        return _run_scan(args)
 
     parser.print_help()
     return 0
