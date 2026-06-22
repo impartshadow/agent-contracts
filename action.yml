@@ -44,7 +44,9 @@ runs:
   steps:
     - name: Install agent-contracts
       shell: bash
-      run: pip install "agent-contracts>=0.6.0" --quiet
+      # Install the action's own bundled source (the PyPI name `agent-contracts`
+      # is owned by an unrelated project), so adopters always run this exact code.
+      run: pip install "$GITHUB_ACTION_PATH" --quiet
 
     - name: Run governance scan
       id: scan

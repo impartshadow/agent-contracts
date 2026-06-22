@@ -112,7 +112,7 @@ def render_leaderboard(rows: list[dict]) -> str:
             "## Reproduce any score",
             "",
             "```bash",
-            "pip install agent-contracts",
+            'pip install "agent-contracts @ git+https://github.com/impartshadow/agent-contracts.git"',
             "git clone --depth 1 https://github.com/<owner>/<repo>.git",
             "agent-contracts scan --root <repo> --json",
             "```",
