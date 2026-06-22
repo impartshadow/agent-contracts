@@ -63,6 +63,9 @@ def clone(repo: str, dest: Path) -> Path | None:
     if target.exists():
         return target
     print(f"cloning {repo} ...", flush=True)
+    # --depth 1 is safe: scan_repository reads only the working tree at HEAD and
+    # skips .git entirely. If secret_safety ever scans git history for leaked keys,
+    # drop --depth here or those commits won't be visible.
     result = subprocess.run(
         ["git", "clone", "--depth", "1", "--quiet", url, str(target)],
         capture_output=True,
