@@ -17,7 +17,7 @@
 
 No adoption of `agent-contracts` required — `scan` reads observable governance signals
 (tests/CI, tool gating, secret hygiene, eval harness) from any repo structure.
-→ **[Shadow Agent Governance Index](LEADERBOARD.md)** — see where your agent ranks.
+→ **[Shadow Agent Governance Index](LEADERBOARD.md)** — 27 of the most-used agent frameworks (LangGraph, AutoGen, CrewAI, DSPy, llama_index…), mechanically scored from a clean clone. See where your agent ranks.
 → **Want a full contract audit?** Email [impartshadow@gmail.com](mailto:impartshadow@gmail.com) — $299 flat, 48h turnaround.
 
 ---
