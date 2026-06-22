@@ -62,8 +62,8 @@
   <h1>agent-contracts<span class="dot">.</span></h1>
   <p class="tag">Deterministic pre/post-condition guardrails for LLM agents. <b>No model in the loop</b> — a contract either fires or it doesn't.</p>
   <div class="cta">
-    <a class="btn primary" href="./playground/">▶ Try it live — no install</a>
-    <a class="btn ghost" href="https://github.com/impartshadow/agent-contracts/blob/main/FIRST_10_MINUTES.md">First 10 minutes</a>
+    <a class="btn primary" href="./leaderboard/">📊 Reliability leaderboard — 27 frameworks scored</a>
+    <a class="btn ghost" href="./playground/">▶ Try it live</a>
     <a class="btn ghost" href="https://github.com/impartshadow/agent-contracts">★ Star on GitHub</a>
   </div>
   <p class="install"><code>pip install "agent-contracts @ git+https://github.com/impartshadow/agent-contracts.git"</code> <span style="opacity:.6">· MIT · zero runtime deps</span></p>
@@ -72,6 +72,11 @@
 <section class="why">
   <h2>The problem</h2>
   <p>Every "guardrail" library asks <em>another model</em> to judge whether an action is safe. That's slow, non-deterministic, and unfalsifiable — you can't unit-test a vibe. When an agent is about to write to <code>/etc/passwd</code>, leak an API key, or claim "done" with no work behind it, you don't want a second opinion. You want a hard stop.</p>
+</section>
+
+<section class="why">
+  <h2>The leaderboard</h2>
+  <p>We ran the scanner against the <em>27 most-used agent frameworks</em> — LangGraph, AutoGen, CrewAI, DSPy, llama_index, AutoGPT, OpenHands, aider and more. The single most common weakest dimension is <em>secret handling</em>: 12 of 27 score it lowest. Tests and CI are nearly universal; disciplined secret hygiene is not. <a href="./leaderboard/">See the full reliability leaderboard →</a></p>
 </section>
 
 <section>
