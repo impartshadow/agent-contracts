@@ -61,6 +61,10 @@ Start with projects already in the governance index because they have three
 useful properties: recognizable audience, reproducible score, and a concrete
 reason to talk.
 
+The live execution queue is in
+[`MAINTAINER_TARGETS.md`](MAINTAINER_TARGETS.md). Use that file for current
+priority order and first-touch angles.
+
 Priority targets:
 
 1. `langchain-ai/langgraph`

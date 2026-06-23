@@ -144,6 +144,8 @@ tighten them for your own system.
 > **Evaluating whether to adopt this in an existing runtime?**
 > [ADOPTION_PLAYBOOK.md](ADOPTION_PLAYBOOK.md) gives a 90-minute path, acceptance
 > criteria, and kill criteria.
+> [MAINTAINER_TARGETS.md](MAINTAINER_TARGETS.md) tracks the public contribution
+> queue for agent-native distribution.
 >
 > **Need to verify a generated policy/scaffold/CI setup?**
 > Run `agent-contracts doctor --root .` for a read-only adoption report.
