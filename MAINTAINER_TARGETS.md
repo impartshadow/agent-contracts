@@ -38,15 +38,18 @@ Blocked patterns:
 | 9 | `microsoft/autogen` | 100 | Discussion/docs-only angle: where contracts sit in multi-agent orchestration | Already scores 100, so do not lead with leaderboard |
 | 10 | `langchain-ai/langgraph` | 100 | Discussion/docs-only angle: deterministic side-effect boundary around graph tool nodes | Huge audience, but no issue unless the contribution is clearly additive |
 
-## First three moves
+## In-flight
 
-1. Reproduce fresh scans for `Aider-AI/aider`, `crewAIInc/crewAI`, and
-   `run-llama/llama_index`.
+| Date | Target | Touch | Status |
+|---|---|---|---|
+| 2026-06-23 | `Aider-AI/aider` | PR: ignore `.env` in `.gitignore` to stop committed API keys (the repo's only soft dimension, `secret_safety`, traced to this missing rule) | Open — [PR #5314](https://github.com/Aider-AI/aider/pull/5314) |
+
+## Next moves
+
+1. Reproduce fresh scans for `crewAIInc/crewAI` and `run-llama/llama_index`.
 2. For each, inspect the repo docs/examples for the natural tool-execution
    boundary.
-3. Draft one concrete docs/example PR or issue per repo, starting with `aider`
-   because the score gap is largest and the use case is closest to Shadow's own
-   production failures.
+3. Draft one concrete docs/example PR or issue per repo, contribution-first.
 
 ## Message shape
 
