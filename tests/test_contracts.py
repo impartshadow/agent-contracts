@@ -29,6 +29,7 @@ from agent_contracts.contracts import (
     WorkspacePathGuard,
 )
 from agent_contracts.__main__ import main as cli_main
+from agent_contracts.scan import scan_repository
 
 import json
 import pytest
@@ -255,6 +256,35 @@ def test_score_repository_missing_adoption_is_not_passing(tmp_path):
     payload = score_repository(tmp_path)
 
     assert payload["score"] == 30
+
+
+def test_scan_ignores_public_analytics_project_identifiers(tmp_path):
+    app = tmp_path / "analytics.py"
+    app.write_text(
+        'mixpanel_project_token = "6da9a43058a5d1b9f3353153921fb04d"\n'
+        'posthog_project_api_key = "phc_99T7muzafUMMZX15H8XePbMSreEUzahHbtWjy3l5Qbv"\n',
+        encoding="utf-8",
+    )
+
+    payload = scan_repository(tmp_path)
+    secret_component = next(c for c in payload["components"] if c["name"] == "secret_safety")
+
+    assert secret_component["points"] == 7
+    assert "no obvious hardcoded secrets in tracked source" in secret_component["evidence"]
+
+
+def test_scan_flags_generic_hardcoded_api_key(tmp_path):
+    app = tmp_path / "client.py"
+    app.write_text(
+        'service_api_key = "abc1234567890abcdef1234567890abcdef"\n',
+        encoding="utf-8",
+    )
+
+    payload = scan_repository(tmp_path)
+    secret_component = next(c for c in payload["components"] if c["name"] == "secret_safety")
+
+    assert secret_component["points"] == 0
+    assert secret_component["evidence"] == ["possible hardcoded secret: client.py"]
     assert payload["grade"] == "F"
     assert payload["passed"] is False
 

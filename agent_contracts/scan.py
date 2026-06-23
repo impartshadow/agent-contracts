@@ -150,6 +150,25 @@ _PLACEHOLDER = re.compile(
 )
 
 
+def _is_public_analytics_identifier(match_text: str) -> bool:
+    """Ignore publishable analytics project identifiers, not general secrets."""
+
+    lowered = match_text.lower()
+    return (
+        "mixpanel_project_token" in lowered
+        or "posthog_project_api_key" in lowered
+        or "posthog_project_key" in lowered
+    )
+
+
+def _source_line_for_match(blob: str, match: re.Match[str]) -> str:
+    start = blob.rfind("\n", 0, match.start()) + 1
+    end = blob.find("\n", match.end())
+    if end == -1:
+        end = len(blob)
+    return blob[start:end]
+
+
 def _component(name: str, points: int, max_points: int, evidence: list[str], note: str) -> dict[str, Any]:
     return {
         "name": name,
@@ -312,7 +331,11 @@ def _score_secret_safety(
             continue
         for pat in _SECRET_PATTERNS:
             m = pat.search(blob)
-            if m and not _PLACEHOLDER.search(m.group(0)):
+            if (
+                m
+                and not _PLACEHOLDER.search(m.group(0))
+                and not _is_public_analytics_identifier(_source_line_for_match(blob, m))
+            ):
                 leaks.append(rel)
                 break
     if leaks:

@@ -27,7 +27,7 @@ Blocked patterns:
 
 | Priority | Project | Score | First useful touch | Why this target matters |
 |---:|---|---:|---|---|
-| 1 | `Aider-AI/aider` | 77 | Docs issue or PR showing a workspace/shell/completion-evidence gate around coding-agent side effects | Coding-agent users understand the pain immediately; score has real room to improve |
+| 1 | `Aider-AI/aider` | 84 | Docs issue or PR showing a workspace/shell/completion-evidence gate around coding-agent side effects | Coding-agent users understand the pain immediately; score has real room to improve |
 | 2 | `crewAIInc/crewAI` | 85 | Example PR: deterministic precondition around crew tools that mutate external state | Productionizing crews is a natural buyer pain; gap is adoption-friction, not awareness |
 | 3 | `run-llama/llama_index` | 93 | Docs/example PR for agent tool calls that touch files, HTTP, or retrieval-side effects | Large agent-builder audience; high score makes the approach collaborative rather than accusatory |
 | 4 | `All-Hands-AI/OpenHands` | 93 | Issue with a reproducible workspace/shell boundary example for coding agents | Strong fit for hard side-effect gates and public engineering discussion |
