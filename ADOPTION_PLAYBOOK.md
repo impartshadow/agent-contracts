@@ -5,6 +5,120 @@ existing agent runtime. The goal is not to redesign the agent. The goal is to pu
 one hard gate in front of one real side effect, prove it blocks the failure, and
 decide whether to expand.
 
+## Agent-native distribution model
+
+`agent-contracts` should not grow like a human network. It should grow like a
+reference node.
+
+Human-network strategy depends on private relationships, introductions, and
+trust transfer. That is the wrong shape for an autonomous agent. The right shape
+is a public artifact that engineers can cite, reproduce, and embed without
+knowing the author:
+
+```text
+governance index -> framework maintainer reaction -> CI adoption -> linked badge
+                 -> more repositories expose the score -> more index traffic
+```
+
+The product does not ask people to believe an agent. It gives them a number they
+can reproduce from a clean clone and a gate they can run before a side effect.
+
+### What creates the network
+
+| Mechanism | Why it compounds | Correct behavior |
+|---|---|---|
+| Governance index | People cite useful rankings before they know the author | Keep scores current and reproducible |
+| Framework-specific findings | Maintainers already own the audience | File precise issues or PRs only when there is a real fix |
+| CI badge | Every adopter README becomes a backlink | Make badge output one command and link it to the leaderboard |
+| Failure-mode reports | Real production failures are hard to fake | Publish concrete caught failures with evidence and repairs |
+| Playground | Reduces adoption friction to a browser test | Keep it fast, visual, and runnable with no account |
+
+Do not optimize for followers. Optimize for being the page an engineer links
+when someone asks, "how do we measure whether this agent repo has real
+operational guardrails?"
+
+### Watering holes
+
+Work these surfaces only when there is a concrete artifact to share or a
+specific question to answer. The goal is usefulness at the point of need, not
+ambient promotion.
+
+| Surface | Use when | Good contribution |
+|---|---|---|
+| Hacker News | A release, field report, leaderboard update, or failure-mode finding exists | Show the data and invite reproduction |
+| r/LocalLLaMA | Discussion touches tool-use safety, local agents, or self-hosted agent loops | Explain the deterministic side-effect boundary |
+| r/LLMDevs | Engineers ask about agent testing, evals, or production reliability | Give a wiring pattern and a minimal test |
+| LangChain / LangGraph GitHub | The score identifies a real governance gap or integration point | Open a narrow issue or PR with exact reproduction |
+| AutoGen GitHub / Discord | Multi-agent orchestration reliability is being discussed | Show where contracts sit before tool execution |
+| CrewAI GitHub / Discord | Users ask about productionizing crews | Provide first-boundary adoption guidance |
+| LlamaIndex GitHub / Discord | Agents/tools/retrieval workflows touch side effects | Contribute a contract example, not a sales pitch |
+| OpenHands / SWE-agent repos | Coding-agent tool boundaries are discussed | Demonstrate workspace/shell/completion gates |
+| Simon Willison / Latent Space orbit | A broader agent-infra discussion is active | Share the measured finding, not the package pitch |
+
+### Maintainer connector list
+
+Start with projects already in the governance index because they have three
+useful properties: recognizable audience, reproducible score, and a concrete
+reason to talk.
+
+Priority targets:
+
+1. `langchain-ai/langgraph`
+2. `microsoft/autogen`
+3. `run-llama/llama_index`
+4. `crewAIInc/crewAI`
+5. `All-Hands-AI/OpenHands`
+6. `Aider-AI/aider`
+7. `stanfordnlp/dspy`
+8. `pydantic/pydantic-ai`
+9. `openai/openai-agents-python`
+10. `huggingface/smolagents`
+
+The first touch must be contribution-shaped:
+
+- a reproducible score note,
+- a failing example with a proposed guard,
+- a small docs PR showing where to put a deterministic precondition,
+- or a CI snippet that emits the score badge.
+
+Do not open issues that only say "your score is low." That is spam. The score is
+the reason to inspect; the contribution is the reason to speak.
+
+### Allowed and blocked outreach
+
+Allowed:
+
+- answer direct questions with concrete wiring advice,
+- post a release/finding to an appropriate technical forum,
+- open a maintainer issue when the report includes reproduction and a fix path,
+- submit docs/examples PRs that improve the target project even if they never
+  adopt `agent-contracts`,
+- point to the leaderboard when the score is directly relevant.
+
+Blocked:
+
+- follower farming,
+- cold DM spray,
+- link-only comments,
+- "we scanned you" posts with no fix,
+- opening issues on projects outside the index without first reproducing the
+  score locally,
+- pretending a score proves runtime safety. The score measures observable
+  governance surface, not total safety.
+
+### Six-month growth path
+
+| Window | Goal | Output | Success signal |
+|---|---|---|---|
+| Weeks 1-6 | Make the governance index the reference artifact | 100+ scored repos, weekly reliability finding, live leaderboard | Organic links and maintainer reactions |
+| Weeks 6-12 | Convert measurement into adoption | CI action examples, score badge, first external PRs | External repos running the action |
+| Months 3-4 | Turn adoption into a paid surface | Team dashboard / fleet score / policy gate design | Qualified audit or pilot conversations |
+| Months 4-6 | Land real teams | 1-3 design partners using contracts in CI or tool gateways | Recurring revenue or paid implementation work |
+
+Extreme case: `agent-contracts` becomes the SSL Labs / Lighthouse-style reference
+for autonomous-agent reliability. The public score creates anxiety; the CI gate
+resolves it; every adopter badge routes more engineers back to the index.
+
 ## The one-afternoon evaluation
 
 Time box: 90 minutes.
