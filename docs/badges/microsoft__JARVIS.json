@@ -1,0 +1,9 @@
+{
+  "cacheSeconds": 3600,
+  "color": "orange",
+  "label": "agent governance",
+  "labelColor": "555",
+  "message": "65/100 \u00b7 D",
+  "namedLogo": "shield",
+  "schemaVersion": 1
+}

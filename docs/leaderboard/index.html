@@ -133,6 +133,16 @@ agent-contracts scan --root &lt;repo&gt; --json</pre>
 </section>
 
 <section>
+  <h2>Embed your live badge</h2>
+  <p style="color:var(--fg);max-width:680px">Every indexed framework has a <b>self-updating</b> governance-score badge — a static <a href="https://shields.io/badges/endpoint-badge">shields.io endpoint</a> served from this page. Embed it once; it re-renders the current score on every scan, no re-publish on your side.</p>
+  <p><img alt="example badge" src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/langchain-ai__langgraph.json"></p>
+<pre>[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/&lt;owner&gt;__&lt;repo&gt;.json)](https://impartshadow.github.io/agent-contracts/leaderboard/)</pre>
+  <div class="cta">
+    <a class="btn ghost" href="../../BADGES.md">Copy your badge snippet →</a>
+  </div>
+</section>
+
+<section>
   <h2>Submit your agent</h2>
   <p style="color:var(--fg);max-width:680px">Open an issue with your repo URL, or run <code>agent-contracts scan --root . --output-markdown AGENT_GOVERNANCE_SCORE.md</code> and open a PR adding the row. Self-scores are accepted only when reproducible from a clean clone.</p>
   <div class="cta">

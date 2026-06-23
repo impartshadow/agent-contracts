@@ -1,0 +1,303 @@
+{
+  "badges": [
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/langchain-ai__langgraph.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/langchain-ai__langgraph.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#langgraph)",
+      "grade": "A",
+      "project": "langchain-ai/langgraph",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "711b31550286585b3793857b2a99c8dafd98b785",
+      "score": 100,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/langchain-ai__langgraph.json",
+      "slug": "langchain-ai__langgraph"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/microsoft__autogen.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/microsoft__autogen.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#autogen)",
+      "grade": "A",
+      "project": "microsoft/autogen",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "027ecf0a379bcc1d09956d46d12d44a3ad9cee14",
+      "score": 100,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/microsoft__autogen.json",
+      "slug": "microsoft__autogen"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/microsoft__semantic-kernel.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/microsoft__semantic-kernel.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#semantic-kernel)",
+      "grade": "A",
+      "project": "microsoft/semantic-kernel",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "83bffe197b91f60e8bc7c2c1f3c651652f7703ce",
+      "score": 100,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/microsoft__semantic-kernel.json",
+      "slug": "microsoft__semantic-kernel"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/stanfordnlp__dspy.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/stanfordnlp__dspy.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#dspy)",
+      "grade": "A",
+      "project": "stanfordnlp/dspy",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "498760149b230f402c56bece2aa45df6e1ba946b",
+      "score": 100,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/stanfordnlp__dspy.json",
+      "slug": "stanfordnlp__dspy"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/Significant-Gravitas__AutoGPT.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/Significant-Gravitas__AutoGPT.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#autogpt)",
+      "grade": "A",
+      "project": "Significant-Gravitas/AutoGPT",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "150514f0502d96b0ff0b977168442bd8936e06c0",
+      "score": 93,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/Significant-Gravitas__AutoGPT.json",
+      "slug": "Significant-Gravitas__AutoGPT"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/All-Hands-AI__OpenHands.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/All-Hands-AI__OpenHands.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#openhands)",
+      "grade": "A",
+      "project": "All-Hands-AI/OpenHands",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "94eba54c25ec608479359f3b6105165da251d484",
+      "score": 93,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/All-Hands-AI__OpenHands.json",
+      "slug": "All-Hands-AI__OpenHands"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/langchain-ai__langchain.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/langchain-ai__langchain.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#langchain)",
+      "grade": "A",
+      "project": "langchain-ai/langchain",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "c669da76624d658a6e4b33bf1dc4528e4f3ef34f",
+      "score": 93,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/langchain-ai__langchain.json",
+      "slug": "langchain-ai__langchain"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/run-llama__llama_index.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/run-llama__llama_index.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#llama-index)",
+      "grade": "A",
+      "project": "run-llama/llama_index",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "9f66e8a649856524ef0ff081a23d58cd071b6ae4",
+      "score": 93,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/run-llama__llama_index.json",
+      "slug": "run-llama__llama_index"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/camel-ai__camel.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/camel-ai__camel.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#camel)",
+      "grade": "A",
+      "project": "camel-ai/camel",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "51ae9bb92be2b124927e9d9822210873e4b29c16",
+      "score": 93,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/camel-ai__camel.json",
+      "slug": "camel-ai__camel"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/pydantic__pydantic-ai.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/pydantic__pydantic-ai.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#pydantic-ai)",
+      "grade": "A",
+      "project": "pydantic/pydantic-ai",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "53e06412c50b549ed39ac570e892ae168aaa5f52",
+      "score": 93,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/pydantic__pydantic-ai.json",
+      "slug": "pydantic__pydantic-ai"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/openai__openai-agents-python.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/openai__openai-agents-python.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#openai-agents-python)",
+      "grade": "A",
+      "project": "openai/openai-agents-python",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "a9b7b7ef4a9eb7df50e2d9b837114f899f07b36f",
+      "score": 93,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/openai__openai-agents-python.json",
+      "slug": "openai__openai-agents-python"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/mem0ai__mem0.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/mem0ai__mem0.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#mem0)",
+      "grade": "A",
+      "project": "mem0ai/mem0",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "4e448269bcf7136905b45c0ef5ac34c2254a1a3b",
+      "score": 93,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/mem0ai__mem0.json",
+      "slug": "mem0ai__mem0"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/agno-agi__agno.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/agno-agi__agno.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#agno)",
+      "grade": "A",
+      "project": "agno-agi/agno",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "34105974b247488add7e14ad47c0559cc692feaa",
+      "score": 93,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/agno-agi__agno.json",
+      "slug": "agno-agi__agno"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/geekan__MetaGPT.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/geekan__MetaGPT.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#metagpt)",
+      "grade": "A",
+      "project": "geekan/MetaGPT",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "11cdf466d042aece04fc6cfd13b28e1a70341b1f",
+      "score": 90,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/geekan__MetaGPT.json",
+      "slug": "geekan__MetaGPT"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/princeton-nlp__SWE-agent.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/princeton-nlp__SWE-agent.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#swe-agent)",
+      "grade": "A",
+      "project": "princeton-nlp/SWE-agent",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "abd7d69724d1413b30fea43d4724bb5b463906b4",
+      "score": 90,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/princeton-nlp__SWE-agent.json",
+      "slug": "princeton-nlp__SWE-agent"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/huggingface__smolagents.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/huggingface__smolagents.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#smolagents)",
+      "grade": "A",
+      "project": "huggingface/smolagents",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "526069c1ead958b36d9fd09a6b1ef37f68ed6ade",
+      "score": 90,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/huggingface__smolagents.json",
+      "slug": "huggingface__smolagents"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/google__adk-python.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/google__adk-python.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#adk-python)",
+      "grade": "A",
+      "project": "google/adk-python",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "8c9fff859c7335e91650d9b0e4c510b62642e50f",
+      "score": 90,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/google__adk-python.json",
+      "slug": "google__adk-python"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/crewAIInc__crewAI.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/crewAIInc__crewAI.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#crewai)",
+      "grade": "B",
+      "project": "crewAIInc/crewAI",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "0391febc6cbdde16b5664641c99f8036a8f9466e",
+      "score": 85,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/crewAIInc__crewAI.json",
+      "slug": "crewAIInc__crewAI"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/assafelovic__gpt-researcher.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/assafelovic__gpt-researcher.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#gpt-researcher)",
+      "grade": "B",
+      "project": "assafelovic/gpt-researcher",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "b364917f55ea579c47e5ef3f038f7e56f51213df",
+      "score": 85,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/assafelovic__gpt-researcher.json",
+      "slug": "assafelovic__gpt-researcher"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/Aider-AI__aider.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/Aider-AI__aider.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#aider)",
+      "grade": "B",
+      "project": "Aider-AI/aider",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "5dc9490bb35f9729ef2c95d00a19ccd30c26339c",
+      "score": 84,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/Aider-AI__aider.json",
+      "slug": "Aider-AI__aider"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/OpenBMB__ChatDev.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/OpenBMB__ChatDev.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#chatdev)",
+      "grade": "B",
+      "project": "OpenBMB/ChatDev",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "a6a5cda5560053136897aa44301eacc6c48d8168",
+      "score": 80,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/OpenBMB__ChatDev.json",
+      "slug": "OpenBMB__ChatDev"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/TransformerOptimus__SuperAGI.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/TransformerOptimus__SuperAGI.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#superagi)",
+      "grade": "C",
+      "project": "TransformerOptimus/SuperAGI",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "c3c1982e7bd6a11cfed53c5a193ea502f924b1b6",
+      "score": 78,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/TransformerOptimus__SuperAGI.json",
+      "slug": "TransformerOptimus__SuperAGI"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/letta-ai__letta.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/letta-ai__letta.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#letta)",
+      "grade": "C",
+      "project": "letta-ai/letta",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "1131535716e8a31c9a437f8695e25ac98f203a24",
+      "score": 78,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/letta-ai__letta.json",
+      "slug": "letta-ai__letta"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/reworkd__AgentGPT.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/reworkd__AgentGPT.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#agentgpt)",
+      "grade": "C",
+      "project": "reworkd/AgentGPT",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "18b073ab05b2902e1d052c3d2799786d8623b5e5",
+      "score": 78,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/reworkd__AgentGPT.json",
+      "slug": "reworkd__AgentGPT"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/openai__swarm.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/openai__swarm.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#swarm)",
+      "grade": "C",
+      "project": "openai/swarm",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "6af0b4caf37dca4526dfd98e9fbd8ce36e7eeb22",
+      "score": 70,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/openai__swarm.json",
+      "slug": "openai__swarm"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/yoheinakajima__babyagi.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/yoheinakajima__babyagi.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#babyagi)",
+      "grade": "D",
+      "project": "yoheinakajima/babyagi",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "fa8930ebe72a82e5ad57b356e7cbec96290e5bb2",
+      "score": 65,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/yoheinakajima__babyagi.json",
+      "slug": "yoheinakajima__babyagi"
+    },
+    {
+      "badge_endpoint": "https://impartshadow.github.io/agent-contracts/badges/microsoft__JARVIS.json",
+      "embed_markdown": "[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/microsoft__JARVIS.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#jarvis)",
+      "grade": "D",
+      "project": "microsoft/JARVIS",
+      "scanned_at": "2026-06-23T01:34:59Z",
+      "scanned_sha": "7624cf388b47334ff8a0868e7d862dde18cfda86",
+      "score": 65,
+      "shields_url": "https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/microsoft__JARVIS.json",
+      "slug": "microsoft__JARVIS"
+    }
+  ],
+  "count": 27,
+  "run_id": "2026-06-23T01:34:59Z"
+}
