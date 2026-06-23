@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Agent Governance Score badges · live, embeddable, auto-updating</title>
+<meta name="description" content="Grab a live agent-reliability badge for any of 27 indexed agent frameworks (LangGraph, AutoGen, CrewAI, DSPy, llama_index…). One line of Markdown, auto-updates every scan, links back to the reliability leaderboard." />
+<meta property="og:title" content="Agent Governance Score badges" />
+<meta property="og:description" content="Live, embeddable reliability badges for 27 agent frameworks. Copy one line; it stays current for free." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://impartshadow.github.io/agent-contracts/badges/" />
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --line:#30363d; --fg:#e6edf3; --muted:#8b949e;
+    --accent:#58a6ff;
+    --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:1.6;}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  header{padding:56px 0 24px;text-align:center}
+  h1{margin:0;font-size:34px;letter-spacing:-.02em;font-family:var(--mono)}
+  .tag{color:var(--muted);font-size:18px;margin:14px auto 0;max-width:660px}
+  .tag b{color:var(--fg)}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:26px 0 6px}
+  .btn{display:inline-block;padding:10px 20px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--line)}
+  .btn.primary{background:var(--accent);color:#0d1117;border-color:var(--accent)}
+  .btn.ghost{background:#21262d;color:var(--fg)}
+  .btn.ghost:hover{text-decoration:none;border-color:var(--accent);color:var(--accent)}
+  section{padding:26px 0;border-top:1px solid var(--line)}
+  h2{font-size:14px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:0 0 16px}
+  p.lede{color:var(--fg);font-size:16px;max-width:720px}
+  p.lede em{color:var(--accent);font-style:normal}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+  th{color:var(--muted);text-transform:uppercase;font-size:11px;letter-spacing:.06em}
+  td.proj{font-family:var(--mono);white-space:nowrap}
+  td.badge img{display:block;height:20px}
+  td.score{font-family:var(--mono);white-space:nowrap;font-weight:600}
+  .grade-A{color:#3fb950} .grade-B{color:#56d364} .grade-C{color:#d29922}
+  .grade-D{color:#f0883e} .grade-F{color:#f85149}
+  button.copy{font-family:var(--mono);font-size:12.5px;background:#21262d;color:var(--fg);
+    border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer;white-space:nowrap}
+  button.copy:hover{border-color:var(--accent);color:var(--accent)}
+  button.copy.copied{border-color:#3fb950;color:#3fb950}
+  footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;text-align:center}
+  .built{margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Agent Governance Score badges</h1>
+  <p class="tag">A <b>live</b> reliability badge for every indexed agent framework. Copy one line of Markdown into your README — it re-scans on a schedule and <b>stays current for free</b>.</p>
+  <div class="cta">
+    <a class="btn primary" href="../leaderboard/">📊 Full reliability leaderboard</a>
+    <a class="btn ghost" href="../playground/">▶ Try the engine live</a>
+    <a class="btn ghost" href="https://github.com/impartshadow/agent-contracts">★ Star on GitHub</a>
+  </div>
+</header>
+
+<section>
+  <p class="lede">Each badge is the output of <code>agent-contracts scan</code> against a clean clone — <em>no model in the loop, no vibes</em>. It links back to the leaderboard and re-renders the moment a framework's guardrails move. Embed it once; never touch it again.</p>
+</section>
+
+<section>
+  <h2>27 frameworks scored — grab yours</h2>
+  <table>
+    <thead><tr><th>Framework</th><th>Live badge</th><th>Score</th><th>Embed</th></tr></thead>
+    <tbody>
+    <tr>
+      <td class="proj"><a href="https://github.com/langchain-ai/langgraph">langchain-ai/langgraph</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/langchain-ai__langgraph.json" alt="langchain-ai/langgraph agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">100/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/langchain-ai__langgraph.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#langgraph)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/microsoft/autogen">microsoft/autogen</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/microsoft__autogen.json" alt="microsoft/autogen agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">100/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/microsoft__autogen.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#autogen)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/microsoft/semantic-kernel">microsoft/semantic-kernel</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/microsoft__semantic-kernel.json" alt="microsoft/semantic-kernel agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">100/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/microsoft__semantic-kernel.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#semantic-kernel)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/stanfordnlp/dspy">stanfordnlp/dspy</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/stanfordnlp__dspy.json" alt="stanfordnlp/dspy agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">100/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/stanfordnlp__dspy.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#dspy)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/Significant-Gravitas/AutoGPT">Significant-Gravitas/AutoGPT</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/Significant-Gravitas__AutoGPT.json" alt="Significant-Gravitas/AutoGPT agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">93/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/Significant-Gravitas__AutoGPT.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#autogpt)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/All-Hands-AI/OpenHands">All-Hands-AI/OpenHands</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/All-Hands-AI__OpenHands.json" alt="All-Hands-AI/OpenHands agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">93/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/All-Hands-AI__OpenHands.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#openhands)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/langchain-ai/langchain">langchain-ai/langchain</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/langchain-ai__langchain.json" alt="langchain-ai/langchain agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">93/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/langchain-ai__langchain.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#langchain)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/run-llama/llama_index">run-llama/llama_index</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/run-llama__llama_index.json" alt="run-llama/llama_index agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">93/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/run-llama__llama_index.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#llama-index)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/camel-ai/camel">camel-ai/camel</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/camel-ai__camel.json" alt="camel-ai/camel agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">93/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/camel-ai__camel.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#camel)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/pydantic/pydantic-ai">pydantic/pydantic-ai</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/pydantic__pydantic-ai.json" alt="pydantic/pydantic-ai agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">93/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/pydantic__pydantic-ai.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#pydantic-ai)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/openai/openai-agents-python">openai/openai-agents-python</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/openai__openai-agents-python.json" alt="openai/openai-agents-python agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">93/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/openai__openai-agents-python.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#openai-agents-python)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/mem0ai/mem0">mem0ai/mem0</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/mem0ai__mem0.json" alt="mem0ai/mem0 agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">93/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/mem0ai__mem0.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#mem0)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/agno-agi/agno">agno-agi/agno</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/agno-agi__agno.json" alt="agno-agi/agno agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">93/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/agno-agi__agno.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#agno)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/geekan/MetaGPT">geekan/MetaGPT</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/geekan__MetaGPT.json" alt="geekan/MetaGPT agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">90/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/geekan__MetaGPT.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#metagpt)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/princeton-nlp/SWE-agent">princeton-nlp/SWE-agent</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/princeton-nlp__SWE-agent.json" alt="princeton-nlp/SWE-agent agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">90/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/princeton-nlp__SWE-agent.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#swe-agent)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/huggingface/smolagents">huggingface/smolagents</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/huggingface__smolagents.json" alt="huggingface/smolagents agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">90/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/huggingface__smolagents.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#smolagents)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/google/adk-python">google/adk-python</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/google__adk-python.json" alt="google/adk-python agent governance score" loading="lazy" /></td>
+      <td class="score grade-A">90/100 · A</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/google__adk-python.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#adk-python)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/crewAIInc/crewAI">crewAIInc/crewAI</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/crewAIInc__crewAI.json" alt="crewAIInc/crewAI agent governance score" loading="lazy" /></td>
+      <td class="score grade-B">85/100 · B</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/crewAIInc__crewAI.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#crewai)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/assafelovic/gpt-researcher">assafelovic/gpt-researcher</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/assafelovic__gpt-researcher.json" alt="assafelovic/gpt-researcher agent governance score" loading="lazy" /></td>
+      <td class="score grade-B">85/100 · B</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/assafelovic__gpt-researcher.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#gpt-researcher)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/Aider-AI/aider">Aider-AI/aider</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/Aider-AI__aider.json" alt="Aider-AI/aider agent governance score" loading="lazy" /></td>
+      <td class="score grade-B">84/100 · B</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/Aider-AI__aider.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#aider)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/OpenBMB/ChatDev">OpenBMB/ChatDev</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/OpenBMB__ChatDev.json" alt="OpenBMB/ChatDev agent governance score" loading="lazy" /></td>
+      <td class="score grade-B">80/100 · B</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/OpenBMB__ChatDev.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#chatdev)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/TransformerOptimus/SuperAGI">TransformerOptimus/SuperAGI</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/TransformerOptimus__SuperAGI.json" alt="TransformerOptimus/SuperAGI agent governance score" loading="lazy" /></td>
+      <td class="score grade-C">78/100 · C</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/TransformerOptimus__SuperAGI.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#superagi)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/letta-ai/letta">letta-ai/letta</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/letta-ai__letta.json" alt="letta-ai/letta agent governance score" loading="lazy" /></td>
+      <td class="score grade-C">78/100 · C</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/letta-ai__letta.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#letta)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/reworkd/AgentGPT">reworkd/AgentGPT</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/reworkd__AgentGPT.json" alt="reworkd/AgentGPT agent governance score" loading="lazy" /></td>
+      <td class="score grade-C">78/100 · C</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/reworkd__AgentGPT.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#agentgpt)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/openai/swarm">openai/swarm</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/openai__swarm.json" alt="openai/swarm agent governance score" loading="lazy" /></td>
+      <td class="score grade-C">70/100 · C</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/openai__swarm.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#swarm)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/yoheinakajima/babyagi">yoheinakajima/babyagi</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/yoheinakajima__babyagi.json" alt="yoheinakajima/babyagi agent governance score" loading="lazy" /></td>
+      <td class="score grade-D">65/100 · D</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/yoheinakajima__babyagi.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#babyagi)">Copy embed</button></td>
+    </tr>
+    <tr>
+      <td class="proj"><a href="https://github.com/microsoft/JARVIS">microsoft/JARVIS</a></td>
+      <td class="badge"><img src="https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/microsoft__JARVIS.json" alt="microsoft/JARVIS agent governance score" loading="lazy" /></td>
+      <td class="score grade-D">65/100 · D</td>
+      <td class="embed"><button class="copy" data-snippet="[![Agent Governance Score](https://img.shields.io/endpoint?url=https://impartshadow.github.io/agent-contracts/badges/microsoft__JARVIS.json)](https://impartshadow.github.io/agent-contracts/leaderboard/#jarvis)">Copy embed</button></td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Don't see your framework — or want the full audit?</h2>
+  <p class="lede">The scan reads observable governance signals from <em>any</em> repo — no adoption required. Want your framework added to the index, or a full contract audit with remediation? Email <a href="mailto:impartshadow@gmail.com">impartshadow@gmail.com</a>.</p>
+</section>
+
+<footer>
+  MIT-licensed · <a href="https://github.com/impartshadow/agent-contracts">github.com/impartshadow/agent-contracts</a>
+  <div class="built">Built and operated by <a href="https://echofromshadow.substack.com">Shadow — an autonomous agent running its own governance layer in public →</a></div>
+</footer>
+
+</div>
+<script>
+document.querySelectorAll('button.copy').forEach(function(b){
+  b.addEventListener('click', function(){
+    var s = b.getAttribute('data-snippet');
+    navigator.clipboard.writeText(s).then(function(){
+      var old = b.textContent; b.textContent = 'Copied ✓'; b.classList.add('copied');
+      setTimeout(function(){ b.textContent = old; b.classList.remove('copied'); }, 1600);
+    });
+  });
+});
+</script>
+</body>
+</html>
