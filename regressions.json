@@ -1,6 +1,60 @@
 {
   "changes": [
     {
+      "classification": "regression",
+      "dimension_deltas": [
+        {
+          "delta": 10,
+          "from": 0,
+          "name": "dependency_pinning",
+          "to": 10
+        },
+        {
+          "delta": 5,
+          "from": 5,
+          "name": "observability",
+          "to": 10
+        },
+        {
+          "delta": -7,
+          "from": 15,
+          "name": "secret_safety",
+          "to": 8
+        }
+      ],
+      "grade_changed": true,
+      "grade_from": "B",
+      "grade_to": "A",
+      "prev_scanned_sha": "a046e6a50be633f76a1b128b70ef54363aa01d7c",
+      "project": "crewAIInc/crewAI",
+      "scanned_sha": "01fc389d4ab1f5bb020feec4152873d673a4286e",
+      "score_delta": 8,
+      "score_from": 85,
+      "score_to": 93,
+      "severity": "warn"
+    },
+    {
+      "classification": "improvement",
+      "dimension_deltas": [
+        {
+          "delta": 7,
+          "from": 8,
+          "name": "secret_safety",
+          "to": 15
+        }
+      ],
+      "grade_changed": false,
+      "grade_from": "A",
+      "grade_to": "A",
+      "prev_scanned_sha": "9f66e8a649856524ef0ff081a23d58cd071b6ae4",
+      "project": "run-llama/llama_index",
+      "scanned_sha": "520aa4ec48c084c7d0fdf93cb22d567046118ad2",
+      "score_delta": 7,
+      "score_from": 93,
+      "score_to": 100,
+      "severity": "info"
+    },
+    {
       "classification": "unchanged",
       "dimension_deltas": [],
       "grade_changed": false,
@@ -20,9 +74,9 @@
       "grade_changed": false,
       "grade_from": "A",
       "grade_to": "A",
-      "prev_scanned_sha": "94eba54c25ec608479359f3b6105165da251d484",
+      "prev_scanned_sha": "b34d67e19f093fd9a8dc33fb85eddb976680025c",
       "project": "All-Hands-AI/OpenHands",
-      "scanned_sha": "b34d67e19f093fd9a8dc33fb85eddb976680025c",
+      "scanned_sha": "eae7116d960abfdb6a1c1196202d704f227a8400",
       "score_delta": 0,
       "score_from": 93,
       "score_to": 93,
@@ -76,9 +130,9 @@
       "grade_changed": false,
       "grade_from": "A",
       "grade_to": "A",
-      "prev_scanned_sha": "34105974b247488add7e14ad47c0559cc692feaa",
+      "prev_scanned_sha": "de216236d308ca7866f19cc019c886746db516af",
       "project": "agno-agi/agno",
-      "scanned_sha": "de216236d308ca7866f19cc019c886746db516af",
+      "scanned_sha": "03a221c18fa4e0ffc56be6668f5cb4e14c6253f5",
       "score_delta": 0,
       "score_from": 93,
       "score_to": 93,
@@ -90,7 +144,7 @@
       "grade_changed": false,
       "grade_from": "B",
       "grade_to": "B",
-      "prev_scanned_sha": "b364917f55ea579c47e5ef3f038f7e56f51213df",
+      "prev_scanned_sha": "409b8b60b477d50f2f844bc9598d1bcb7b056eee",
       "project": "assafelovic/gpt-researcher",
       "scanned_sha": "409b8b60b477d50f2f844bc9598d1bcb7b056eee",
       "score_delta": 0,
@@ -104,26 +158,12 @@
       "grade_changed": false,
       "grade_from": "A",
       "grade_to": "A",
-      "prev_scanned_sha": "51ae9bb92be2b124927e9d9822210873e4b29c16",
+      "prev_scanned_sha": "272a1540301ac71b45c5ab37991b49c561408bf9",
       "project": "camel-ai/camel",
       "scanned_sha": "272a1540301ac71b45c5ab37991b49c561408bf9",
       "score_delta": 0,
       "score_from": 93,
       "score_to": 93,
-      "severity": "info"
-    },
-    {
-      "classification": "unchanged",
-      "dimension_deltas": [],
-      "grade_changed": false,
-      "grade_from": "B",
-      "grade_to": "B",
-      "prev_scanned_sha": "0391febc6cbdde16b5664641c99f8036a8f9466e",
-      "project": "crewAIInc/crewAI",
-      "scanned_sha": "a046e6a50be633f76a1b128b70ef54363aa01d7c",
-      "score_delta": 0,
-      "score_from": 85,
-      "score_to": 85,
       "severity": "info"
     },
     {
@@ -146,9 +186,9 @@
       "grade_changed": false,
       "grade_from": "A",
       "grade_to": "A",
-      "prev_scanned_sha": "8c9fff859c7335e91650d9b0e4c510b62642e50f",
+      "prev_scanned_sha": "2f799d5196ad04c322f51f5dc084400558f29b41",
       "project": "google/adk-python",
-      "scanned_sha": "2f799d5196ad04c322f51f5dc084400558f29b41",
+      "scanned_sha": "2e3d717c5d418df0b5de902d69635dc6e3dcaf6f",
       "score_delta": 0,
       "score_from": 90,
       "score_to": 90,
@@ -174,7 +214,7 @@
       "grade_changed": false,
       "grade_from": "A",
       "grade_to": "A",
-      "prev_scanned_sha": "c669da76624d658a6e4b33bf1dc4528e4f3ef34f",
+      "prev_scanned_sha": "57c83d44bc8ae89a189ad521b9756cfac996039c",
       "project": "langchain-ai/langchain",
       "scanned_sha": "57c83d44bc8ae89a189ad521b9756cfac996039c",
       "score_delta": 0,
@@ -188,9 +228,9 @@
       "grade_changed": false,
       "grade_from": "A",
       "grade_to": "A",
-      "prev_scanned_sha": "711b31550286585b3793857b2a99c8dafd98b785",
+      "prev_scanned_sha": "8c9d59c842454e7f4531f5e69ff9dab0af3c660f",
       "project": "langchain-ai/langgraph",
-      "scanned_sha": "8c9d59c842454e7f4531f5e69ff9dab0af3c660f",
+      "scanned_sha": "3df6f50ad545e1c81fa14bc172784185aabf11ce",
       "score_delta": 0,
       "score_from": 100,
       "score_to": 100,
@@ -216,9 +256,9 @@
       "grade_changed": false,
       "grade_from": "A",
       "grade_to": "A",
-      "prev_scanned_sha": "4e448269bcf7136905b45c0ef5ac34c2254a1a3b",
+      "prev_scanned_sha": "6ddf1669f4f6ea408dca0b7f497af0cb8523cced",
       "project": "mem0ai/mem0",
-      "scanned_sha": "6ddf1669f4f6ea408dca0b7f497af0cb8523cced",
+      "scanned_sha": "818c2981b7be0c78203d5d5a12cdc276a9032a06",
       "score_delta": 0,
       "score_from": 93,
       "score_to": 93,
@@ -258,9 +298,9 @@
       "grade_changed": false,
       "grade_from": "A",
       "grade_to": "A",
-      "prev_scanned_sha": "83bffe197b91f60e8bc7c2c1f3c651652f7703ce",
+      "prev_scanned_sha": "88e1060b99d9a5ee419cb3f62f805ccb86d0f445",
       "project": "microsoft/semantic-kernel",
-      "scanned_sha": "88e1060b99d9a5ee419cb3f62f805ccb86d0f445",
+      "scanned_sha": "e99c633fba9e4005bdb9b90a1f5441945b781040",
       "score_delta": 0,
       "score_from": 100,
       "score_to": 100,
@@ -272,7 +312,7 @@
       "grade_changed": false,
       "grade_from": "A",
       "grade_to": "A",
-      "prev_scanned_sha": "a9b7b7ef4a9eb7df50e2d9b837114f899f07b36f",
+      "prev_scanned_sha": "92137d222b442df7b2e3daeb984cee45608bb2ca",
       "project": "openai/openai-agents-python",
       "scanned_sha": "92137d222b442df7b2e3daeb984cee45608bb2ca",
       "score_delta": 0,
@@ -314,9 +354,9 @@
       "grade_changed": false,
       "grade_from": "A",
       "grade_to": "A",
-      "prev_scanned_sha": "53e06412c50b549ed39ac570e892ae168aaa5f52",
+      "prev_scanned_sha": "45f34af32adacbc72873d193470e0a7964f87786",
       "project": "pydantic/pydantic-ai",
-      "scanned_sha": "45f34af32adacbc72873d193470e0a7964f87786",
+      "scanned_sha": "c26903e5edfb9c0308e9a6696fd3f876c2ff92af",
       "score_delta": 0,
       "score_from": 93,
       "score_to": 93,
@@ -334,20 +374,6 @@
       "score_delta": 0,
       "score_from": 78,
       "score_to": 78,
-      "severity": "info"
-    },
-    {
-      "classification": "unchanged",
-      "dimension_deltas": [],
-      "grade_changed": false,
-      "grade_from": "A",
-      "grade_to": "A",
-      "prev_scanned_sha": "9f66e8a649856524ef0ff081a23d58cd071b6ae4",
-      "project": "run-llama/llama_index",
-      "scanned_sha": "9f66e8a649856524ef0ff081a23d58cd071b6ae4",
-      "score_delta": 0,
-      "score_from": 93,
-      "score_to": 93,
       "severity": "info"
     },
     {
@@ -379,12 +405,12 @@
       "severity": "info"
     }
   ],
-  "prev_run_id": "2026-06-23T01:34:59Z",
-  "run_id": "2026-06-24T11:03:37Z",
+  "prev_run_id": "2026-06-24T11:03:37Z",
+  "run_id": "2026-06-25T13:09:18Z",
   "summary": {
-    "improvement": 0,
+    "improvement": 1,
     "new": 0,
-    "regression": 0,
-    "unchanged": 27
+    "regression": 1,
+    "unchanged": 25
   }
 }
