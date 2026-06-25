@@ -104,14 +104,24 @@ def _badge_url(score: int) -> str:
 
 
 def _iter_files(root: Path) -> Iterable[Path]:
-    count = 0
-    for path in sorted(root.rglob("*")):
-        if count >= _MAX_FILES_SCANNED:
-            return
+    # Walk shallow-first (depth, then path). Root-level governance signals —
+    # lockfiles, manifests, CI configs — must never be truncated by the
+    # _MAX_FILES_SCANNED cap on large repos. A pure lexicographic walk drops
+    # late-alphabet root files (e.g. uv.lock) behind thousands of deep source
+    # files, which silently zeroed dependency_pinning on the biggest repos.
+    candidates = []
+    for path in root.rglob("*"):
         if path.is_dir():
             continue
         if any(part in _SKIP_DIRS for part in path.parts):
             continue
+        candidates.append(path)
+    candidates.sort(key=lambda p: (len(p.relative_to(root).parts), str(p)))
+
+    count = 0
+    for path in candidates:
+        if count >= _MAX_FILES_SCANNED:
+            return
         count += 1
         yield path
 

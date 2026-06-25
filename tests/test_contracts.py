@@ -273,6 +273,26 @@ def test_scan_ignores_public_analytics_project_identifiers(tmp_path):
     assert "no obvious hardcoded secrets in tracked source" in secret_component["evidence"]
 
 
+def test_scan_finds_root_lockfile_behind_many_deep_files(tmp_path):
+    # Regression: a pure lexicographic walk truncated at _MAX_FILES_SCANNED
+    # dropped late-alphabet root files (e.g. uv.lock) behind thousands of deep
+    # source files on large repos, silently zeroing dependency_pinning. The
+    # walk must be shallow-first so root-level governance signals always land
+    # inside the scan budget.
+    from agent_contracts import scan as scan_mod
+
+    deep = tmp_path / "src" / "pkg"
+    deep.mkdir(parents=True)
+    for i in range(scan_mod._MAX_FILES_SCANNED + 200):
+        (deep / f"mod_{i:05d}.py").write_text("x = 1\n", encoding="utf-8")
+    (tmp_path / "uv.lock").write_text("# resolved deps\n", encoding="utf-8")
+
+    payload = scan_repository(tmp_path)
+    dep = next(c for c in payload["components"] if c["name"] == "dependency_pinning")
+
+    assert dep["points"] == 10, "root uv.lock must be scanned despite many deep files"
+
+
 def test_scan_flags_generic_hardcoded_api_key(tmp_path):
     app = tmp_path / "client.py"
     app.write_text(
