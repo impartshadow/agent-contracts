@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Agent Framework Governance Report Cards — Shadow Agent Governance Index</title>
+<meta name="description" content="Per-framework agent governance report cards — reproducible reliability scores for LangGraph, AutoGen, CrewAI, AutoGPT, DSPy, llama_index, OpenHands, aider and 20+ more." />
+<link rel="canonical" href="https://impartshadow.github.io/agent-contracts/frameworks/" />
+<style>
+:root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--fg:#e6edf3;--muted:#8b949e;
+--accent:#58a6ff;--block:#f85149;--warn:#d29922;--pass:#3fb950;
+--mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:1.6;}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+.crumb{font-family:var(--mono);font-size:13px;color:var(--muted);padding:24px 0 0}
+header{padding:18px 0 8px}
+h1{margin:0;font-size:28px;letter-spacing:-.02em}
+h1 .repo{font-family:var(--mono);font-size:24px}
+.tag{color:var(--muted);font-size:17px;margin:12px 0 0}
+.scorebox{display:flex;align-items:baseline;gap:14px;margin:22px 0 4px}
+.bigscore{font-family:var(--mono);font-size:46px;font-weight:700}
+.grade{font-family:var(--mono);font-weight:700;padding:3px 12px;border-radius:6px;font-size:20px}
+.A{color:var(--pass);background:rgba(63,185,80,.12)}
+.B{color:var(--accent);background:rgba(88,166,255,.12)}
+.C{color:var(--warn);background:rgba(210,153,34,.12)}
+.D{color:var(--block);background:rgba(248,81,73,.12)}
+.trend{font-family:var(--mono);font-size:14px;color:var(--muted)}
+.finding{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--warn);
+border-radius:10px;padding:16px 18px;margin:20px 0;font-size:15.5px}
+.finding b{color:var(--warn)}
+section{padding:26px 0;border-top:1px solid var(--line)}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:0 0 16px}
+.dim{margin:0 0 14px}
+.dim .row{display:flex;justify-content:space-between;font-size:14px;margin:0 0 5px}
+.dim .row .what{color:var(--muted);font-size:12.5px}
+.dim .pts{font-family:var(--mono)}
+.bar{height:7px;background:#21262d;border-radius:4px;overflow:hidden}
+.bar > i{display:block;height:100%;border-radius:4px}
+.full{background:var(--pass)}.part{background:var(--warn)}.zero{background:var(--block)}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;
+font-family:var(--mono);font-size:13px;line-height:1.55;margin:0}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0 4px}
+.btn{display:inline-block;padding:10px 20px;border-radius:8px;font-weight:600;font-size:14.5px;border:1px solid var(--line)}
+.btn.primary{background:var(--accent);color:#0d1117;border-color:var(--accent)}
+.btn.ghost{background:#21262d;color:var(--fg)}
+.note{color:var(--muted);font-size:13px;margin-top:14px}
+footer{padding:36px 0 56px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+ul.idx{list-style:none;padding:0;margin:0}
+ul.idx li{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+ul.idx .nm{font-family:var(--mono);font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="crumb"><a href="https://impartshadow.github.io/agent-contracts/leaderboard/">‹ Agent Governance Index</a></div>
+  <header>
+    <h1>Framework report cards</h1>
+    <p class="tag">One reproducible governance report card per indexed framework. Each links the
+    exact scanned commit so any score can be reproduced from a clean clone.</p>
+  </header>
+  <section>
+    <h2>27 frameworks indexed</h2>
+    <ul class="idx">
+<li><a class="nm" href="langchain-ai__langgraph.html">langchain-ai/langgraph</a><span><span class="pts" style="font-family:var(--mono)">100/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="microsoft__autogen.html">microsoft/autogen</a><span><span class="pts" style="font-family:var(--mono)">100/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="run-llama__llama_index.html">run-llama/llama_index</a><span><span class="pts" style="font-family:var(--mono)">100/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="microsoft__semantic-kernel.html">microsoft/semantic-kernel</a><span><span class="pts" style="font-family:var(--mono)">100/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="stanfordnlp__dspy.html">stanfordnlp/dspy</a><span><span class="pts" style="font-family:var(--mono)">100/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="Significant-Gravitas__AutoGPT.html">Significant-Gravitas/AutoGPT</a><span><span class="pts" style="font-family:var(--mono)">93/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="crewAIInc__crewAI.html">crewAIInc/crewAI</a><span><span class="pts" style="font-family:var(--mono)">93/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="All-Hands-AI__OpenHands.html">All-Hands-AI/OpenHands</a><span><span class="pts" style="font-family:var(--mono)">93/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="langchain-ai__langchain.html">langchain-ai/langchain</a><span><span class="pts" style="font-family:var(--mono)">93/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="camel-ai__camel.html">camel-ai/camel</a><span><span class="pts" style="font-family:var(--mono)">93/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="pydantic__pydantic-ai.html">pydantic/pydantic-ai</a><span><span class="pts" style="font-family:var(--mono)">93/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="openai__openai-agents-python.html">openai/openai-agents-python</a><span><span class="pts" style="font-family:var(--mono)">93/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="mem0ai__mem0.html">mem0ai/mem0</a><span><span class="pts" style="font-family:var(--mono)">93/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="agno-agi__agno.html">agno-agi/agno</a><span><span class="pts" style="font-family:var(--mono)">93/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="geekan__MetaGPT.html">geekan/MetaGPT</a><span><span class="pts" style="font-family:var(--mono)">90/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="princeton-nlp__SWE-agent.html">princeton-nlp/SWE-agent</a><span><span class="pts" style="font-family:var(--mono)">90/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="huggingface__smolagents.html">huggingface/smolagents</a><span><span class="pts" style="font-family:var(--mono)">90/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="google__adk-python.html">google/adk-python</a><span><span class="pts" style="font-family:var(--mono)">90/100</span> <span class="grade A">A</span></span></li>
+<li><a class="nm" href="assafelovic__gpt-researcher.html">assafelovic/gpt-researcher</a><span><span class="pts" style="font-family:var(--mono)">85/100</span> <span class="grade B">B</span></span></li>
+<li><a class="nm" href="Aider-AI__aider.html">Aider-AI/aider</a><span><span class="pts" style="font-family:var(--mono)">84/100</span> <span class="grade B">B</span></span></li>
+<li><a class="nm" href="OpenBMB__ChatDev.html">OpenBMB/ChatDev</a><span><span class="pts" style="font-family:var(--mono)">80/100</span> <span class="grade B">B</span></span></li>
+<li><a class="nm" href="TransformerOptimus__SuperAGI.html">TransformerOptimus/SuperAGI</a><span><span class="pts" style="font-family:var(--mono)">78/100</span> <span class="grade C">C</span></span></li>
+<li><a class="nm" href="letta-ai__letta.html">letta-ai/letta</a><span><span class="pts" style="font-family:var(--mono)">78/100</span> <span class="grade C">C</span></span></li>
+<li><a class="nm" href="reworkd__AgentGPT.html">reworkd/AgentGPT</a><span><span class="pts" style="font-family:var(--mono)">78/100</span> <span class="grade C">C</span></span></li>
+<li><a class="nm" href="openai__swarm.html">openai/swarm</a><span><span class="pts" style="font-family:var(--mono)">70/100</span> <span class="grade C">C</span></span></li>
+<li><a class="nm" href="yoheinakajima__babyagi.html">yoheinakajima/babyagi</a><span><span class="pts" style="font-family:var(--mono)">65/100</span> <span class="grade D">D</span></span></li>
+<li><a class="nm" href="microsoft__JARVIS.html">microsoft/JARVIS</a><span><span class="pts" style="font-family:var(--mono)">65/100</span> <span class="grade D">D</span></span></li>
+    </ul>
+  </section>
+  <footer>
+    Shadow Agent Governance Index · <a href="https://github.com/impartshadow/agent-contracts">source</a> ·
+    weekly deltas at <a href="https://echofromshadow.substack.com">echofromshadow.substack.com</a>.
+  </footer>
+</div>
+</body>
+</html>

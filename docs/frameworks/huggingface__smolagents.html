@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Is smolagents production-ready? Agent governance score: 90/100 (A)</title>
+<meta name="description" content="huggingface/smolagents scores 90/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit 526069c1ea." />
+<link rel="canonical" href="https://impartshadow.github.io/agent-contracts/frameworks/huggingface__smolagents.html" />
+<meta property="og:title" content="Is smolagents production-ready? Agent governance score: 90/100 (A)" />
+<meta property="og:description" content="huggingface/smolagents scores 90/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit 526069c1ea." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://impartshadow.github.io/agent-contracts/frameworks/huggingface__smolagents.html" />
+<meta name="twitter:card" content="summary" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"huggingface/smolagents agent governance score","description":"huggingface/smolagents scores 90/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit 526069c1ea.","url":"https://impartshadow.github.io/agent-contracts/frameworks/huggingface__smolagents.html","creator":{"@type":"Organization","name":"Shadow"},"isBasedOn":"https://github.com/huggingface/smolagents","license":"https://opensource.org/licenses/MIT"}</script>
+<style>
+:root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--fg:#e6edf3;--muted:#8b949e;
+--accent:#58a6ff;--block:#f85149;--warn:#d29922;--pass:#3fb950;
+--mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:1.6;}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+.crumb{font-family:var(--mono);font-size:13px;color:var(--muted);padding:24px 0 0}
+header{padding:18px 0 8px}
+h1{margin:0;font-size:28px;letter-spacing:-.02em}
+h1 .repo{font-family:var(--mono);font-size:24px}
+.tag{color:var(--muted);font-size:17px;margin:12px 0 0}
+.scorebox{display:flex;align-items:baseline;gap:14px;margin:22px 0 4px}
+.bigscore{font-family:var(--mono);font-size:46px;font-weight:700}
+.grade{font-family:var(--mono);font-weight:700;padding:3px 12px;border-radius:6px;font-size:20px}
+.A{color:var(--pass);background:rgba(63,185,80,.12)}
+.B{color:var(--accent);background:rgba(88,166,255,.12)}
+.C{color:var(--warn);background:rgba(210,153,34,.12)}
+.D{color:var(--block);background:rgba(248,81,73,.12)}
+.trend{font-family:var(--mono);font-size:14px;color:var(--muted)}
+.finding{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--warn);
+border-radius:10px;padding:16px 18px;margin:20px 0;font-size:15.5px}
+.finding b{color:var(--warn)}
+section{padding:26px 0;border-top:1px solid var(--line)}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:0 0 16px}
+.dim{margin:0 0 14px}
+.dim .row{display:flex;justify-content:space-between;font-size:14px;margin:0 0 5px}
+.dim .row .what{color:var(--muted);font-size:12.5px}
+.dim .pts{font-family:var(--mono)}
+.bar{height:7px;background:#21262d;border-radius:4px;overflow:hidden}
+.bar > i{display:block;height:100%;border-radius:4px}
+.full{background:var(--pass)}.part{background:var(--warn)}.zero{background:var(--block)}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;
+font-family:var(--mono);font-size:13px;line-height:1.55;margin:0}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0 4px}
+.btn{display:inline-block;padding:10px 20px;border-radius:8px;font-weight:600;font-size:14.5px;border:1px solid var(--line)}
+.btn.primary{background:var(--accent);color:#0d1117;border-color:var(--accent)}
+.btn.ghost{background:#21262d;color:var(--fg)}
+.note{color:var(--muted);font-size:13px;margin-top:14px}
+footer{padding:36px 0 56px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+ul.idx{list-style:none;padding:0;margin:0}
+ul.idx li{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+ul.idx .nm{font-family:var(--mono);font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="crumb"><a href="https://impartshadow.github.io/agent-contracts/leaderboard/">‹ Agent Governance Index</a></div>
+  <header>
+    <h1>Is <span class="repo">huggingface/smolagents</span> production-ready?</h1>
+    <p class="tag">Mechanical governance score from <b>agent-contracts scan</b> against a clean clone.
+    No vibes, no testimonials — reproducible from the exact commit below.</p>
+    <div class="scorebox">
+      <span class="bigscore">90<span style="font-size:22px;color:var(--muted)">/100</span></span>
+      <span class="grade A">A</span>
+      <span class="trend">no change since the previous scan</span>
+    </div>
+  </header>
+
+  <div class="finding"><b>Weakest dimension:</b> dependency_pinning (0/10). This measures a lockfile or pinned dependency manifest. A low score here means an agent built on smolagents can fail in this dimension without the repo signalling it.</div>
+
+  <section>
+    <h2>Dimension breakdown (100 points)</h2>
+    <div class="dim"><div class="row"><span>tests_and_ci<span class="what"> — a test suite plus CI that runs it</span></span><span class="pts">20/20</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
+<div class="dim"><div class="row"><span>tool_governance<span class="what"> — permission / allowlist / approval / human-in-loop gating on tool calls</span></span><span class="pts">20/20</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
+<div class="dim"><div class="row"><span>secret_safety<span class="what"> — secrets git-ignored, no obvious hardcoded keys</span></span><span class="pts">15/15</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
+<div class="dim"><div class="row"><span>eval_harness<span class="what"> — an eval / benchmark / labeled-corpus surface</span></span><span class="pts">15/15</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
+<div class="dim"><div class="row"><span>dependency_pinning<span class="what"> — a lockfile or pinned dependency manifest</span></span><span class="pts">0/10</span></div><div class="bar"><i class="zero" style="width:0%"></i></div></div>
+<div class="dim"><div class="row"><span>observability<span class="what"> — logging / audit / tracing</span></span><span class="pts">10/10</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
+<div class="dim"><div class="row"><span>resilience<span class="what"> — retry / backoff / fallback / escalation</span></span><span class="pts">10/10</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
+  </section>
+
+  <section>
+    <h2>Reproduce this score</h2>
+    <pre>pip install "agent-contracts @ git+https://github.com/impartshadow/agent-contracts.git"
+git clone --depth 1 https://github.com/huggingface/smolagents.git
+git -C smolagents checkout 526069c1ea
+agent-contracts scan --root smolagents --json</pre>
+    <p class="note">Scored commit: <code>526069c1ead958b36d9fd09a6b1ef37f68ed6ade</code>. The score is the
+    output of a deterministic scanner, not a judgment call — a clean clone reproduces it.</p>
+  </section>
+
+  <section>
+    <h2>What this score can and can't tell you</h2>
+    <p>This index measures observable governance <i>surface</i> — the guardrails a reliable
+    agent needs. It does <b>not</b> certify that agents built on smolagents behave correctly at
+    runtime. The most expensive agent failure — confidently claiming a task is "done" with
+    nothing to back it — has no surface to grep, so no static score (including this one) can
+    see it. <a href="https://echofromshadow.substack.com/p/i-built-a-scorecard-for-agent-frameworks">Here's the proof, on the #1-ranked framework.</a></p>
+    <div class="cta">
+      <a class="btn primary" href="https://echofromshadow.substack.com/subscribe">Get the weekly scan delta — $7/mo</a>
+      <a class="btn ghost" href="https://impartshadow.github.io/agent-contracts/leaderboard/">See the full index</a>
+    </div>
+    <p class="note">Every framework is re-scanned on a schedule. The weekly delta — what moved,
+    on which commit, and what it means for teams building on it — goes out at
+    <a href="https://echofromshadow.substack.com">echofromshadow.substack.com</a>.</p>
+  </section>
+
+  <footer>
+    Shadow Agent Governance Index · <a href="https://github.com/impartshadow/agent-contracts">source on GitHub</a> ·
+    scores are mechanical and reproducible · MIT licensed.
+  </footer>
+</div>
+</body>
+</html>

@@ -208,9 +208,11 @@ def render_html_rows(rows: list[dict], changes_by_project: dict[str, dict]) -> s
         weakest_label = "—" if weakest["points"] == weakest["max_points"] else weakest["name"]
         anchor = r["project"].split("/")[-1].lower().replace("_", "-")
         trend = _trend_html(changes_by_project.get(r["project"]))
+        card = f'../frameworks/{r["project"].replace("/", "__")}.html'
         out.append(
             f'    <tr id="{anchor}"><td class="rank">{i}</td>'
-            f'<td class="proj"><a href="https://github.com/{r["project"]}">{r["project"]}</a></td>'
+            f'<td class="proj"><a href="{card}">{r["project"]}</a> '
+            f'<a href="https://github.com/{r["project"]}" class="gh" title="repo">↗</a></td>'
             f'<td class="score">{r["score"]}</td>'
             f'<td><span class="grade {_grade_class(r["grade"])}">{r["grade"]}</span></td>'
             f'<td class="trend-cell">{trend}</td>'
@@ -371,6 +373,11 @@ def main() -> int:
 
     if not args.no_docs:
         update_html(rows, changes, changes_by_project, prev_run_id)
+        try:
+            from scripts.gen_framework_pages import generate as _gen_pages
+            _gen_pages(rows=rows, shas=shas)
+        except Exception as exc:  # never let report-card gen fail the scan
+            print(f"  (skip report cards: {exc})", flush=True)
 
     return 0
 
