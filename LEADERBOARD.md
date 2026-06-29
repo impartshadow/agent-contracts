@@ -17,11 +17,11 @@ credit for a story about what the agent probably does.
 |---:|---|---:|:--:|:--:|---|---|
 | 1 | [`langchain-ai/langgraph`](https://github.com/langchain-ai/langgraph) | 100/100 | A | – | tests_and_ci | — |
 | 2 | [`microsoft/autogen`](https://github.com/microsoft/autogen) | 100/100 | A | – | tests_and_ci | — |
-| 3 | [`run-llama/llama_index`](https://github.com/run-llama/llama_index) | 100/100 | A | ▲ +7 | tests_and_ci | — |
+| 3 | [`run-llama/llama_index`](https://github.com/run-llama/llama_index) | 100/100 | A | – | tests_and_ci | — |
 | 4 | [`microsoft/semantic-kernel`](https://github.com/microsoft/semantic-kernel) | 100/100 | A | – | tests_and_ci | — |
 | 5 | [`stanfordnlp/dspy`](https://github.com/stanfordnlp/dspy) | 100/100 | A | – | tests_and_ci | — |
 | 6 | [`Significant-Gravitas/AutoGPT`](https://github.com/Significant-Gravitas/AutoGPT) | 93/100 | A | – | tests_and_ci | secret_safety |
-| 7 | [`crewAIInc/crewAI`](https://github.com/crewAIInc/crewAI) | 93/100 | A | ▲ +8 | tests_and_ci | secret_safety |
+| 7 | [`crewAIInc/crewAI`](https://github.com/crewAIInc/crewAI) | 93/100 | A | – | tests_and_ci | secret_safety |
 | 8 | [`All-Hands-AI/OpenHands`](https://github.com/All-Hands-AI/OpenHands) | 93/100 | A | – | tests_and_ci | secret_safety |
 | 9 | [`langchain-ai/langchain`](https://github.com/langchain-ai/langchain) | 93/100 | A | – | tests_and_ci | secret_safety |
 | 10 | [`camel-ai/camel`](https://github.com/camel-ai/camel) | 93/100 | A | – | tests_and_ci | secret_safety |
