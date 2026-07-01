@@ -169,6 +169,7 @@ def _render_card(rec: dict, prev_score: int | None) -> str:
         )
 
     trend = _trend_text(score, prev_score)
+    og_image = f"{SITE}/og/{_slug(project)}.png"
     title = f"Is {repo} production-ready? Agent governance score: {score}/100 ({grade})"
     desc = (
         f"{project} scores {score}/100 (grade {grade}) on the Shadow Agent Governance Index — "
@@ -199,7 +200,11 @@ def _render_card(rec: dict, prev_score: int | None) -> str:
 <meta property="og:description" content="{_html.escape(desc)}" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="{canonical}" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="{og_image}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="{og_image}" />
 <script type="application/ld+json">{jsonld}</script>
 <style>{STYLE}</style>
 </head>
@@ -284,6 +289,15 @@ def _render_index(records: list[dict]) -> str:
 <title>Agent Framework Governance Report Cards — Shadow Agent Governance Index</title>
 <meta name="description" content="{_html.escape(desc)}" />
 <link rel="canonical" href="{SITE}/frameworks/" />
+<meta property="og:title" content="Agent Framework Governance Report Cards" />
+<meta property="og:description" content="{_html.escape(desc)}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{SITE}/frameworks/" />
+<meta property="og:image" content="{SITE}/og/leaderboard.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="{SITE}/og/leaderboard.png" />
 <style>{STYLE}</style>
 </head>
 <body>
@@ -354,6 +368,14 @@ def generate(rows: list[dict] | None = None, shas: dict | None = None) -> int:
         written += 1
     (OUT_DIR / "index.html").write_text(_render_index(records), encoding="utf-8")
     print(f"wrote {written} framework report cards + index to {OUT_DIR}", flush=True)
+
+    # Render matching OG share images so every backlink renders a visual card.
+    try:
+        from scripts.gen_og_cards import generate as _gen_og
+        _gen_og(records=records)
+    except Exception as exc:  # never let image gen fail the page/scan pipeline
+        print(f"  (skip OG cards: {exc})", flush=True)
+
     return written
 
 
