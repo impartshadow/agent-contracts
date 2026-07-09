@@ -25,6 +25,7 @@ from .core import (
 )
 from .contracts import (
     DangerousPathGuard,
+    IdempotencyGuard,
     LoopGuard,
     SecretLeakGuard,
     ShellCommandGuard,
@@ -71,6 +72,7 @@ __all__ = [
     "Severity",
     "Violation",
     "DangerousPathGuard",
+    "IdempotencyGuard",
     "LoopGuard",
     "SecretLeakGuard",
     "ShellCommandGuard",

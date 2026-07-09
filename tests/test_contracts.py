@@ -21,6 +21,7 @@ from agent_contracts import (
 )
 from agent_contracts.contracts import (
     DangerousPathGuard,
+    IdempotencyGuard,
     LoopGuard,
     SecretLeakGuard,
     ShellCommandGuard,
@@ -925,3 +926,72 @@ def test_cli_doctor_json_with_eval(tmp_path, capsys):
     assert exit_code == 0
     assert payload["passed"] is True
     assert any(check["name"] == "eval-corpus" for check in payload["checks"])
+
+
+def _idem_ctx(**overrides):
+    base = dict(
+        action="tool_call",
+        tool="send_payment",
+        params={"amount": 50.0, "recipient": "acct_123"},
+        metadata={"task_id": "task-1"},
+    )
+    base.update(overrides)
+    return ActionContext(**base)
+
+
+def test_idempotency_guard_allows_first_call(tmp_path):
+    g = IdempotencyGuard(str(tmp_path / "ledger.jsonl"), guarded_tools=["send_payment"])
+    assert g.check_pre(_idem_ctx()) is None
+
+
+def test_idempotency_guard_blocks_duplicate_after_record(tmp_path):
+    g = IdempotencyGuard(str(tmp_path / "ledger.jsonl"), guarded_tools=["send_payment"])
+    ctx = _idem_ctx()
+    assert g.check_pre(ctx) is None
+    g.record(ctx, result="payment sent")
+    v = g.check_pre(ctx)
+    assert v is not None and v.blocking
+    assert "payment sent" in v.recovery
+
+
+def test_idempotency_guard_scope_id_separates_tasks(tmp_path):
+    g = IdempotencyGuard(str(tmp_path / "ledger.jsonl"), guarded_tools=["send_payment"])
+    ctx1 = _idem_ctx(metadata={"task_id": "task-1"})
+    g.record(ctx1, result="ok")
+    ctx2 = _idem_ctx(metadata={"task_id": "task-2"})
+    assert g.check_pre(ctx2) is None  # same args, different task — legitimate
+
+
+def test_idempotency_guard_ignores_unguarded_tools(tmp_path):
+    g = IdempotencyGuard(str(tmp_path / "ledger.jsonl"), guarded_tools=["send_payment"])
+    ctx = _idem_ctx(tool="read_file")
+    g_key_before = g.ledger_path.exists()
+    assert g.check_pre(ctx) is None
+    assert g_key_before is False
+
+
+def test_idempotency_guard_param_change_is_new_call(tmp_path):
+    g = IdempotencyGuard(str(tmp_path / "ledger.jsonl"), guarded_tools=["send_payment"])
+    ctx = _idem_ctx()
+    g.record(ctx, result="ok")
+    changed = _idem_ctx(params={"amount": 75.0, "recipient": "acct_123"})
+    assert g.check_pre(changed) is None
+
+
+def test_idempotency_guard_survives_restart(tmp_path):
+    ledger = str(tmp_path / "ledger.jsonl")
+    g1 = IdempotencyGuard(ledger, guarded_tools=["send_payment"])
+    g1.record(_idem_ctx(), result="ok")
+    g2 = IdempotencyGuard(ledger, guarded_tools=["send_payment"])  # fresh process
+    v = g2.check_pre(_idem_ctx())
+    assert v is not None and v.blocking
+
+
+def test_idempotency_guard_registry_enforce(tmp_path):
+    g = IdempotencyGuard(str(tmp_path / "ledger.jsonl"), guarded_tools=["send_payment"])
+    reg = Registry([g])
+    ctx = _idem_ctx()
+    reg.enforce_pre(ctx)
+    g.record(ctx, result="ok")
+    with pytest.raises(BlockedAction):
+        reg.enforce_pre(ctx)

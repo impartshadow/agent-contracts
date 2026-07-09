@@ -9,7 +9,10 @@ completion claims.
 
 from __future__ import annotations
 
+import hashlib
+import json
 import re
+import time
 from pathlib import Path
 from typing import Iterable, Optional
 
@@ -258,6 +261,102 @@ class UnverifiedCompletionGuard(Contract):
                 "completion claim with no verifiable artifact (no output, url, hash, or path)",
                 severity=Severity.WARN,
                 recovery="Paste the command output, link, commit hash, or file path that proves it.",
+            )
+        return None
+
+
+class IdempotencyGuard(Contract):
+    """Block re-execution of a side-effectful tool call that already ran.
+
+    The classic production failure: a task retries (timeout, worker re-dispatch,
+    max_retry_limit) and the payment/email/webhook fires twice. The framework
+    can't see the gap between "tool executed" and "agent got the result" — so
+    the guard has to live outside the agent loop, keyed on the call itself.
+
+    How it works:
+
+    1. Before execution, compute a deterministic idempotency key:
+       ``sha256(tool_name, canonical_params, scope_id)``. The scope id
+       (task/run id, from ``ctx.metadata``) is part of the key so legitimate
+       repeat calls across *different* tasks are not blocked.
+    2. Consult an append-only JSONL ledger for that key. Hit -> block, and
+       surface the recorded result so the caller can replay it instead of
+       re-executing. Miss -> allow.
+    3. After the side effect succeeds, the caller records it with
+       :meth:`record` — in the same step as the side effect, not after the
+       agent acknowledges it.
+
+    Only tools listed in ``guarded_tools`` are keyed; read-only tools should
+    not pay the ledger cost and repeat reads are legitimate. Not included in
+    ``default_contracts`` because the guarded tool set and ledger location are
+    runtime-specific.
+    """
+
+    name = "idempotency-guard"
+
+    def __init__(
+        self,
+        ledger_path: str,
+        guarded_tools: Iterable[str],
+        scope_key: str = "task_id",
+    ):
+        self.ledger_path = Path(ledger_path).expanduser()
+        self.guarded_tools = set(guarded_tools)
+        self.scope_key = scope_key
+
+    def key_for(self, ctx: ActionContext) -> str:
+        payload = json.dumps(
+            [ctx.tool, ctx.params, ctx.metadata.get(self.scope_key, "")],
+            sort_keys=True,
+            default=str,
+        )
+        return hashlib.sha256(payload.encode()).hexdigest()
+
+    def lookup(self, key: str) -> Optional[dict]:
+        if not self.ledger_path.exists():
+            return None
+        for line in self.ledger_path.read_text().splitlines():
+            if not line.strip():
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if rec.get("key") == key:
+                return rec
+        return None
+
+    def record(self, ctx: ActionContext, result: object = None) -> str:
+        """Append the executed call to the ledger.
+
+        Call this in the same step as the side effect — not after the agent
+        receives confirmation. The gap between "tool executed" and "agent got
+        the result" is exactly where retry-duplicates live.
+        """
+        key = self.key_for(ctx)
+        self.ledger_path.parent.mkdir(parents=True, exist_ok=True)
+        entry = {
+            "key": key,
+            "tool": ctx.tool,
+            "ts": time.time(),
+            "result": result,
+        }
+        with self.ledger_path.open("a") as f:
+            f.write(json.dumps(entry, default=str) + "\n")
+        return key
+
+    def check_pre(self, ctx: ActionContext) -> Optional[Violation]:
+        if ctx.action != "tool_call" or ctx.tool not in self.guarded_tools:
+            return None
+        rec = self.lookup(self.key_for(ctx))
+        if rec is not None:
+            return self._violation(
+                f"duplicate execution of side-effectful tool {ctx.tool!r} — "
+                f"identical call already recorded at ts={rec.get('ts')}",
+                recovery=(
+                    "Replay the recorded result instead of re-executing: "
+                    f"{json.dumps(rec.get('result'), default=str)[:200]}"
+                ),
             )
         return None
 

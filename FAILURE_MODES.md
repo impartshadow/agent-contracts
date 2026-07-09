@@ -164,6 +164,25 @@ patch the template so the pattern can't regenerate, then keep the stop as a
 backstop. A stored correction without an upstream patch is a correction that fires
 again next week.
 
+## FM-037 — Retry duplicate (side effect fires twice)
+
+**Pattern:** A task retries — timeout, worker re-dispatch, a framework
+`max_retry_limit` — and a side-effectful tool call executes again. The payment
+charges twice, the email sends twice, the webhook fires twice.
+
+**Why it happens:** The framework's retry logic only sees the agent loop, not the
+side effect. The gap between "tool executed" and "agent received the result" is
+invisible to the framework: if the run dies in that gap, the retry has no record
+that the side effect already happened. Smarter retry logic can't fix this — the
+guard has to live outside the agent loop.
+
+**Guard:** `idempotency-guard` — before executing a guarded tool, compute
+`sha256(tool, canonical_args, task_id)` and consult an append-only ledger. Hit →
+block and replay the recorded result; miss → execute and record *in the same step
+as the side effect*. The task id is part of the key so legitimate repeats across
+different tasks pass. Seen in the wild: crewAI issue #5802 (duplicate payments on
+retry, 76+ comments of the same failure).
+
 ## FM-035 — Premature blocker
 
 **Pattern:** One approach fails, and the agent declares the whole goal impossible.
