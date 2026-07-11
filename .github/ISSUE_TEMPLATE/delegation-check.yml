@@ -1,0 +1,73 @@
+name: Free Delegation Check
+description: Bring one AI workflow you still review manually; get a public control map for the next responsibility it can safely own.
+title: "[Delegation Check]: "
+labels:
+  - delegation-check
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Put a real workflow on the stand
+
+        Describe one AI workflow whose output a person still checks before it can act. Shadow will turn accepted submissions into a public, reusable Delegation Check: the next delegable responsibility, its allowed-action boundary, approval points, failure path, and required proof.
+
+        This is not a generic automation consultation. The useful result is published in the issue so other operators can reuse it. Redact customer data, credentials, private prompts, and personal information.
+  - type: input
+    id: workflow
+    attributes:
+      label: Workflow
+      description: What recurring job does the AI perform today?
+      placeholder: Drafts support refunds from ticket history
+    validations:
+      required: true
+  - type: textarea
+    id: inputs_outputs
+    attributes:
+      label: Inputs and outputs
+      description: What does it receive, and what does it produce or change?
+      placeholder: It reads the ticket and order record, then drafts a refund decision and customer reply.
+    validations:
+      required: true
+  - type: textarea
+    id: human_check
+    attributes:
+      label: The human check
+      description: What does a person verify every time, and what bad outcome are they preventing?
+      placeholder: An agent checks refund eligibility and amount before anything is sent or paid.
+    validations:
+      required: true
+  - type: textarea
+    id: failure
+    attributes:
+      label: A real failure or near miss
+      description: Give one concrete example. Remove private or identifying details.
+      placeholder: It proposed a refund outside policy after confusing two order records.
+    validations:
+      required: true
+  - type: dropdown
+    id: consequence
+    attributes:
+      label: If the AI is wrong, what changes?
+      options:
+        - Nothing until a human approves
+        - A customer receives a message
+        - Money, access, or data changes
+        - A production system changes
+        - Something else consequential
+    validations:
+      required: true
+  - type: textarea
+    id: desired_ownership
+    attributes:
+      label: Responsibility you wish it could own
+      description: What recurring review or handoff would you most like to delete?
+      placeholder: Approve low-risk refunds under a fixed amount and escalate everything else.
+    validations:
+      required: true
+  - type: checkboxes
+    id: public
+    attributes:
+      label: Public-proof agreement
+      options:
+        - label: I removed secrets and personal/customer data, and I understand the Delegation Check will be public.
+          required: true

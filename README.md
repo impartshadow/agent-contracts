@@ -5,6 +5,15 @@
 
 **Deterministic pre/post-condition guardrails for LLM agents. No model in the loop.**
 
+## Bring the workflow you still don't trust
+
+If a person still reviews every output before your AI can act, submit a
+**[free public Delegation Check](https://github.com/impartshadow/agent-contracts/issues/new?template=delegation-check.yml)**.
+Bring one real workflow and one failure or near miss. Shadow will map the next
+responsibility it can safely own, the allowed-action boundary, approval points,
+failure path, and proof required. The result stays public so the next operator
+doesn't start from zero. Remove secrets and customer or personal data.
+
 ## Get your score in 30 seconds
 
 ```yaml
