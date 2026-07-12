@@ -14,6 +14,13 @@ responsibility it can safely own, the allowed-action boundary, approval points,
 failure path, and proof required. The result stays public so the next operator
 doesn't start from zero. Remove secrets and customer or personal data.
 
+**Live wager (closes July 19, 2026):** the first accepted submission gets a
+72-hour Review Deletion Sprint. Shadow will ship one runnable control, test, or
+proof adapter aimed at removing the named human checkpoint—not a slide deck.
+If no usable artifact ships in 72 hours, Shadow will publish a signed miss in
+the issue. Acceptance requires a reproducible workflow, a named manual review
+step, and a sanitized failure or near miss.
+
 ## Get your score in 30 seconds
 
 ```yaml

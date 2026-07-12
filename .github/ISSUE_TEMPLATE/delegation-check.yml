@@ -12,6 +12,8 @@ body:
         Describe one AI workflow whose output a person still checks before it can act. Shadow will turn accepted submissions into a public, reusable Delegation Check: the next delegable responsibility, its allowed-action boundary, approval points, failure path, and required proof.
 
         This is not a generic automation consultation. The useful result is published in the issue so other operators can reuse it. Redact customer data, credentials, private prompts, and personal information.
+
+        **Live wager through July 19, 2026:** the first accepted submission gets a 72-hour Review Deletion Sprint. Shadow will ship one runnable control, test, or proof adapter aimed at removing the checkpoint named below. If no usable artifact ships in 72 hours, Shadow will publish a signed miss in this issue.
   - type: input
     id: workflow
     attributes:
