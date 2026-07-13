@@ -1,7 +1,7 @@
 name: List review debt
 description: Put one recurring human checkpoint on the public exchange.
 title: "[checkpoint] "
-labels: ["checkpoint", "open-market"]
+labels: ["help wanted"]
 body:
   - type: markdown
     attributes:

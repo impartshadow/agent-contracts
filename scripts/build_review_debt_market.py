@@ -30,6 +30,7 @@ def compile_market(issues: list[dict], *, repo: str, generated_at: str | None = 
     checkpoints, proofs = [], []
     for issue in issues:
         labels = _labels(issue)
+        title = issue.get("title", "").lower()
         common = {
             "number": issue["number"],
             "title": issue["title"],
@@ -39,10 +40,10 @@ def compile_market(issues: list[dict], *, repo: str, generated_at: str | None = 
             "created_at": issue.get("created_at"),
             "fields": _fields(issue.get("body", "")),
         }
-        if "checkpoint" in labels:
+        if "checkpoint" in labels or title.startswith("[checkpoint]"):
             common["market_status"] = "open" if common["state"] == "open" else "closed"
             checkpoints.append(common)
-        elif "deletion-proof" in labels:
+        elif "deletion-proof" in labels or title.startswith("[deletion proof]"):
             common["market_status"] = (
                 "accepted" if "operator-accepted" in labels else
                 "rejected" if "operator-rejected" in labels else

@@ -1,7 +1,7 @@
 name: Submit deletion proof
 description: Submit a runnable control, test, or proof adapter for an open checkpoint.
 title: "[deletion proof] "
-labels: ["deletion-proof", "awaiting-operator-verdict"]
+labels: ["enhancement"]
 body:
   - type: input
     id: checkpoint

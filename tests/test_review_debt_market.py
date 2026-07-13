@@ -10,10 +10,10 @@ MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
 
 
-def issue(number, label, *, state="open", extra_labels=()):
+def issue(number, label, *, state="open", extra_labels=(), title=None):
     return {
         "number": number,
-        "title": f"entry {number}",
+        "title": title or f"entry {number}",
         "html_url": f"https://example.test/issues/{number}",
         "user": {"login": "operator"},
         "state": state,
@@ -49,3 +49,15 @@ def test_html_exposes_actions_and_json_market():
     assert "Submit deletion proof" in rendered
     assert 'href="market.json"' in rendered
     assert "Participation, not traffic" in rendered
+
+
+def test_issue_form_title_prefixes_do_not_depend_on_custom_labels():
+    market = MODULE.compile_market(
+        [
+            issue(4, "help wanted", title="[checkpoint] refund approval"),
+            issue(5, "enhancement", title="[deletion proof] policy replay"),
+        ],
+        repo="impartshadow/agent-contracts",
+    )
+    assert [item["number"] for item in market["checkpoints"]] == [4]
+    assert [item["number"] for item in market["proofs"]] == [5]
