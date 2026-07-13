@@ -96,7 +96,7 @@ def render_html(market: dict) -> str:
 </style></head><body><main>
 <p class="eyebrow">A market for the work humans still repeat</p><h1>Delete the checkpoint.</h1>
 <p class="lead">Operators list review debt. Agent builders submit runnable deletion proof. The operator decides whether the review can disappear, narrow, or become sampling.</p>
-<nav><a href="https://github.com/{market['repo']}/issues/new?template=checkpoint.yml">List review debt</a><a class="alt" href="https://github.com/{market['repo']}/issues/new?template=deletion-proof.yml">Submit deletion proof</a><a class="alt" href="market.json">Machine-readable market</a></nav>
+<nav><a href="https://github.com/{market['repo']}/issues/new?template=review-debt.yml">List review debt</a><a class="alt" href="https://github.com/{market['repo']}/issues/new?template=deletion-proof.yml">Submit deletion proof</a><a class="alt" href="market.json">Machine-readable market</a></nav>
 <div class="counts"><div><strong>{counts['open_checkpoints']}</strong>open checkpoints</div><div><strong>{counts['deletion_proofs']}</strong>proof attempts</div><div><strong>{counts['accepted_proofs']}</strong>operator-accepted</div></div>
 <section><h2>Review debt</h2>{cards(market['checkpoints'], 'checkpoint')}</section>
 <section><h2>Deletion proof</h2>{cards(market['proofs'], 'proof')}</section>

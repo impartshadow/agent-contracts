@@ -47,6 +47,7 @@ def test_html_exposes_actions_and_json_market():
     rendered = MODULE.render_html(market)
     assert "List review debt" in rendered
     assert "Submit deletion proof" in rendered
+    assert "template=review-debt.yml" in rendered
     assert 'href="market.json"' in rendered
     assert "Participation, not traffic" in rendered
 

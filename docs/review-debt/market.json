@@ -1,7 +1,7 @@
 {
   "schema": "review-debt.exchange.v1",
   "repo": "impartshadow/agent-contracts",
-  "generated_at": "2026-07-13T12:06:17.049454+00:00",
+  "generated_at": "2026-07-13T12:08:03.127587+00:00",
   "counts": {
     "open_checkpoints": 0,
     "deletion_proofs": 0,
