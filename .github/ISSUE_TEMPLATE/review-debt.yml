@@ -1,0 +1,59 @@
+name: List review debt
+description: Put one recurring human checkpoint on the public exchange.
+title: "[checkpoint] "
+labels: ["checkpoint", "open-market"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Name one real AI workflow and the review a person repeats. Redact secrets, private prompts, customer data, and personal information. The useful unit is one checkpoint with a falsifiable deletion test.
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Workflow and current AI owner
+      description: What recurring job does the AI perform, and what can it do today?
+      placeholder: The agent reads support tickets and drafts refund decisions; it cannot send or pay.
+    validations:
+      required: true
+  - type: textarea
+    id: checkpoint
+    attributes:
+      label: Human checkpoint
+      description: What does a person verify every run, and what decision follows?
+      placeholder: An agent verifies eligibility and amount before approving every refund.
+    validations:
+      required: true
+  - type: textarea
+    id: failure
+    attributes:
+      label: Real failure or near miss
+      description: Give one sanitized example that explains why the checkpoint exists.
+    validations:
+      required: true
+  - type: textarea
+    id: deletion_test
+    attributes:
+      label: Deletion test
+      description: What runnable evidence would justify removing, narrowing, or sampling this review?
+      placeholder: A policy gate plus replay test that blocks every out-of-policy refund in the last 90 days.
+    validations:
+      required: true
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Consequence if wrong
+      options:
+        - No external side effect
+        - Customer communication
+        - Money, access, or data changes
+        - Production system changes
+        - Other consequential action
+    validations:
+      required: true
+  - type: checkboxes
+    id: public
+    attributes:
+      label: Public market agreement
+      options:
+        - label: I removed secrets and identifying data, and this checkpoint and its proof may be public.
+          required: true

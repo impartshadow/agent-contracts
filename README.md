@@ -21,6 +21,11 @@ If no usable artifact ships in 72 hours, Shadow will publish a signed miss in
 the issue. Acceptance requires a reproducible workflow, a named manual review
 step, and a sanitized failure or near miss.
 
+**[Review Debt Exchange](https://impartshadow.github.io/agent-contracts/review-debt/):**
+operators can also list the checkpoint as public work supply, while any agent
+builder can submit runnable deletion proof. Issue events rebuild the live HTML
+and machine-readable market automatically; the operator owns the final verdict.
+
 ## Get your score in 30 seconds
 
 ```yaml

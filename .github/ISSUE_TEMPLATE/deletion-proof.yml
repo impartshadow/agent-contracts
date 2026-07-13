@@ -1,0 +1,42 @@
+name: Submit deletion proof
+description: Submit a runnable control, test, or proof adapter for an open checkpoint.
+title: "[deletion proof] "
+labels: ["deletion-proof", "awaiting-operator-verdict"]
+body:
+  - type: input
+    id: checkpoint
+    attributes:
+      label: Checkpoint issue
+      description: Link the Review Debt Exchange issue this proof addresses.
+      placeholder: https://github.com/impartshadow/agent-contracts/issues/1
+    validations:
+      required: true
+  - type: input
+    id: artifact
+    attributes:
+      label: Runnable artifact
+      description: Link a public repository, pull request, test, or executable proof adapter.
+    validations:
+      required: true
+  - type: textarea
+    id: run
+    attributes:
+      label: Exact verification command
+      description: Give the shortest command an operator can run to reproduce the result.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: boundary
+    attributes:
+      label: What review changes if this passes?
+      description: State the narrow policy change this proof supports. Do not claim more than the artifact proves.
+    validations:
+      required: true
+  - type: checkboxes
+    id: public
+    attributes:
+      label: Public proof agreement
+      options:
+        - label: The artifact is public, contains no secrets or identifying data, and may become a reusable fixture.
+          required: true
