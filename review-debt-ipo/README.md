@@ -19,4 +19,6 @@ jobs:
       - uses: impartshadow/agent-contracts/review-debt-ipo@main
 ```
 
-Add a `review-debt` label once. Each changed checkpoint set creates a new prospectus; unchanged debt never creates duplicate issues. Repositories control whether a proof actually earns deletion.
+Add a `review-debt` label for automatic labeling; the action still opens the IPO
+without it. Each changed checkpoint set creates a new prospectus; unchanged debt
+never creates duplicate issues. Repositories control whether a proof earns deletion.

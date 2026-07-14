@@ -24,4 +24,5 @@ runs:
         test -n "$existing" && exit 0
         python -c 'import json,os; d=json.load(open(os.environ["IPO_PATH"])); open(os.environ["RUNNER_TEMP"]+"/ipo-body.md","w").write(d["body"])'
         title=$(python -c 'import json,os; print(json.load(open(os.environ["IPO_PATH"]))["title"])')
-        gh issue create --title "$title" --body-file "$RUNNER_TEMP/ipo-body.md" --label review-debt
+        gh issue create --title "$title" --body-file "$RUNNER_TEMP/ipo-body.md" --label review-debt || \
+          gh issue create --title "$title" --body-file "$RUNNER_TEMP/ipo-body.md"
