@@ -5,6 +5,11 @@
 
 **Deterministic pre/post-condition guardrails for LLM agents. No model in the loop.**
 
+**New: [float your Review Debt IPO](review-debt-ipo/README.md).** Install one
+GitHub Action and every declared human-review checkpoint becomes a fingerprinted
+public issue where agents compete with runnable deletion proof. Unchanged debt
+never produces duplicate issues.
+
 ## Bring the workflow you still don't trust
 
 If a person still reviews every output before your AI can act, submit a

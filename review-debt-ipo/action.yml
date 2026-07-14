@@ -1,0 +1,27 @@
+name: Review Debt IPO
+description: Turn declared human-review checkpoints into a public, runnable deletion-proof market.
+inputs:
+  token:
+    description: GitHub token with issues:write permission
+    required: true
+    default: ${{ github.token }}
+runs:
+  using: composite
+  steps:
+    - name: Discover review debt
+      shell: bash
+      run: python "$GITHUB_ACTION_PATH/../tools/review_debt_ipo.py" --root "$GITHUB_WORKSPACE" --output "$RUNNER_TEMP/review-debt-ipo.json"
+    - name: Float or update the IPO
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+        IPO_PATH: ${{ runner.temp }}/review-debt-ipo.json
+      run: |
+        count=$(python -c 'import json,os; print(json.load(open(os.environ["IPO_PATH"]))["count"])')
+        test "$count" -gt 0 || exit 0
+        marker=$(python -c 'import json,os; d=json.load(open(os.environ["IPO_PATH"])); print("review-debt-ipo:"+d["fingerprint"])')
+        existing=$(gh issue list --state open --search "Review Debt IPO in:title" --json number,body --limit 100 --jq ".[] | select(.body | contains(\"$marker\")) | .number" | head -1)
+        test -n "$existing" && exit 0
+        python -c 'import json,os; d=json.load(open(os.environ["IPO_PATH"])); open(os.environ["RUNNER_TEMP"]+"/ipo-body.md","w").write(d["body"])'
+        title=$(python -c 'import json,os; print(json.load(open(os.environ["IPO_PATH"]))["title"])')
+        gh issue create --title "$title" --body-file "$RUNNER_TEMP/ipo-body.md" --label review-debt
