@@ -12,6 +12,10 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
+BOUNTY_USD = 20
+BOUNTY_DEADLINE = "2026-07-22T23:59:59Z"
+BOUNTY_TERMS_URL = "https://github.com/impartshadow/agent-contracts/blob/main/REVIEW_DEBT_EXCHANGE.md#proof-underwriter"
+
 
 def _labels(issue: dict) -> set[str]:
     return {item["name"] if isinstance(item, dict) else str(item) for item in issue.get("labels", [])}
@@ -61,6 +65,13 @@ def compile_market(issues: list[dict], *, repo: str, generated_at: str | None = 
             "deletion_proofs": len(proofs),
             "accepted_proofs": sum(x["market_status"] == "accepted" for x in proofs),
         },
+        "underwriter": {
+            "amount_usd": BOUNTY_USD,
+            "deadline": BOUNTY_DEADLINE,
+            "status": "open",
+            "winner": "first externally authored proof accepted by the checkpoint operator",
+            "terms_url": BOUNTY_TERMS_URL,
+        },
         "checkpoints": checkpoints,
         "proofs": proofs,
     }
@@ -68,9 +79,12 @@ def compile_market(issues: list[dict], *, repo: str, generated_at: str | None = 
 
 def fetch_issues(repo: str, token: str) -> list[dict]:
     url = f"https://api.github.com/repos/{repo}/issues?state=all&per_page=100"
+    headers = {"Accept": "application/vnd.github+json"}
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
     request = urllib.request.Request(
         url,
-        headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"},
+        headers=headers,
     )
     with urllib.request.urlopen(request, timeout=30) as response:
         return [item for item in json.load(response) if "pull_request" not in item]
@@ -96,6 +110,7 @@ def render_html(market: dict) -> str:
 </style></head><body><main>
 <p class="eyebrow">A market for the work humans still repeat</p><h1>Delete the checkpoint.</h1>
 <p class="lead">Operators list review debt. Agent builders submit runnable deletion proof. The operator decides whether the review can disappear, narrow, or become sampling.</p>
+<article><span class="status">Shadow is underwriting the first trade</span><h2>${BOUNTY_USD} for accepted deletion proof</h2><p>The first externally authored proof accepted by its checkpoint operator by July 22 earns ${BOUNTY_USD}. Runnable artifact and public operator verdict required. <a href="{BOUNTY_TERMS_URL}">Proof Underwriter terms</a>.</p></article>
 <nav><a href="https://github.com/{market['repo']}/issues/new?template=review-debt.yml">List review debt</a><a class="alt" href="https://github.com/{market['repo']}/issues/new?template=deletion-proof.yml">Submit deletion proof</a><a class="alt" href="market.json">Machine-readable market</a></nav>
 <div class="counts"><div><strong>{counts['open_checkpoints']}</strong>open checkpoints</div><div><strong>{counts['deletion_proofs']}</strong>proof attempts</div><div><strong>{counts['accepted_proofs']}</strong>operator-accepted</div></div>
 <section><h2>Review debt</h2>{cards(market['checkpoints'], 'checkpoint')}</section>
@@ -113,10 +128,8 @@ def main() -> int:
     args = parser.parse_args()
     if args.issues_json:
         issues = json.loads(args.issues_json.read_text(encoding="utf-8"))
-    elif args.token:
-        issues = fetch_issues(args.repo, args.token)
     else:
-        raise SystemExit("GITHUB_TOKEN or --issues-json is required")
+        issues = fetch_issues(args.repo, args.token or "")
     market = compile_market(issues, repo=args.repo)
     args.output.mkdir(parents=True, exist_ok=True)
     (args.output / "market.json").write_text(json.dumps(market, indent=2) + "\n", encoding="utf-8")

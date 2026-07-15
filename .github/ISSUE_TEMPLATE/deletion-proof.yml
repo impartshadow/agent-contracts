@@ -40,3 +40,5 @@ body:
       options:
         - label: The artifact is public, contains no secrets or identifying data, and may become a reusable fixture.
           required: true
+        - label: If claiming the founding $20 bounty, I authored this proof independently and accept the published Proof Underwriter terms.
+          required: false

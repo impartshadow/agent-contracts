@@ -38,6 +38,8 @@ def test_compiles_market_and_operator_verdicts():
         "deletion_proofs": 2,
         "accepted_proofs": 1,
     }
+    assert market["underwriter"]["amount_usd"] == 20
+    assert market["underwriter"]["deadline"] == "2026-07-22T23:59:59Z"
     assert market["checkpoints"][0]["fields"]["Human checkpoint"] == "Verify every refund"
     assert market["proofs"][0]["market_status"] == "accepted"
 
@@ -50,6 +52,8 @@ def test_html_exposes_actions_and_json_market():
     assert "template=review-debt.yml" in rendered
     assert 'href="market.json"' in rendered
     assert "Participation, not traffic" in rendered
+    assert "$20 for accepted deletion proof" in rendered
+    assert "Proof Underwriter" in rendered
 
 
 def test_issue_form_title_prefixes_do_not_depend_on_custom_labels():

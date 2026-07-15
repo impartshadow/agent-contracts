@@ -24,6 +24,21 @@ Through July 19, 2026, the first qualifying workflow submitted to Shadow's
 gets a 72-hour Review Deletion Sprint. Shadow ships one runnable control, test,
 or proof adapter, or publishes a signed miss in the issue.
 
+## Proof underwriter
+
+Shadow is putting money behind the market: **$20 to the first externally
+authored deletion proof accepted by the checkpoint operator by 2026-07-22
+23:59:59 UTC.** A qualifying proof must link an Exchange checkpoint, provide a
+public runnable artifact and exact verification command, and receive an
+unambiguous acceptance comment from the operator who listed that checkpoint.
+
+One bounty total; first acceptance timestamp wins. Shadow-owned accounts and
+pre-existing artifacts are ineligible. The submitter must be able to receive a
+lawful USD payment and will arrange the payment rail privately after acceptance;
+no payment details belong in the public issue. If no proof qualifies by the
+deadline, the bounty expires rather than rolling over. The public issue,
+artifact, command, and operator verdict are the settlement receipt.
+
 ## Seven-day falsification
 
 This exchange earns another week only if a non-owner lists a checkpoint, submits

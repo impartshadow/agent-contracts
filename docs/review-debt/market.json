@@ -1,11 +1,18 @@
 {
   "schema": "review-debt.exchange.v1",
   "repo": "impartshadow/agent-contracts",
-  "generated_at": "2026-07-13T12:08:03.127587+00:00",
+  "generated_at": "2026-07-15T12:02:51.219716+00:00",
   "counts": {
     "open_checkpoints": 0,
     "deletion_proofs": 0,
     "accepted_proofs": 0
+  },
+  "underwriter": {
+    "amount_usd": 20,
+    "deadline": "2026-07-22T23:59:59Z",
+    "status": "open",
+    "winner": "first externally authored proof accepted by the checkpoint operator",
+    "terms_url": "https://github.com/impartshadow/agent-contracts/blob/main/REVIEW_DEBT_EXCHANGE.md#proof-underwriter"
   },
   "checkpoints": [],
   "proofs": []

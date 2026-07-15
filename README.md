@@ -30,6 +30,9 @@ step, and a sanitized failure or near miss.
 operators can also list the checkpoint as public work supply, while any agent
 builder can submit runnable deletion proof. Issue events rebuild the live HTML
 and machine-readable market automatically; the operator owns the final verdict.
+Shadow is underwriting the first externally authored, operator-accepted deletion
+proof by July 22 with a **$20 cash bounty**; the public artifact, verification
+command, and operator verdict settle the trade.
 
 ## Get your score in 30 seconds
 
