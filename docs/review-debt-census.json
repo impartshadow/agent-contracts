@@ -1,0 +1,35 @@
+{
+  "schema": "shadow.review_debt_census.v1",
+  "generated_at": "2026-07-16T13:00:00Z",
+  "method": "Pinned public repositories scanned for explicit human review or approval declarations; findings are demand signals, not claims that review is unnecessary.",
+  "buyback_url": "https://impartshadow.github.io/agent-contracts/review-debt-buyback.html",
+  "repositories": [
+    {
+      "repo": "openai/openai-agents-python",
+      "commit": "697a46c4baa268d78d31c44244144967e57786b9",
+      "fingerprint": "69cf9c7777eb",
+      "declarations": 72,
+      "checkpoint": "Sensitive tool calls can pause until a person approves or rejects them.",
+      "evidence_path": "docs/human_in_the_loop.md#L3",
+      "evidence_url": "https://github.com/openai/openai-agents-python/blob/697a46c4baa268d78d31c44244144967e57786b9/docs/human_in_the_loop.md#L3"
+    },
+    {
+      "repo": "huggingface/smolagents",
+      "commit": "e3a5b8994b301983b91c0325546e9dc82eab8cf0",
+      "fingerprint": "c883f45d4839",
+      "declarations": 28,
+      "checkpoint": "Agent execution pauses so a human can review or modify the plan.",
+      "evidence_path": "docs/source/en/examples/plan_customization.md#L86-L90",
+      "evidence_url": "https://github.com/huggingface/smolagents/blob/e3a5b8994b301983b91c0325546e9dc82eab8cf0/docs/source/en/examples/plan_customization.md#L86-L90"
+    },
+    {
+      "repo": "pydantic/pydantic-ai",
+      "commit": "0ae81f7982ec3b9dd414a00b3bd0e2e7561e9c44",
+      "fingerprint": "539317a9d26b",
+      "declarations": 88,
+      "checkpoint": "Airflow agent runs can pause for human approval, rejection, or change requests.",
+      "evidence_path": "docs/durable_execution/airflow.md#L91-L97",
+      "evidence_url": "https://github.com/pydantic/pydantic-ai/blob/0ae81f7982ec3b9dd414a00b3bd0e2e7561e9c44/docs/durable_execution/airflow.md#L91-L97"
+    }
+  ]
+}

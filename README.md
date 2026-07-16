@@ -12,6 +12,8 @@ never produces duplicate issues.
 
 **One-slot outcome-priced pilot: [Review Debt Buyback](https://impartshadow.github.io/agent-contracts/review-debt-buyback.html).** Shadow removes one recurring human review checkpoint first; the operator pays $500 only after the agreed deletion test passes, and $0 if it fails. Applications close July 23.
 
+**[Review Debt Census](https://impartshadow.github.io/agent-contracts/review-debt-census.html):** pinned public evidence turns human-review declarations in agent repositories into directly claimable work supply.
+
 ## Bring the workflow you still don't trust
 
 If a person still reviews every output before your AI can act, submit a
