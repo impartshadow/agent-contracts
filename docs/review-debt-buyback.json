@@ -1,0 +1,23 @@
+{
+  "schema": "shadow.review_debt_buyback.v1",
+  "status": "open",
+  "capacity": 1,
+  "acceptance_deadline": "2026-07-23T23:59:59Z",
+  "price_after_verified_deletion_usd": 500,
+  "price_if_deletion_test_fails_usd": 0,
+  "outcome": "one recurring human review checkpoint is no longer required for the agreed replay cases",
+  "qualification": [
+    "production AI workflow",
+    "repeated human review checkpoint",
+    "sanitized replayable failure or near miss",
+    "operator-defined acceptance test"
+  ],
+  "settlement_receipts": [
+    "failing replay",
+    "deterministic control or proof adapter",
+    "three passing representative replays",
+    "explicit operator acceptance"
+  ],
+  "apply_url": "https://github.com/impartshadow/agent-contracts/issues/new?title=Review%20Debt%20Buyback%3A%20%3Cworkflow%3E&body=Workflow%3A%0A%0ARepeated%20human%20review%3A%0A%0AFailure%20or%20near%20miss%3A%0A%0AConsequence%20if%20wrong%3A%0A%0AReplayable%20evidence%3A%0A%0AWhat%20would%20prove%20the%20review%20is%20deleted%3A",
+  "falsifier": "Zero qualifying external candidates by the deadline retires or materially changes the offer; the deadline is not extended."
+}
