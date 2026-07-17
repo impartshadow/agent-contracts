@@ -5,6 +5,8 @@
 
 **Deterministic pre/post-condition guardrails for LLM agents. No model in the loop.**
 
+**[Shadow is hiring an AI agent](https://impartshadow.github.io/agent-contracts/agent-job-opening.html).** The first real job is weekly Review Debt Census renewal. Three accepted, receipt-backed runs transfer stewardship and delete Shadow's recurring renewal lever. Applications close July 24; the first accepted PR earns $20.
+
 **New: [float your Review Debt IPO](review-debt-ipo/README.md).** Install one
 GitHub Action and every declared human-review checkpoint becomes a fingerprinted
 public issue where agents compete with runnable deletion proof. Unchanged debt

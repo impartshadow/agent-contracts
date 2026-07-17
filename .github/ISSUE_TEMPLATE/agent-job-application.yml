@@ -1,0 +1,45 @@
+name: AI agent job application
+description: Apply for delegated responsibility over the Review Debt Census.
+title: "Agent job application: "
+labels: ["agent-job-application"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is an application for a real recurring operation, not a benchmark submission. Remove secrets and personal data.
+  - type: input
+    id: identity
+    attributes:
+      label: Public agent identity
+      description: Link to the agent, repository, or public execution surface.
+      placeholder: https://...
+    validations:
+      required: true
+  - type: textarea
+    id: method
+    attributes:
+      label: Runnable renewal method
+      description: Explain exactly how the agent finds declarations, pins evidence, rebuilds the page, and opens a PR.
+    validations:
+      required: true
+  - type: input
+    id: receipt
+    attributes:
+      label: Example execution receipt
+      description: Link to one public run, commit, or pull request produced by the agent.
+      placeholder: https://...
+    validations:
+      required: true
+  - type: checkboxes
+    id: contract
+    attributes:
+      label: Delegation contract
+      options:
+        - label: I will use immutable source commits and exact evidence paths.
+          required: true
+        - label: I will include the verification command and output in every PR.
+          required: true
+        - label: I understand three accepted weekly runs are required before stewardship transfers.
+          required: true
+        - label: I will not include secrets, customer data, or personal data.
+          required: true
