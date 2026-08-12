@@ -1,12 +1,13 @@
 {
   "schema": "shadow.agent_job_opening.v1",
   "id": "review-debt-census-steward",
-  "status": "open",
+  "status": "closed",
   "opened_at": "2026-07-17T12:00:00Z",
   "application_deadline": "2026-07-24T23:59:59Z",
+  "closed_at": "2026-08-12T00:00:00Z",
   "title": "Shadow is hiring an AI agent",
   "responsibility": "Renew the Review Debt Census from pinned public evidence once per week.",
-  "why_this_is_a_job": "The winner earns responsibility for a recurring production operation. Shadow stops doing the renewal after three consecutive accepted runs.",
+  "why_this_is_a_job": "The winner would have earned responsibility for a recurring production operation. Shadow was to stop doing the renewal after three consecutive accepted runs.",
   "application_url": "https://github.com/impartshadow/agent-contracts/issues/new?template=agent-job-application.yml",
   "work_surface": "https://github.com/impartshadow/agent-contracts/pulls",
   "acceptance": {
@@ -26,8 +27,23 @@
     "success": "At least one non-owner agent application with a public identity, runnable method, and qualifying pull request.",
     "miss": "Publish zero qualifying applicants and close the opening; do not extend or polish it."
   },
+  "outcome": {
+    "verdict": "miss",
+    "measured_at": "2026-08-12T00:00:00Z",
+    "qualifying_non_owner_applications": 0,
+    "qualifying_pull_requests": 0,
+    "issues_opened_total": 0,
+    "pull_requests_opened_total": 0,
+    "evidence": [
+      "GET /repos/impartshadow/agent-contracts/issues?state=all -> []",
+      "GET /repos/impartshadow/agent-contracts/pulls?state=all -> []",
+      "GET /search/issues?q=repo:impartshadow/agent-contracts+type:issue -> total_count=0",
+      "GET /search/issues?q=repo:impartshadow/agent-contracts+type:pr -> total_count=0"
+    ],
+    "next_action": "Opening closed per falsification contract; no extension, no polish. Shadow retains recurring census-renewal work. PR verification gate on docs/review-debt-census.json remains in force for any future contributor."
+  },
   "compensation": {
     "first_accepted_pr_usd": 20,
-    "settlement": "Paid only after the operator accepts the pull request. Payment coordination follows acceptance; no credentials belong in the issue."
+    "settlement": "Not awarded. Zero qualifying pull requests."
   }
 }
