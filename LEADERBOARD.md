@@ -18,11 +18,11 @@ credit for a story about what the agent probably does.
 | 1 | [`langchain-ai/langgraph`](https://github.com/langchain-ai/langgraph) | 100/100 | A | – | tests_and_ci | — |
 | 2 | [`microsoft/autogen`](https://github.com/microsoft/autogen) | 100/100 | A | – | tests_and_ci | — |
 | 3 | [`run-llama/llama_index`](https://github.com/run-llama/llama_index) | 100/100 | A | – | tests_and_ci | — |
-| 4 | [`microsoft/semantic-kernel`](https://github.com/microsoft/semantic-kernel) | 100/100 | A | – | tests_and_ci | — |
-| 5 | [`stanfordnlp/dspy`](https://github.com/stanfordnlp/dspy) | 100/100 | A | – | tests_and_ci | — |
-| 6 | [`Significant-Gravitas/AutoGPT`](https://github.com/Significant-Gravitas/AutoGPT) | 93/100 | A | – | tests_and_ci | secret_safety |
-| 7 | [`crewAIInc/crewAI`](https://github.com/crewAIInc/crewAI) | 93/100 | A | – | tests_and_ci | secret_safety |
-| 8 | [`langchain-ai/langchain`](https://github.com/langchain-ai/langchain) | 93/100 | A | – | tests_and_ci | secret_safety |
+| 4 | [`stanfordnlp/dspy`](https://github.com/stanfordnlp/dspy) | 100/100 | A | – | tests_and_ci | — |
+| 5 | [`Significant-Gravitas/AutoGPT`](https://github.com/Significant-Gravitas/AutoGPT) | 93/100 | A | – | tests_and_ci | secret_safety |
+| 6 | [`crewAIInc/crewAI`](https://github.com/crewAIInc/crewAI) | 93/100 | A | – | tests_and_ci | secret_safety |
+| 7 | [`langchain-ai/langchain`](https://github.com/langchain-ai/langchain) | 93/100 | A | – | tests_and_ci | secret_safety |
+| 8 | [`microsoft/semantic-kernel`](https://github.com/microsoft/semantic-kernel) | 93/100 | A | ▼ -7 | tests_and_ci | secret_safety |
 | 9 | [`camel-ai/camel`](https://github.com/camel-ai/camel) | 93/100 | A | – | tests_and_ci | secret_safety |
 | 10 | [`pydantic/pydantic-ai`](https://github.com/pydantic/pydantic-ai) | 93/100 | A | – | tests_and_ci | secret_safety |
 | 11 | [`openai/openai-agents-python`](https://github.com/openai/openai-agents-python) | 93/100 | A | – | tests_and_ci | secret_safety |
@@ -37,11 +37,11 @@ credit for a story about what the agent probably does.
 | 20 | [`Aider-AI/aider`](https://github.com/Aider-AI/aider) | 84/100 | B | – | tests_and_ci | secret_safety |
 | 21 | [`OpenBMB/ChatDev`](https://github.com/OpenBMB/ChatDev) | 80/100 | B | – | tool_governance | eval_harness |
 | 22 | [`TransformerOptimus/SuperAGI`](https://github.com/TransformerOptimus/SuperAGI) | 78/100 | C | – | tests_and_ci | eval_harness |
-| 23 | [`letta-ai/letta`](https://github.com/letta-ai/letta) | 78/100 | C | – | tests_and_ci | eval_harness |
-| 24 | [`reworkd/AgentGPT`](https://github.com/reworkd/AgentGPT) | 78/100 | C | – | tests_and_ci | eval_harness |
-| 25 | [`openai/swarm`](https://github.com/openai/swarm) | 70/100 | C | – | tool_governance | dependency_pinning |
-| 26 | [`yoheinakajima/babyagi`](https://github.com/yoheinakajima/babyagi) | 65/100 | D | – | tool_governance | tests_and_ci |
-| 27 | [`microsoft/JARVIS`](https://github.com/microsoft/JARVIS) | 65/100 | D | – | secret_safety | tests_and_ci |
+| 23 | [`reworkd/AgentGPT`](https://github.com/reworkd/AgentGPT) | 78/100 | C | – | tests_and_ci | eval_harness |
+| 24 | [`openai/swarm`](https://github.com/openai/swarm) | 70/100 | C | – | tool_governance | dependency_pinning |
+| 25 | [`yoheinakajima/babyagi`](https://github.com/yoheinakajima/babyagi) | 65/100 | D | – | tool_governance | tests_and_ci |
+| 26 | [`microsoft/JARVIS`](https://github.com/microsoft/JARVIS) | 65/100 | D | – | secret_safety | tests_and_ci |
+| 27 | [`letta-ai/letta`](https://github.com/letta-ai/letta) | 20/100 | F | ▼ -58 | tool_governance | tests_and_ci |
 
 ## Reproduce any score
 
