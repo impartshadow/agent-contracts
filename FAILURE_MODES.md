@@ -183,6 +183,15 @@ as the side effect*. The task id is part of the key so legitimate repeats across
 different tasks pass. Seen in the wild: crewAI issue #5802 (duplicate payments on
 retry, 76+ comments of the same failure).
 
+**The window recording alone leaves open:** if the ledger append happens only
+*after* the side effect returns, a crash between the provider committing and the
+append loses all evidence, and the retry re-fires. `reserve()` writes a `pending`
+record before the external call to close it. A pending hit is not a terminal hit:
+it means a prior attempt reached the provider and the outcome is unknown, so it
+blocks re-execution but has no result to replay — it must be reconciled against
+the provider and closed with `resolve_pending()`. Treating an orphaned pending as
+a failure and retrying it is the same duplicate charge with extra steps.
+
 ## FM-035 — Premature blocker
 
 **Pattern:** One approach fails, and the agent declares the whole goal impossible.

@@ -282,9 +282,16 @@ class IdempotencyGuard(Contract):
     2. Consult an append-only JSONL ledger for that key. Hit -> block, and
        surface the recorded result so the caller can replay it instead of
        re-executing. Miss -> allow.
-    3. After the side effect succeeds, the caller records it with
-       :meth:`record` — in the same step as the side effect, not after the
-       agent acknowledges it.
+    3. Call :meth:`reserve` *before* the external call and :meth:`record`
+       after it returns. Recording alone leaves a window open between the
+       side effect succeeding and the ledger append — a crash there loses all
+       evidence and the retry re-fires the payment.
+
+    A ``pending`` hit is not a ``terminal`` hit. It means a prior attempt
+    reached the external system and the outcome is unknown, so there is no
+    result to replay. Both block, but only a terminal hit can be replayed;
+    a pending hit has to be reconciled against the provider, or explicitly
+    resolved with :meth:`resolve_pending`.
 
     Only tools listed in ``guarded_tools`` are keyed; read-only tools should
     not pay the ledger cost and repeat reads are legitimate. Not included in
@@ -313,8 +320,14 @@ class IdempotencyGuard(Contract):
         return hashlib.sha256(payload.encode()).hexdigest()
 
     def lookup(self, key: str) -> Optional[dict]:
+        """Return the latest ledger record for ``key``, or None.
+
+        The ledger is append-only, so a reserved-then-recorded call has two
+        entries; the last one wins.
+        """
         if not self.ledger_path.exists():
             return None
+        found = None
         for line in self.ledger_path.read_text().splitlines():
             if not line.strip():
                 continue
@@ -323,42 +336,75 @@ class IdempotencyGuard(Contract):
             except json.JSONDecodeError:
                 continue
             if rec.get("key") == key:
-                return rec
-        return None
+                found = rec
+        return found
 
-    def record(self, ctx: ActionContext, result: object = None) -> str:
-        """Append the executed call to the ledger.
-
-        Call this in the same step as the side effect — not after the agent
-        receives confirmation. The gap between "tool executed" and "agent got
-        the result" is exactly where retry-duplicates live.
-        """
-        key = self.key_for(ctx)
+    def _append(self, key: str, ctx: ActionContext, state: str, result: object) -> str:
         self.ledger_path.parent.mkdir(parents=True, exist_ok=True)
         entry = {
             "key": key,
             "tool": ctx.tool,
             "ts": time.time(),
+            "state": state,
             "result": result,
         }
         with self.ledger_path.open("a") as f:
             f.write(json.dumps(entry, default=str) + "\n")
         return key
 
+    def reserve(self, ctx: ActionContext) -> str:
+        """Append a ``pending`` record *before* the external call.
+
+        This is what closes the crash window: if the process dies after the
+        provider commits but before :meth:`record` runs, the pending entry is
+        the only evidence the call ever happened.
+        """
+        return self._append(self.key_for(ctx), ctx, "pending", None)
+
+    def record(self, ctx: ActionContext, result: object = None) -> str:
+        """Append the terminal record once the side effect has returned."""
+        return self._append(self.key_for(ctx), ctx, "terminal", result)
+
+    def resolve_pending(self, ctx: ActionContext, result: object = None) -> str:
+        """Close out a pending record after reconciling with the provider.
+
+        Use when a prior attempt left a pending entry and you have since
+        established what actually happened upstream. ``result=None`` means the
+        side effect did not land and the call may be re-attempted.
+        """
+        if result is None:
+            return self._append(self.key_for(ctx), ctx, "unresolved", None)
+        return self._append(self.key_for(ctx), ctx, "terminal", result)
+
     def check_pre(self, ctx: ActionContext) -> Optional[Violation]:
         if ctx.action != "tool_call" or ctx.tool not in self.guarded_tools:
             return None
         rec = self.lookup(self.key_for(ctx))
-        if rec is not None:
+        if rec is None:
+            return None
+        state = rec.get("state", "terminal")
+        if state == "unresolved":
+            return None
+        if state == "pending":
             return self._violation(
-                f"duplicate execution of side-effectful tool {ctx.tool!r} — "
-                f"identical call already recorded at ts={rec.get('ts')}",
+                f"in-flight execution of side-effectful tool {ctx.tool!r} — "
+                f"a prior attempt reached the external system at "
+                f"ts={rec.get('ts')} and its outcome was never recorded",
                 recovery=(
-                    "Replay the recorded result instead of re-executing: "
-                    f"{json.dumps(rec.get('result'), default=str)[:200]}"
+                    "Do not re-execute and do not replay: there is no recorded "
+                    "result. Reconcile against the provider (query the charge, "
+                    "message, or order by its own id), then call "
+                    "resolve_pending() with the real outcome."
                 ),
             )
-        return None
+        return self._violation(
+            f"duplicate execution of side-effectful tool {ctx.tool!r} — "
+            f"identical call already recorded at ts={rec.get('ts')}",
+            recovery=(
+                "Replay the recorded result instead of re-executing: "
+                f"{json.dumps(rec.get('result'), default=str)[:200]}"
+            ),
+        )
 
 
 def default_contracts() -> list[Contract]:

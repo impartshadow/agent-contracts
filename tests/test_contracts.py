@@ -995,3 +995,51 @@ def test_idempotency_guard_registry_enforce(tmp_path):
     g.record(ctx, result="ok")
     with pytest.raises(BlockedAction):
         reg.enforce_pre(ctx)
+
+
+def test_idempotency_guard_pending_blocks_after_crash_window(tmp_path):
+    """Crash between provider commit and record() must not allow a re-fire."""
+    ledger = str(tmp_path / "ledger.jsonl")
+    g1 = IdempotencyGuard(ledger, guarded_tools=["send_payment"])
+    ctx = _idem_ctx()
+    assert g1.check_pre(ctx) is None
+    g1.reserve(ctx)
+    # provider commits here, then the process dies before record()
+    g2 = IdempotencyGuard(ledger, guarded_tools=["send_payment"])
+    v = g2.check_pre(ctx)
+    assert v is not None and v.blocking
+
+
+def test_idempotency_guard_pending_does_not_offer_a_replay(tmp_path):
+    g = IdempotencyGuard(str(tmp_path / "ledger.jsonl"), guarded_tools=["send_payment"])
+    ctx = _idem_ctx()
+    g.reserve(ctx)
+    v = g.check_pre(ctx)
+    assert "Do not re-execute and do not replay" in v.recovery
+    assert "Reconcile against the provider" in v.recovery
+
+
+def test_idempotency_guard_reserve_then_record_replays_result(tmp_path):
+    g = IdempotencyGuard(str(tmp_path / "ledger.jsonl"), guarded_tools=["send_payment"])
+    ctx = _idem_ctx()
+    g.reserve(ctx)
+    g.record(ctx, result="payment sent")
+    v = g.check_pre(ctx)
+    assert v is not None and "payment sent" in v.recovery
+
+
+def test_idempotency_guard_resolve_pending_unresolved_reopens_call(tmp_path):
+    g = IdempotencyGuard(str(tmp_path / "ledger.jsonl"), guarded_tools=["send_payment"])
+    ctx = _idem_ctx()
+    g.reserve(ctx)
+    g.resolve_pending(ctx, result=None)  # provider says it never landed
+    assert g.check_pre(ctx) is None
+
+
+def test_idempotency_guard_resolve_pending_with_result_is_terminal(tmp_path):
+    g = IdempotencyGuard(str(tmp_path / "ledger.jsonl"), guarded_tools=["send_payment"])
+    ctx = _idem_ctx()
+    g.reserve(ctx)
+    g.resolve_pending(ctx, result="charge ch_123 found upstream")
+    v = g.check_pre(ctx)
+    assert v is not None and "ch_123" in v.recovery
