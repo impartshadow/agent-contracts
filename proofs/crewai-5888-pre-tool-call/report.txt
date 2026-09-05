@@ -1,0 +1,37 @@
+crewai 1.15.20 (venv, python Python 3.12.3)
+...............                                                          [100%]
+15 passed in 2.49s
+
+static scan, crewai 1.15.20 wheel:
+agents/agent_adapters/langgraph/langgraph_tool_adapter.py                 70  tool_wrapper                     tool.run                     NOT_COVERED
+agents/agent_adapters/langgraph/langgraph_tool_adapter.py                 72  tool_wrapper                     tool.run                     NOT_COVERED
+agents/agent_adapters/langgraph/langgraph_tool_adapter.py                 74  tool_wrapper                     tool.run                     NOT_COVERED
+agents/agent_adapters/openai_agents/openai_agent_tool_adapter.py         117  wrapper                          tool._run                    NOT_COVERED
+experimental/agent_executor.py                                          2078  _execute_single_native_tool_call tool_func                    covered
+flow/runtime/_actions.py                                                 104  run                              self.tool.run                NOT_COVERED
+tools/tool_usage.py                                                      622  _use                             tool.invoke                  NOT_COVERED
+tools/tool_usage.py                                                      627  _use                             tool.invoke                  NOT_COVERED
+tools/tool_usage.py                                                      631  _use                             tool.invoke                  NOT_COVERED
+utilities/agent_utils.py                                                1787  execute_single_native_tool_call  tool_func                    covered
+utilities/tool_utils.py                                                  308  execute_tool_and_check_finality  tool_usage.use               covered
+
+hook sites: [('agents/crew_agent_executor.py', '_execute_native_tool_call'), ('experimental/agent_executor.py', '_execute_native_tool_call'), ('utilities/agent_utils.py', 'execute_single_native_tool_call'), ('utilities/tool_utils.py', 'aexecute_tool_and_check_finality'), ('utilities/tool_utils.py', 'execute_tool_and_check_finality')]
+UNDECLARED: []
+exit=0
+
+static scan, crewai 1.15.16 wheel:
+agents/agent_adapters/langgraph/langgraph_tool_adapter.py                 70  tool_wrapper                     tool.run                     NOT_COVERED
+agents/agent_adapters/langgraph/langgraph_tool_adapter.py                 72  tool_wrapper                     tool.run                     NOT_COVERED
+agents/agent_adapters/langgraph/langgraph_tool_adapter.py                 74  tool_wrapper                     tool.run                     NOT_COVERED
+agents/agent_adapters/openai_agents/openai_agent_tool_adapter.py         117  wrapper                          tool._run                    NOT_COVERED
+experimental/agent_executor.py                                          2036  _execute_single_native_tool_call tool_func                    covered
+flow/runtime/_actions.py                                                 103  run                              self.tool.run                NOT_COVERED
+tools/tool_usage.py                                                      613  _use                             tool.invoke                  NOT_COVERED
+tools/tool_usage.py                                                      618  _use                             tool.invoke                  NOT_COVERED
+tools/tool_usage.py                                                      622  _use                             tool.invoke                  NOT_COVERED
+utilities/agent_utils.py                                                1706  execute_single_native_tool_call  tool_func                    covered
+utilities/tool_utils.py                                                  308  execute_tool_and_check_finality  tool_usage.use               covered
+
+hook sites: [('agents/crew_agent_executor.py', '_execute_native_tool_call'), ('experimental/agent_executor.py', '_execute_native_tool_call'), ('utilities/agent_utils.py', 'execute_single_native_tool_call'), ('utilities/tool_utils.py', 'aexecute_tool_and_check_finality'), ('utilities/tool_utils.py', 'execute_tool_and_check_finality')]
+UNDECLARED: []
+exit=0
