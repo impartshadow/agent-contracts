@@ -8,15 +8,18 @@ Context: crewAIInc/crewAI#5888. Three executable checks, each against pinned inp
 |---|---|
 | `crewai-1.15.16-py3-none-any.whl` (PyPI) | `a93ae2c78b42dacdb932c2e4bbba2efb108ac610c23cf5453d8d59000858665b` |
 | `crewai-1.15.20-py3-none-any.whl` (PyPI) | `8bf272a687ad3320b681f23a183a6ac445f2fa7fc78b52943b835acc2eb158d6` |
+| `crewai-1.15.21-py3-none-any.whl` (PyPI) | `08ef2605260b0ffa7c54218fbcab8d3c4dc8d6307bd3b43513985529f6f666ab` |
 
-`crewai/hooks/tool_hooks.py` and `crewai/utilities/tool_utils.py` are byte-identical between the two;
+1.15.21 is byte-identical to 1.15.20 in every file named below. Between 1.15.16 and 1.15.20,
+`crewai/hooks/tool_hooks.py` and `crewai/utilities/tool_utils.py` are byte-identical;
 `hooks/dispatch.py` differs only by a rename (`_source_name` → `source_name`) and a new
 `EXECUTION_BOUNDARY_POINTS` constant. The fail-open semantics are unchanged.
 
 ## Files
 
-- `test_pre_tool_call_reducer.py` — runs against the installed package. Records what
-  `run_before_tool_call_hooks` does with each hook outcome today. Result on 1.15.20: 11 passed,
+- `test_pre_tool_call_reducer.py` — runs against the installed package. The three explicit cases pass;
+  the eight fail-open cases are written as invariant 3 and marked `xfail(strict=True)`, so the run
+  flips (XPASS -> fail) the day crewAI fails closed. Result on 1.15.20 and 1.15.21: 3 passed, 8 xfailed,
   which means: `False` and `HookAborted` block; a provider exception is fail-open; a hook returning
   `0`, `"false"`, `"deny"`, `{"allow": False}` or `[False]` is treated as allow, because the only
   blocking check is the identity test `result is False` (`tool_hooks.py:148`).
@@ -45,3 +48,9 @@ This reproduces the reducer and dispatch behaviour of the two pinned wheels and 
 tool-body call sites by a static heuristic (receiver named `tool*`, or `tool_func(**kwargs)`).
 It is not a claim of complete capture: dynamic dispatch and third-party tool wrappers are outside
 the heuristic. It says nothing about runtime correctness of any adapter or about production security.
+
+## Patch
+
+The three direct sites are covered by crewAIInc/crewAI#7372 (dispatch at the Flow tool action and both
+adapters, with per-path reach tests). With that patch applied the static walk reports every site covered.
+The reducer is untouched by that PR.
