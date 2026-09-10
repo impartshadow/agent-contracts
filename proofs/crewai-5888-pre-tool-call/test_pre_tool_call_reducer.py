@@ -3,8 +3,8 @@
 
 Documents what run_before_tool_call_hooks does with each hook outcome today.
 The three EXPECTED_* names are the invariants safal207 stated (5462786066);
-each assertion records the observed behaviour so a maintainer can see which
-of the three the framework currently satisfies.
+the fail-open cases are written as the invariant and marked xfail(strict=True),
+so the run flips the day the framework fails closed (see FAIL_OPEN below).
 """
 import pytest
 from crewai.hooks import HookAborted
@@ -34,14 +34,22 @@ def test_explicit_allow_passes():
     assert _with_hook(lambda c: None) is False
     assert _with_hook(lambda c: True) is False
 
-@pytest.mark.parametrize("err", [RuntimeError("provider down"), TimeoutError(), KeyError("policy")])
-def test_provider_error_is_fail_open(err):
-    # Invariant 3 (provider error -> zero tool-body calls) is NOT satisfied today:
-    def h(c): raise err
-    assert _with_hook(h) is False   # tool body would run
+# Acceptance tests for invariant 3, stated as the invariant rather than as today's
+# behaviour (rafaelasor, crewAI#5888 comment 5556597911). Each is xfail(strict=True):
+# the suite stays green while crewAI is fail-open at tool_hooks.py:148, and the
+# moment a release fails closed these XPASS, which fails the run until the marker
+# is removed. That flip is the acceptance event.
+FAIL_OPEN = "crewai fails open: only `result is False` or HookAborted blocks (tool_hooks.py:148); a hook exception is swallowed"
 
+@pytest.mark.xfail(strict=True, reason=FAIL_OPEN)
+@pytest.mark.parametrize("err", [RuntimeError("provider down"), TimeoutError(), KeyError("policy")])
+def test_provider_error_blocks_the_call(err):
+    # Invariant 3: provider error -> zero tool-body calls.
+    def h(c): raise err
+    assert _with_hook(h) is True
+
+@pytest.mark.xfail(strict=True, reason=FAIL_OPEN)
 @pytest.mark.parametrize("result", [0, "false", "deny", {"allow": False}, [False]])
-def test_unrecognized_result_is_treated_as_allow(result):
-    # Invariant 3 (unrecognized result -> zero tool-body calls) is NOT satisfied today:
-    # only the identity check `result is False` blocks (tool_hooks.py:148).
-    assert _with_hook(lambda c: result) is False
+def test_unrecognized_result_blocks_the_call(result):
+    # Invariant 3: an unrecognised verdict -> zero tool-body calls.
+    assert _with_hook(lambda c: result) is True
