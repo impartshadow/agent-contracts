@@ -34,3 +34,7 @@ Source = "https://github.com/impartshadow/agent-contracts"
 
 [tool.hatch.build.targets.wheel]
 packages = ["agent_contracts"]
+
+[tool.pytest.ini_options]
+# proofs/ holds standalone evidence scripts (they call sys.exit); keep them out of collection
+testpaths = ["tests"]
