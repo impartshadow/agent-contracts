@@ -368,6 +368,9 @@ def _score_dependency_pinning(
         (
             "poetry.lock",
             "package-lock.json",
+            "npm-shrinkwrap.json",
+            "bun.lock",
+            "bun.lockb",
             "yarn.lock",
             "pnpm-lock.yaml",
             "uv.lock",

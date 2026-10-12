@@ -294,6 +294,18 @@ def test_scan_finds_root_lockfile_behind_many_deep_files(tmp_path):
     assert dep["points"] == 10, "root uv.lock must be scanned despite many deep files"
 
 
+@pytest.mark.parametrize("lockfile", ["npm-shrinkwrap.json", "bun.lock", "bun.lockb"])
+def test_scan_recognizes_bun_and_npm_shrinkwrap_lockfiles(tmp_path, lockfile):
+    (tmp_path / "package.json").write_text('{"dependencies":{"example":"^1.0.0"}}')
+    (tmp_path / lockfile).write_bytes(b"resolved dependency lock\x00")
+
+    payload = scan_repository(tmp_path)
+    dep = next(c for c in payload["components"] if c["name"] == "dependency_pinning")
+
+    assert dep["points"] == 10
+    assert lockfile in dep["evidence"]
+
+
 def test_scan_flags_generic_hardcoded_api_key(tmp_path):
     app = tmp_path / "client.py"
     app.write_text(
