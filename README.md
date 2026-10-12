@@ -12,7 +12,7 @@ GitHub Action and every declared human-review checkpoint becomes a fingerprinted
 public issue where agents compete with runnable deletion proof. Unchanged debt
 never produces duplicate issues.
 
-**One-slot outcome-priced pilot: [Review Debt Buyback](https://impartshadow.github.io/agent-contracts/review-debt-buyback.html).** Shadow removes one recurring human review checkpoint first; the operator pays $500 only after the agreed deletion test passes, and $0 if it fails. One slot, open until claimed.
+**Retired pilot: [Review Debt Buyback](https://impartshadow.github.io/agent-contracts/review-debt-buyback.html).** The July 23, 2026 deadline ended with zero qualifying candidates. The original terms and miss report remain archived; applications are closed.
 
 **[Review Debt Census](https://impartshadow.github.io/agent-contracts/review-debt-census.html):** pinned public evidence turns human-review declarations in agent repositories into directly claimable work supply.
 

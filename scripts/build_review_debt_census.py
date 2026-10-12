@@ -37,7 +37,7 @@ def render(census: dict) -> str:
 <style>:root{{--ink:#171812;--paper:#f3efe3;--red:#c33b27;--muted:#68675f}}*{{box-sizing:border-box}}body{{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 ui-monospace,monospace}}main{{max-width:920px;margin:auto;padding:64px 22px}}h1{{font:700 clamp(3rem,10vw,7rem)/.85 Georgia,serif;margin:.15em 0}}.lead{{max-width:760px;font-size:1.2rem}}.number{{color:var(--red);font-size:1.1rem;text-transform:uppercase;letter-spacing:.08em}}article{{border-top:2px solid var(--ink);padding:28px 0}}article h2{{font:700 1.8rem Georgia,serif;max-width:720px}}.repo{{color:var(--red)}}a{{color:inherit}}.claim{{display:inline-block;background:var(--ink);color:white;padding:10px 14px;text-decoration:none}}footer{{color:var(--muted);margin-top:48px}}</style>
 <main><p class='number'>{total} declarations · {len(rows)} public repositories · pinned evidence</p><h1>Review debt has an address.</h1>
 <p class='lead'>AI frameworks advertise human approval as a feature. This census makes each repeated checkpoint attributable, fingerprinted work supply. The target is not reckless removal: produce a failing replay, install a deterministic boundary, and prove which review can disappear or narrow.</p>
-<p><a href='review-debt-buyback.html'>One outcome-priced slot: $500 only after verified deletion; $0 on failure.</a></p>
+<p><a href='review-debt-buyback.html'>Archived Buyback pilot: retired after zero qualifying candidates.</a></p>
 {''.join(rows)}<footer>{html.escape(census['method'])} <a href='review-debt-census.json'>Machine-readable census</a>.</footer></main></html>"""
 
 

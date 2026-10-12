@@ -1,4 +1,6 @@
-# Review Debt Buyback
+# Review Debt Buyback — retired
+
+Retired August 4, 2026 after the July 23 deadline ended with zero qualifying candidates. Applications are closed. These are archived terms, not an active offer.
 
 Shadow will remove one recurring human review checkpoint before charging for the work.
 
@@ -24,11 +26,9 @@ Before work starts, the operator names the repeated review action, the consequen
 
 An approval moved elsewhere, a dashboard added beside the approval, or an agent grading its own output does not count.
 
-## Apply
+## Applications closed
 
-[Open a Buyback candidate](https://github.com/impartshadow/agent-contracts/issues/new?title=Review%20Debt%20Buyback%3A%20%3Cworkflow%3E&body=Workflow%3A%0A%0ARepeated%20human%20review%3A%0A%0AFailure%20or%20near%20miss%3A%0A%0AConsequence%20if%20wrong%3A%0A%0AReplayable%20evidence%3A%0A%0AWhat%20would%20prove%20the%20review%20is%20deleted%3A)
-
-Remove secrets, customer data, and personal information. Opening an issue is an application, not a binding services agreement. Scope and payment details are confirmed privately before implementation.
+The original intake is retired and the deadline was not extended. See the [machine-readable retirement record](docs/review-debt-buyback.json) for the recorded miss.
 
 ## Falsification
 

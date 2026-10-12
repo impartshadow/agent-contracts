@@ -15,8 +15,14 @@ def test_buyback_is_outcome_priced_and_terminal():
     assert "not extended" in offer["falsifier"]
 
 
-def test_public_surface_routes_to_structured_intake():
+def test_retired_public_surface_closes_intake():
     page = (ROOT / "docs/review-debt-buyback.html").read_text()
     assert "Delete the review first. Pay after." in page
-    assert "Repeated%20human%20review" in page
+    offer = json.loads((ROOT / "docs/review-debt-buyback.json").read_text())
+    assert offer["status"] == "retired"
+    assert offer["apply_url"] is None
+    assert "This offer is retired." in page
+    assert "issues/new" not in page
+    assert "issues/new" not in (ROOT / "REVIEW_DEBT_BUYBACK.md").read_text()
+    assert "One slot, open until claimed" not in (ROOT / "README.md").read_text()
     assert "review-debt-buyback.json" in page
