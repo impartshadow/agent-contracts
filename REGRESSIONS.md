@@ -1,15 +1,14 @@
 # Agent Governance Index — Change Report
 
-Run `2026-08-17T03:31:24Z` vs previous `2026-08-10T03:31:20Z`
+Run `2026-10-12T07:48:01Z` vs previous `2026-10-12T03:31:32Z`
 
-**2 regressions · 0 improvements · 0 new · 25 unchanged**
+**0 regressions · 1 improvements · 0 new · 26 unchanged**
 
-## Regressions
+No regressions this run.
 
-| Project | Score | Grade | What dropped | Scanned commit |
-|---|---:|:--:|---|---|
-| [`letta-ai/letta`](https://github.com/letta-ai/letta) | 78→20 (-58) | C→F | dependency_pinning 10→0; observability 10→0; resilience 10→0; secret_safety 8→7; tests_and_ci 20→0; tool_governance 20→13 | `87fd37aab6` |
-| [`microsoft/semantic-kernel`](https://github.com/microsoft/semantic-kernel) | 100→93 (-7) | A | secret_safety 15→8 | `c028a0c7dc` |
+## Improvements
+
+- `letta-ai/letta-code` 78→88 (+10): dependency_pinning 0→10
 
 ---
 

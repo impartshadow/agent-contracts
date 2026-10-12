@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Is OpenHands production-ready? Agent governance score: 93/100 (A)</title>
-<meta name="description" content="All-Hands-AI/OpenHands scores 93/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit b897ce421d." />
+<title>Is OpenHands production-ready? Agent governance score: 85/100 (B)</title>
+<meta name="description" content="All-Hands-AI/OpenHands scores 85/100 (grade B) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit 0f1b6f6250." />
 <link rel="canonical" href="https://impartshadow.github.io/agent-contracts/frameworks/All-Hands-AI__OpenHands.html" />
-<meta property="og:title" content="Is OpenHands production-ready? Agent governance score: 93/100 (A)" />
-<meta property="og:description" content="All-Hands-AI/OpenHands scores 93/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit b897ce421d." />
+<meta property="og:title" content="Is OpenHands production-ready? Agent governance score: 85/100 (B)" />
+<meta property="og:description" content="All-Hands-AI/OpenHands scores 85/100 (grade B) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit 0f1b6f6250." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://impartshadow.github.io/agent-contracts/frameworks/All-Hands-AI__OpenHands.html" />
 <meta property="og:image" content="https://impartshadow.github.io/agent-contracts/og/All-Hands-AI__OpenHands.png" />
@@ -15,7 +15,7 @@
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://impartshadow.github.io/agent-contracts/og/All-Hands-AI__OpenHands.png" />
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"All-Hands-AI/OpenHands agent governance score","description":"All-Hands-AI/OpenHands scores 93/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit b897ce421d.","url":"https://impartshadow.github.io/agent-contracts/frameworks/All-Hands-AI__OpenHands.html","creator":{"@type":"Organization","name":"Shadow"},"isBasedOn":"https://github.com/All-Hands-AI/OpenHands","license":"https://opensource.org/licenses/MIT"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"All-Hands-AI/OpenHands agent governance score","description":"All-Hands-AI/OpenHands scores 85/100 (grade B) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit 0f1b6f6250.","url":"https://impartshadow.github.io/agent-contracts/frameworks/All-Hands-AI__OpenHands.html","creator":{"@type":"Organization","name":"Shadow"},"isBasedOn":"https://github.com/All-Hands-AI/OpenHands","license":"https://opensource.org/licenses/MIT"}</script>
 <style>
 :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--fg:#e6edf3;--muted:#8b949e;
 --accent:#58a6ff;--block:#f85149;--warn:#d29922;--pass:#3fb950;
@@ -71,20 +71,20 @@ ul.idx .nm{font-family:var(--mono);font-size:13.5px}
     <p class="tag">Mechanical governance score from <b>agent-contracts scan</b> against a clean clone.
     No vibes, no testimonials — reproducible from the exact commit below.</p>
     <div class="scorebox">
-      <span class="bigscore">93<span style="font-size:22px;color:var(--muted)">/100</span></span>
-      <span class="grade A">A</span>
+      <span class="bigscore">85<span style="font-size:22px;color:var(--muted)">/100</span></span>
+      <span class="grade B">B</span>
       <span class="trend">no change since the previous scan</span>
     </div>
   </header>
 
-  <div class="finding"><b>Weakest dimension:</b> secret_safety (8/15). This measures secrets git-ignored, no obvious hardcoded keys. A low score here means an agent built on OpenHands can fail in this dimension without the repo signalling it.</div>
+  <div class="finding"><b>Weakest dimension:</b> eval_harness (7/15). This measures an eval / benchmark / labeled-corpus surface. A low score here means an agent built on OpenHands can fail in this dimension without the repo signalling it.</div>
 
   <section>
     <h2>Dimension breakdown (100 points)</h2>
     <div class="dim"><div class="row"><span>tests_and_ci<span class="what"> — a test suite plus CI that runs it</span></span><span class="pts">20/20</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
 <div class="dim"><div class="row"><span>tool_governance<span class="what"> — permission / allowlist / approval / human-in-loop gating on tool calls</span></span><span class="pts">20/20</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
 <div class="dim"><div class="row"><span>secret_safety<span class="what"> — secrets git-ignored, no obvious hardcoded keys</span></span><span class="pts">8/15</span></div><div class="bar"><i class="part" style="width:53%"></i></div></div>
-<div class="dim"><div class="row"><span>eval_harness<span class="what"> — an eval / benchmark / labeled-corpus surface</span></span><span class="pts">15/15</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
+<div class="dim"><div class="row"><span>eval_harness<span class="what"> — an eval / benchmark / labeled-corpus surface</span></span><span class="pts">7/15</span></div><div class="bar"><i class="part" style="width:47%"></i></div></div>
 <div class="dim"><div class="row"><span>dependency_pinning<span class="what"> — a lockfile or pinned dependency manifest</span></span><span class="pts">10/10</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
 <div class="dim"><div class="row"><span>observability<span class="what"> — logging / audit / tracing</span></span><span class="pts">10/10</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
 <div class="dim"><div class="row"><span>resilience<span class="what"> — retry / backoff / fallback / escalation</span></span><span class="pts">10/10</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
@@ -94,9 +94,9 @@ ul.idx .nm{font-family:var(--mono);font-size:13.5px}
     <h2>Reproduce this score</h2>
     <pre>pip install "agent-contracts @ git+https://github.com/impartshadow/agent-contracts.git"
 git clone --depth 1 https://github.com/All-Hands-AI/OpenHands.git
-git -C OpenHands checkout b897ce421d
+git -C OpenHands checkout 0f1b6f6250
 agent-contracts scan --root OpenHands --json</pre>
-    <p class="note">Scored commit: <code>b897ce421df036dec48ca0b72c4928955df6d728</code>. The score is the
+    <p class="note">Scored commit: <code>0f1b6f62507f1ccdb4e63f61cf3dc48356a0d4fa</code>. The score is the
     output of a deterministic scanner, not a judgment call — a clean clone reproduces it.</p>
   </section>
 

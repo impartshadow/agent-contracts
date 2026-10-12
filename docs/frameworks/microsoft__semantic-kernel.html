@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Is semantic-kernel production-ready? Agent governance score: 100/100 (A)</title>
-<meta name="description" content="microsoft/semantic-kernel scores 100/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit dfc5227227." />
+<title>Is semantic-kernel production-ready? Agent governance score: 93/100 (A)</title>
+<meta name="description" content="microsoft/semantic-kernel scores 93/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit 11f072362e." />
 <link rel="canonical" href="https://impartshadow.github.io/agent-contracts/frameworks/microsoft__semantic-kernel.html" />
-<meta property="og:title" content="Is semantic-kernel production-ready? Agent governance score: 100/100 (A)" />
-<meta property="og:description" content="microsoft/semantic-kernel scores 100/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit dfc5227227." />
+<meta property="og:title" content="Is semantic-kernel production-ready? Agent governance score: 93/100 (A)" />
+<meta property="og:description" content="microsoft/semantic-kernel scores 93/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit 11f072362e." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://impartshadow.github.io/agent-contracts/frameworks/microsoft__semantic-kernel.html" />
 <meta property="og:image" content="https://impartshadow.github.io/agent-contracts/og/microsoft__semantic-kernel.png" />
@@ -15,7 +15,7 @@
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://impartshadow.github.io/agent-contracts/og/microsoft__semantic-kernel.png" />
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"microsoft/semantic-kernel agent governance score","description":"microsoft/semantic-kernel scores 100/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit dfc5227227.","url":"https://impartshadow.github.io/agent-contracts/frameworks/microsoft__semantic-kernel.html","creator":{"@type":"Organization","name":"Shadow"},"isBasedOn":"https://github.com/microsoft/semantic-kernel","license":"https://opensource.org/licenses/MIT"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"microsoft/semantic-kernel agent governance score","description":"microsoft/semantic-kernel scores 93/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit 11f072362e.","url":"https://impartshadow.github.io/agent-contracts/frameworks/microsoft__semantic-kernel.html","creator":{"@type":"Organization","name":"Shadow"},"isBasedOn":"https://github.com/microsoft/semantic-kernel","license":"https://opensource.org/licenses/MIT"}</script>
 <style>
 :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--fg:#e6edf3;--muted:#8b949e;
 --accent:#58a6ff;--block:#f85149;--warn:#d29922;--pass:#3fb950;
@@ -71,19 +71,19 @@ ul.idx .nm{font-family:var(--mono);font-size:13.5px}
     <p class="tag">Mechanical governance score from <b>agent-contracts scan</b> against a clean clone.
     No vibes, no testimonials — reproducible from the exact commit below.</p>
     <div class="scorebox">
-      <span class="bigscore">100<span style="font-size:22px;color:var(--muted)">/100</span></span>
+      <span class="bigscore">93<span style="font-size:22px;color:var(--muted)">/100</span></span>
       <span class="grade A">A</span>
       <span class="trend">no change since the previous scan</span>
     </div>
   </header>
 
-  <div class="finding"><b>Full governance surface.</b> semantic-kernel scores the maximum on every measured dimension. Note: a perfect surface score does <i>not</i> mean agents built on it tell the truth at runtime — <a href="https://echofromshadow.substack.com/p/i-built-a-scorecard-for-agent-frameworks">that failure has no surface to grep</a>.</div>
+  <div class="finding"><b>Weakest dimension:</b> secret_safety (8/15). This measures secrets git-ignored, no obvious hardcoded keys. A low score here means an agent built on semantic-kernel can fail in this dimension without the repo signalling it.</div>
 
   <section>
     <h2>Dimension breakdown (100 points)</h2>
     <div class="dim"><div class="row"><span>tests_and_ci<span class="what"> — a test suite plus CI that runs it</span></span><span class="pts">20/20</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
 <div class="dim"><div class="row"><span>tool_governance<span class="what"> — permission / allowlist / approval / human-in-loop gating on tool calls</span></span><span class="pts">20/20</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
-<div class="dim"><div class="row"><span>secret_safety<span class="what"> — secrets git-ignored, no obvious hardcoded keys</span></span><span class="pts">15/15</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
+<div class="dim"><div class="row"><span>secret_safety<span class="what"> — secrets git-ignored, no obvious hardcoded keys</span></span><span class="pts">8/15</span></div><div class="bar"><i class="part" style="width:53%"></i></div></div>
 <div class="dim"><div class="row"><span>eval_harness<span class="what"> — an eval / benchmark / labeled-corpus surface</span></span><span class="pts">15/15</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
 <div class="dim"><div class="row"><span>dependency_pinning<span class="what"> — a lockfile or pinned dependency manifest</span></span><span class="pts">10/10</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
 <div class="dim"><div class="row"><span>observability<span class="what"> — logging / audit / tracing</span></span><span class="pts">10/10</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
@@ -94,9 +94,9 @@ ul.idx .nm{font-family:var(--mono);font-size:13.5px}
     <h2>Reproduce this score</h2>
     <pre>pip install "agent-contracts @ git+https://github.com/impartshadow/agent-contracts.git"
 git clone --depth 1 https://github.com/microsoft/semantic-kernel.git
-git -C semantic-kernel checkout dfc5227227
+git -C semantic-kernel checkout 11f072362e
 agent-contracts scan --root semantic-kernel --json</pre>
-    <p class="note">Scored commit: <code>dfc5227227352e7cf4b11de1d9b8e49ebc7b43ff</code>. The score is the
+    <p class="note">Scored commit: <code>11f072362e24207da9db55779c0fd73eb15123b1</code>. The score is the
     output of a deterministic scanner, not a judgment call — a clean clone reproduces it.</p>
   </section>
 
