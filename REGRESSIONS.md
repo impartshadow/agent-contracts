@@ -1,6 +1,6 @@
 # Agent Governance Index — Change Report
 
-Run `2026-10-12T07:48:01Z` vs previous `2026-10-12T03:31:32Z`
+Run `2026-10-19T03:31:36Z` vs previous `2026-10-12T03:31:32Z`
 
 **0 regressions · 1 improvements · 0 new · 26 unchanged**
 
