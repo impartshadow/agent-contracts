@@ -33,7 +33,7 @@ credit for a story about what the agent probably does.
 | 16 | [`assafelovic/gpt-researcher`](https://github.com/assafelovic/gpt-researcher) | 90/100 | A | – | tests_and_ci | dependency_pinning |
 | 17 | [`huggingface/smolagents`](https://github.com/huggingface/smolagents) | 90/100 | A | – | tests_and_ci | dependency_pinning |
 | 18 | [`google/adk-python`](https://github.com/google/adk-python) | 90/100 | A | – | tests_and_ci | secret_safety |
-| 19 | [`letta-ai/letta-code`](https://github.com/letta-ai/letta-code) | 88/100 | B | ▲ +10 | tool_governance | secret_safety |
+| 19 | [`letta-ai/letta-code`](https://github.com/letta-ai/letta-code) | 88/100 | B | – | tool_governance | secret_safety |
 | 20 | [`All-Hands-AI/OpenHands`](https://github.com/All-Hands-AI/OpenHands) | 85/100 | B | – | tests_and_ci | eval_harness |
 | 21 | [`Aider-AI/aider`](https://github.com/Aider-AI/aider) | 84/100 | B | – | tests_and_ci | secret_safety |
 | 22 | [`OpenBMB/ChatDev`](https://github.com/OpenBMB/ChatDev) | 80/100 | B | – | tool_governance | eval_harness |
