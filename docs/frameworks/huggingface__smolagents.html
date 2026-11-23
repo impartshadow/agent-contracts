@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Is smolagents production-ready? Agent governance score: 90/100 (A)</title>
-<meta name="description" content="huggingface/smolagents scores 90/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit e1249d373d." />
+<title>Is smolagents production-ready? Agent governance score: 83/100 (B)</title>
+<meta name="description" content="huggingface/smolagents scores 83/100 (grade B) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit 99721bdc3b." />
 <link rel="canonical" href="https://impartshadow.github.io/agent-contracts/frameworks/huggingface__smolagents.html" />
-<meta property="og:title" content="Is smolagents production-ready? Agent governance score: 90/100 (A)" />
-<meta property="og:description" content="huggingface/smolagents scores 90/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit e1249d373d." />
+<meta property="og:title" content="Is smolagents production-ready? Agent governance score: 83/100 (B)" />
+<meta property="og:description" content="huggingface/smolagents scores 83/100 (grade B) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit 99721bdc3b." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://impartshadow.github.io/agent-contracts/frameworks/huggingface__smolagents.html" />
 <meta property="og:image" content="https://impartshadow.github.io/agent-contracts/og/huggingface__smolagents.png" />
@@ -15,7 +15,7 @@
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://impartshadow.github.io/agent-contracts/og/huggingface__smolagents.png" />
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"huggingface/smolagents agent governance score","description":"huggingface/smolagents scores 90/100 (grade A) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit e1249d373d.","url":"https://impartshadow.github.io/agent-contracts/frameworks/huggingface__smolagents.html","creator":{"@type":"Organization","name":"Shadow"},"isBasedOn":"https://github.com/huggingface/smolagents","license":"https://opensource.org/licenses/MIT"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"huggingface/smolagents agent governance score","description":"huggingface/smolagents scores 83/100 (grade B) on the Shadow Agent Governance Index — a mechanical, reproducible audit of tests/CI, tool gating, secret hygiene, dependency pinning, eval harness, observability and resilience. Reproduced from commit 99721bdc3b.","url":"https://impartshadow.github.io/agent-contracts/frameworks/huggingface__smolagents.html","creator":{"@type":"Organization","name":"Shadow"},"isBasedOn":"https://github.com/huggingface/smolagents","license":"https://opensource.org/licenses/MIT"}</script>
 <style>
 :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--fg:#e6edf3;--muted:#8b949e;
 --accent:#58a6ff;--block:#f85149;--warn:#d29922;--pass:#3fb950;
@@ -71,8 +71,8 @@ ul.idx .nm{font-family:var(--mono);font-size:13.5px}
     <p class="tag">Mechanical governance score from <b>agent-contracts scan</b> against a clean clone.
     No vibes, no testimonials — reproducible from the exact commit below.</p>
     <div class="scorebox">
-      <span class="bigscore">90<span style="font-size:22px;color:var(--muted)">/100</span></span>
-      <span class="grade A">A</span>
+      <span class="bigscore">83<span style="font-size:22px;color:var(--muted)">/100</span></span>
+      <span class="grade B">B</span>
       <span class="trend">first scan on record</span>
     </div>
   </header>
@@ -83,7 +83,7 @@ ul.idx .nm{font-family:var(--mono);font-size:13.5px}
     <h2>Dimension breakdown (100 points)</h2>
     <div class="dim"><div class="row"><span>tests_and_ci<span class="what"> — a test suite plus CI that runs it</span></span><span class="pts">20/20</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
 <div class="dim"><div class="row"><span>tool_governance<span class="what"> — permission / allowlist / approval / human-in-loop gating on tool calls</span></span><span class="pts">20/20</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
-<div class="dim"><div class="row"><span>secret_safety<span class="what"> — secrets git-ignored, no obvious hardcoded keys</span></span><span class="pts">15/15</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
+<div class="dim"><div class="row"><span>secret_safety<span class="what"> — secrets git-ignored, no obvious hardcoded keys</span></span><span class="pts">8/15</span></div><div class="bar"><i class="part" style="width:53%"></i></div></div>
 <div class="dim"><div class="row"><span>eval_harness<span class="what"> — an eval / benchmark / labeled-corpus surface</span></span><span class="pts">15/15</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
 <div class="dim"><div class="row"><span>dependency_pinning<span class="what"> — a lockfile or pinned dependency manifest</span></span><span class="pts">0/10</span></div><div class="bar"><i class="zero" style="width:0%"></i></div></div>
 <div class="dim"><div class="row"><span>observability<span class="what"> — logging / audit / tracing</span></span><span class="pts">10/10</span></div><div class="bar"><i class="full" style="width:100%"></i></div></div>
@@ -94,9 +94,9 @@ ul.idx .nm{font-family:var(--mono);font-size:13.5px}
     <h2>Reproduce this score</h2>
     <pre>pip install "agent-contracts @ git+https://github.com/impartshadow/agent-contracts.git"
 git clone --depth 1 https://github.com/huggingface/smolagents.git
-git -C smolagents checkout e1249d373d
+git -C smolagents checkout 99721bdc3b
 agent-contracts scan --root smolagents --json</pre>
-    <p class="note">Scored commit: <code>e1249d373d58db6abc73882ee394f6bb3854c89f</code>. The score is the
+    <p class="note">Scored commit: <code>99721bdc3b6f502108751a93c5d7f08b1a04ce76</code>. The score is the
     output of a deterministic scanner, not a judgment call — a clean clone reproduces it.</p>
   </section>
 
